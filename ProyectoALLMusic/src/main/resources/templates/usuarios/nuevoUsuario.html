@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<title>AllMusic - Registro</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	    <!-- Icono -->
+	    <link rel="shortcut icon" href="/icon.png" />
+	
+		<!-- CSS -->
+		<link rel="stylesheet" href="index.css" type="text/css">
+			
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			
+		<!-- Bootstrap jQuery, Popper.js, Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+		<style>
+			body {
+    			background-color: #525252;
+				}
+			.centered-form {
+				margin-top: 60px;
+			}
+			
+			.centered-form .panel {
+				background: rgba(255, 255, 255, 0.8);
+				box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+			}
+		</style>
+	
+	</head>
+
+	<body>
+		<div class="container">
+	        <div class="row centered-form">
+	        	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+	        		<div class="panel panel-default">
+	        			<div class="panel-heading">
+				    		<h3 class="panel-title">Registro</h3>
+				 		</div>
+				 		<div class="panel-body">
+				    		<form action="#" th:action="@{/addUser}" th:object="${usuario}" method="post">
+				    		
+				    			<div class="row">
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				    						<input type="text" th:field="*{nombreUsuario}" name="usuario" id="usuario" class="form-control input-sm" placeholder="Nombre Usuario">
+				    					</div>
+				    				</div>
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				    						<input type="password" th:field="*{contrasena}" name="contrasena" id="contrasena" class="form-control input-sm" placeholder="Contraseña">
+				    					</div>
+				    				</div>
+				    			</div>
+	
+				    			<div class="form-group">
+				    				<input type="email" th:field="*{email}" name="email" id="email" class="form-control input-sm" placeholder="Email">
+				    			</div>
+	
+				    			<div class="row">
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				                			<input type="text" th:field="*{nombre}" name="nombre" id="nombre" class="form-control input-sm" placeholder="Nombre">
+				    					</div>
+				    				</div>
+				    				<div class="col-xs-6 col-sm-6 col-md-6">
+				    					<div class="form-group">
+				    						<input type="text" th:field="*{apellidos}" name="apellidos" id="apellidos" class="form-control input-sm" placeholder="Apellidos">
+				    					</div>
+				    				</div>
+				    			</div>
+				    			
+				    			<div class="form-group col-md-12">
+									<label for="texto">Roles</label>
+										<ul>
+											<li th:each="permiso: ${roles}">
+												<input 
+													type="radio" 
+													name="permisos" 
+													th:text="${permiso.nombre}"
+													th:field="*{rol.nombre}"
+													th:value="${permiso.nombre}"
+												/>
+											</li>
+										</ul>					      
+									</div>
+				    			
+				    			<input type="submit" value="Register" class="btn btn-info btn-block">
+				    		
+				    		</form>
+				    	</div>
+		    		</div>
+	    		</div>
+	    	</div>
+	   </div>
+   </body>
+</html>
