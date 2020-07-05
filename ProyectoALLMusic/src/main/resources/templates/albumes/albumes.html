@@ -2,7 +2,7 @@
 <html lang="es">
 
 	<head>
-		<title>ALLMusic - Artistas</title>
+		<title>ALLMusic - Albumes</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
@@ -57,27 +57,23 @@
 
 		<!-- Section -->
 		<section class="container mt-5">
-			<h2>Lista de Artistas</h2>
-			<a type="button" class="btn btn-success my-3" th:href="@{/nuevoArtista}">Añadir un artista</a>
+			<h2>Lista de Albumes</h2>
+			<a type="button" class="btn btn-success my-3" th:href="@{/nuevoAlbum}">Añadir un album</a>
 			
 			<div class="mb-5"> <!--  mis datos -->
 				
-					<div id="hayArtistas">
+					<div id="hayAlbumes">
 						<table class="table table-hover ">
 							<thead>
 								<tr>
-									<th>Nombre</th>
-									<th>Origen</th>
-									<th>Genero</th>
-									<th>Ver más</th>
+									<th>Titulo</th>
+									<th>Artista</th>
 								</tr>
 							<thead>
 							<tbody>
-								<tr th:each="artista : ${artistas}">
-									<td th:text="${artista.nombre}">nombre</td>
-									<td th:text="${artista.origen}">origen</td>
-									<td th:text="${artista.genero.nombre}">genero</td>
-									<td><a type="button" class="btn btn-info btn-sm" th:href="@{/artista/{id}(id=${artista.id})}">Visualizar</a></td>
+								<tr th:each="album : ${albumes}">
+									<td th:text="${album.titulo}">nombre</td>
+									<td th:text="${album.artista.nombre}">origen</td>
 								</tr>
 							</tbody>
 						</table>

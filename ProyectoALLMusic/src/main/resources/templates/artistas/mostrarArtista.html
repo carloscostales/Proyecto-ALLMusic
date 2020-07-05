@@ -66,9 +66,23 @@
 				    <li class="list-group-item"><b>Genero: </b><span th:text="${artista.genero.nombre}"></span></li>
 				    
 				</ul>
-					
-					
-					
+				
+
+				<table class="table table-hover ">
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>Fecha de salida</th>
+						</tr>
+					<thead>
+					<tbody>
+						<tr th:each="album : ${listaAlbumes}">
+							<td th:text="${album.titulo}">titulo</td>
+							<td th:text="${album.fecha_salida}">fecha salida</td>
+						</tr>
+					</tbody>
+					</table>
+
 				<a class="btn btn-primary mt-5" th:href="@{/artistas}" role="button">Volver</a>
 			</div>
 		</section>

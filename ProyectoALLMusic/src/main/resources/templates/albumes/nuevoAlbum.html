@@ -2,7 +2,7 @@
 <html lang="es">
 
 	<head>
-		<title>ALLMusic - Artistas</title>
+		<title>ALLMusic - Nuevo Artista</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
@@ -54,38 +54,34 @@
 				</div>
 			</div>
 		</nav>
-
+	
 		<!-- Section -->
-		<section class="container mt-5">
-			<h2>Lista de Artistas</h2>
-			<a type="button" class="btn btn-success my-3" th:href="@{/nuevoArtista}">Añadir un artista</a>
+		<section class="container">
+			<h1>NUEVO ARTISTA</h1>
+			<form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post">
 			
-			<div class="mb-5"> <!--  mis datos -->
-				
-					<div id="hayArtistas">
-						<table class="table table-hover ">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Origen</th>
-									<th>Genero</th>
-									<th>Ver más</th>
-								</tr>
-							<thead>
-							<tbody>
-								<tr th:each="artista : ${artistas}">
-									<td th:text="${artista.nombre}">nombre</td>
-									<td th:text="${artista.origen}">origen</td>
-									<td th:text="${artista.genero.nombre}">genero</td>
-									<td><a type="button" class="btn btn-info btn-sm" th:href="@{/artista/{id}(id=${artista.id})}">Visualizar</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				
-			</div>
-		</section>
-		
-	</body>
+				<div class="form-group">
+				    <label for="titulo" class="font-weight-bold">Titulo</label>
+				    <input type="text" class="form-control" id="titulo" th:field="*{titulo}">
+			    </div>
+			    
+			    <div class="form-group">
+					<label for="genero" class="font-weight-bold">Artista</label>
+					<select name="artista" class="form-control" id="artista">
+					    <option th:each="artist: ${artistas}" th:value="${artist.id}" th:text="${artist.nombre}" th:selected="false"></option>
+					</select>
+				</div>
+			    
+				<div class="form-group">
+				    <label for="origen" class="font-weight-bold">Fecha salida</label>
+				    <input type="text" class="form-control" id="fecha-salida" th:field="*{fecha_salida}">
+			    </div>
 
+
+			    <input class="btn btn-success" type="submit" value="Enviar"/>
+			    <a class="btn btn-danger ml-3" th:href="@{/}">Volver</a>
+			   
+			</form>
+		</section>
+	</body>
 </html>

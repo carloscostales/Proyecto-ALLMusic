@@ -1,12 +1,18 @@
 package com.carlos.datos.artistas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.carlos.datos.albumes.Album;
 import com.carlos.datos.generos.Genero;
 
 @Entity
@@ -23,9 +29,20 @@ public class Artista {
 	private String origen;
 
 	@ManyToOne
-	private Genero genero = new Genero();	
-
+	private Genero genero = new Genero();
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "artista")
+	private List<Album> albumes = new ArrayList<Album>();
+	
+	public void addAlbum(Album album) {
+
+		if(!albumes.contains(album)) {
+			
+			albumes.add(album);
+		}
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -56,6 +73,14 @@ public class Artista {
 
 	public void setGenero(Genero genero) {
 		this.genero = genero;
+	}
+	
+	public List<Album> getAlbumes() {
+		return albumes;
+	}
+
+	public void setAlbumes(List<Album> albumes) {
+		this.albumes = albumes;
 	}
 
 	@Override
