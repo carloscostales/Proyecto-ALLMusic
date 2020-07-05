@@ -23,7 +23,7 @@
 
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" th:href="@{/}"><img src="logo.png" width="210"></a>
+			<a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/logo.png}" width="210"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    	<span class="navbar-toggler-icon"></span>
 		    </button>
@@ -58,15 +58,15 @@
 		<!-- Section -->
 		<section class="mt-5">
 			<div class="container mb-5">
-					<h1>Usuario </span></h1>
-				  	<ul class="list-group list-group-flush">
-					    
-					    <li class="list-group-item"><b>Contraseña: </b><span th:text="${usuario.contrasena}"></span></li>
-					    <li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
-					    <li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
-					    <li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
-				  	</ul>
-				  	
+				<h1>Usuario <span th:text="${usuario.nombreUsuario}"></h1>
+					
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><b>Contraseña: </b><span th:text="${usuario.contrasena}"></span></li>
+					<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
+					<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
+					<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
+				</ul>
+					
 				<a class="btn btn-primary mt-5" th:href="@{/usuarios}" role="button">Volver</a>
 			</div>
 		</section>

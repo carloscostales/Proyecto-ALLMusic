@@ -72,7 +72,7 @@ public class UsuarioRutas {
 	@GetMapping("/usuarios/{usuario}")
 	private ModelAndView rutaUsuario(@PathVariable Usuario usuario) {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("mostrarUsuario");
+		model.setViewName("usuarios/mostrarUsuario");
 		model.addObject("usuario", usuario);
 
 		
