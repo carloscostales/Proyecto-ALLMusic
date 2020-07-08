@@ -59,14 +59,16 @@
 		<section class="mt-5">
 		
 			<div class="container">
-				<h1  class="mb-5"><span th:text="${artista.nombre}"></span></h1>
-				<ul class="list-group list-group-flush">
-				    <li class="list-group-item"><b>Nombre: </b><span th:text="${artista.nombre}"></span></li>
-				    <li class="list-group-item"><b>Origen: </b><span th:text="${artista.origen}"></span></li>
-				    <li class="list-group-item"><b>Genero: </b><span th:text="${artista.genero.nombre}"></span></li>
-				    
-				</ul>
-				
+				<div class="row">
+					<img class="col-3 rounded-circle" th:src="${artista.foto}" th:alt="${artista.nombre}" style="height:50%">
+					<div class="col-9 mb-5">
+						<h1 class="mb-5"><span th:text="${artista.nombre}"></span></h1>
+						<p><b>Nombre: </b><span th:text="${artista.nombre}"></span></p>
+						<p><b>Origen: </b><span th:text="${artista.origen}"></span><p>
+						<p><b>Genero: </b><span th:text="${artista.genero.nombre}"></span></p>
+						<p><b>Biografía: </b><span th:text="${artista.bio}"></span></p>
+					</div>
+				</div>
 
 				<table class="table table-hover ">
 					<thead>

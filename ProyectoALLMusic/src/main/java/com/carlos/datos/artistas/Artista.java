@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 import com.carlos.datos.albumes.Album;
 import com.carlos.datos.generos.Genero;
@@ -27,6 +28,13 @@ public class Artista {
 	
 	@Column
 	private String origen;
+	
+	@Column
+	private String foto;
+	
+	@Column
+	@Size(max = 4000)
+	private String bio;
 
 	@ManyToOne
 	private Genero genero = new Genero();
@@ -65,6 +73,22 @@ public class Artista {
 
 	public void setOrigen(String origen) {
 		this.origen = origen;
+	}
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 	
 	public Genero getGenero() {
