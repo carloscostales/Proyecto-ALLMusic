@@ -18,9 +18,6 @@ public class AlbumRutas {
 	
 	@Autowired
 	private AlbumDAO albumDAO;
-	
-	@Autowired
-	private ArtistaDAO artistaDAO;
 
 	@GetMapping("/albumes")
 	private ModelAndView rutaAlbumes() {
@@ -36,19 +33,9 @@ public class AlbumRutas {
 		
 	}
 	
-	@GetMapping("/nuevoAlbum")
-	private ModelAndView nuevoAlbum() {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("albumes/nuevoAlbum");
-		mav.addObject("album", new Album());
-		
-		List<Artista> listaArtistas = (List<Artista>)artistaDAO.findAll();
-		mav.addObject("artistas",listaArtistas);
-		
-		return mav;
-		
-	}
+	
+	/* La ruta para un nuevo album se encuentra en la vista de mostrarArtista.html*/
+	
 	
 	@PostMapping("/addAlbum")
 	private String rutaAnadirAlbum(@ModelAttribute Album album) {

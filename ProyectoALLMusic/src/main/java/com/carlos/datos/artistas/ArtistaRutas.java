@@ -48,6 +48,8 @@ public class ArtistaRutas {
 		mav.setViewName("artistas/mostrarArtista");
 		mav.addObject("artista", artista);
 		
+		mav.addObject("album", new Album());
+		
 		List<Album> listaAlbumes = (List<Album>)albumDAO.findByArtista(artista);
 		mav.addObject("listaAlbumes", listaAlbumes);
 		
