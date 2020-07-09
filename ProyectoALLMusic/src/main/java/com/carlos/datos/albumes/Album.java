@@ -1,13 +1,20 @@
 package com.carlos.datos.albumes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.carlos.datos.artistas.Artista;
+import com.carlos.datos.canciones.Cancion;
 
 @Entity
 public class Album {
@@ -15,16 +22,26 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column
 	private String titulo;
 
 	@Column
 	private String fecha_salida;
-	
+
 	@ManyToOne
 	private Artista artista = new Artista();
+
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "album", cascade=CascadeType.ALL)
+	private List<Cancion> canciones = new ArrayList<Cancion>();
 	
+	public void addAlbum(Cancion cancion) {
+
+		if(!canciones.contains(cancion)) {
+			
+			canciones.add(cancion);
+		}
+	}
 	
 	public Integer getId() {
 		return id;
@@ -58,6 +75,13 @@ public class Album {
 		this.artista = artista;
 	}
 
+	public List<Cancion> getCanciones() {
+		return canciones;
+	}
+
+	public void setCanciones(List<Cancion> canciones) {
+		this.canciones = canciones;
+	}
 	
 	@Override
 	public String toString() {

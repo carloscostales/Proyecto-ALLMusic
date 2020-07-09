@@ -6,18 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.carlos.datos.artistas.Artista;
-import com.carlos.datos.artistas.ArtistaDAO;
-import com.carlos.datos.generos.Genero;
+import com.carlos.datos.canciones.Cancion;
+import com.carlos.datos.canciones.CancionDAO;
 
 @Controller
 public class AlbumRutas {
 	
 	@Autowired
 	private AlbumDAO albumDAO;
+	
+	@Autowired
+	private CancionDAO cancionDAO;
 
 	@GetMapping("/albumes")
 	private ModelAndView rutaAlbumes() {
@@ -28,6 +31,20 @@ public class AlbumRutas {
 		
 		List<Album> listaAlbumes = (List<Album>) albumDAO.findAll();
 		mav.addObject("albumes", listaAlbumes);
+		
+		return mav;
+		
+	}
+	
+	@GetMapping("/albumes/{album}")
+	private ModelAndView rutaAlbumesCanciones(@PathVariable Album album) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("albumes/mostrarAlbum");
+		mav.addObject("album", album);
+		
+		List<Cancion> listaCanciones = (List<Cancion>) cancionDAO.findByAlbum(album);
+		mav.addObject("canciones", listaCanciones);
 		
 		return mav;
 		

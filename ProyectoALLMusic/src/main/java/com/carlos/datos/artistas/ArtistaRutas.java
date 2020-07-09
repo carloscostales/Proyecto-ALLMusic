@@ -42,7 +42,7 @@ public class ArtistaRutas {
 		
 	}
 	
-	@GetMapping("/artista/{artista}")
+	@GetMapping("/artistas/{artista}")
 	private ModelAndView rutaArtista(@PathVariable Artista artista) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("artistas/mostrarArtista");

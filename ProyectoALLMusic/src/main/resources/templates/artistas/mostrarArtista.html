@@ -82,7 +82,7 @@
 					<thead>
 					<tbody>
 						<tr th:each="album : ${listaAlbumes}">
-							<td th:text="${album.titulo}">titulo</td>
+							<td><a type="button" class="btn btn-info" th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
 							<td th:text="${album.fecha_salida}">fecha salida</td>
 						</tr>
 					</tbody>

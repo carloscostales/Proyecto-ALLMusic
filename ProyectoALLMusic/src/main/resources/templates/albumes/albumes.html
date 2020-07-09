@@ -61,23 +61,22 @@
 			
 			<div class="mb-5"> <!--  mis datos -->
 				
-					<div id="hayAlbumes">
-						<table class="table table-hover ">
-							<thead>
-								<tr>
-									<th>Titulo</th>
-									<th>Artista</th>
-								</tr>
-							<thead>
-							<tbody>
-								<tr th:each="album : ${albumes}">
-									<td th:text="${album.titulo}">nombre</td>
-									<td th:text="${album.artista.nombre}">origen</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				
+				<div id="hayAlbumes">
+					<table class="table table-hover ">
+						<thead>
+							<tr>
+								<th>Titulo</th>
+								<th>Artista</th>
+							</tr>
+						<thead>
+						<tbody>
+							<tr th:each="album : ${albumes}">
+								<td><a type="button" class="btn btn-info" th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
+								<td th:text="${album.artista.nombre}">origen</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</section>
 		
