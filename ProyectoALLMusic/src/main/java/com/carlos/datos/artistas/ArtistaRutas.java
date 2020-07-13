@@ -14,6 +14,7 @@ import com.carlos.datos.albumes.Album;
 import com.carlos.datos.albumes.AlbumDAO;
 import com.carlos.datos.generos.Genero;
 import com.carlos.datos.generos.GeneroDAO;
+import com.carlos.servicios.ComparatorFecha;
 
 @Controller
 public class ArtistaRutas {
@@ -42,6 +43,8 @@ public class ArtistaRutas {
 		
 	}
 	
+	
+	
 	@GetMapping("/artistas/{artista}")
 	private ModelAndView rutaArtista(@PathVariable Artista artista) {
 		ModelAndView mav = new ModelAndView();
@@ -51,8 +54,10 @@ public class ArtistaRutas {
 		mav.addObject("album", new Album());
 		
 		List<Album> listaAlbumes = (List<Album>)albumDAO.findByArtista(artista);
+
 		mav.addObject("listaAlbumes", listaAlbumes);
-		
+        listaAlbumes.sort(new ComparatorFecha());
+
 		return mav;
 		
 	}

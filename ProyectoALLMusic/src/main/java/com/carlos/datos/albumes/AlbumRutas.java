@@ -1,5 +1,6 @@
 package com.carlos.datos.albumes;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,8 @@ public class AlbumRutas {
 		mav.addObject("album", album);
 		
 		List<Cancion> listaCanciones = (List<Cancion>) cancionDAO.findByAlbum(album);
+		// Ordenar las canciones por su numero en el album
+		Collections.sort(listaCanciones, (a, b) -> a.getNumero() < b.getNumero() ? -1 : a.getNumero() == b.getNumero() ? 0 : 1);
 		mav.addObject("canciones", listaCanciones);
 		
 		return mav;
