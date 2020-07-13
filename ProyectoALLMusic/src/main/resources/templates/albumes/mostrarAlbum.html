@@ -57,8 +57,16 @@
 
 		<!-- Section -->
 		<section class="container mt-5">
-			<h2><span th:text="${album.titulo}"></span></h2>
-			
+		<div class="row mb-5">
+			<img class="col-3" th:src="${album.portada}" th:alt="${album.titulo}">
+			<div class="col-9 row align-items-center">
+				<p class="col-12 font-weight-bold">Álbum</p>
+				<h1 class="col-9"><span th:text="${album.titulo}"></span></h1>
+				<p class="col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
+				<p class="col-12"><span th:text="${album.fecha_salida}"></span></p>
+				<p class="col-12"><span th:text="${numero_canciones}"></span> canciones</p>
+			</div>
+		</div>	
 			<!--  CANCIONES  -->
 			
 			<div class="mb-5"> 

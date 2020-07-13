@@ -28,6 +28,9 @@ public class Album {
 
 	@Column
 	private String fecha_salida;
+	
+	@Column
+	private String portada;
 
 	@ManyToOne
 	private Artista artista = new Artista();
@@ -65,6 +68,14 @@ public class Album {
 
 	public void setFecha_salida(String fecha_salida) {
 		this.fecha_salida = fecha_salida;
+	}
+	
+	public String getPortada() {
+		return portada;
+	}
+
+	public void setPortada(String portada) {
+		this.portada = portada;
 	}
 
 	public Artista getArtista() {

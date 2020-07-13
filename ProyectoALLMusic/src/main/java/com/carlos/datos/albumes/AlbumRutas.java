@@ -48,6 +48,8 @@ public class AlbumRutas {
 		// Ordenar las canciones por su numero en el album
 		Collections.sort(listaCanciones, (a, b) -> a.getNumero() < b.getNumero() ? -1 : a.getNumero() == b.getNumero() ? 0 : 1);
 		mav.addObject("canciones", listaCanciones);
+		int contador = listaCanciones.size();
+		mav.addObject("numero_canciones", contador);
 		
 		return mav;
 		
