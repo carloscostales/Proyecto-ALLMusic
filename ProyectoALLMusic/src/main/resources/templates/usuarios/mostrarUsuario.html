@@ -66,6 +66,14 @@
 					<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 					<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
 				</ul>
+				
+				<h1 class="mt-5">Playlists de <span th:text="${usuario.nombreUsuario}"></h1>
+				
+				<ul th:each="playlist : ${listaPlaylists}" class="list-group list-group-flush">
+					<li class="list-group-item">
+						<span th:text="${playlist.nombre}">playlist></span>
+					</li>
+				</ul>
 					
 				<a class="btn btn-primary mt-5" th:href="@{/usuarios}" role="button">Volver</a>
 			</div>

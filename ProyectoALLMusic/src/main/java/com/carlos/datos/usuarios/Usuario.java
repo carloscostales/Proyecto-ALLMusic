@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.carlos.datos.playlists.Playlist;
 import com.carlos.roles.Rol;
 
 
@@ -51,6 +53,17 @@ public class Usuario implements UserDetails {
 
 	@ManyToOne
 	private Rol rol = new Rol();	
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "usuario", cascade=CascadeType.ALL)
+	private List<Playlist> playlists = new ArrayList<Playlist>();
+	
+	public void addPlaylist(Playlist playlist) {
+
+		if(!playlists.contains(playlist)) {
+			
+			playlists.add(playlist);
+		}
+	}
 	
 
 	public Rol getRol() {
@@ -117,6 +130,16 @@ public class Usuario implements UserDetails {
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
+	
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
+	}
+
 
 	
 	@Override

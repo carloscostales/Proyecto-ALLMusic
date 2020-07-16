@@ -2,7 +2,6 @@ package com.carlos.datos.usuarios;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.datos.playlists.Playlist;
+import com.carlos.datos.playlists.PlaylistDAO;
 import com.carlos.roles.Rol;
 import com.carlos.roles.RolDAO;
 
@@ -27,6 +28,9 @@ public class UsuarioRutas {
 	
 	@Autowired
 	private RolDAO rolDAO;
+	
+	@Autowired
+	private PlaylistDAO playlistDAO;
 	
 	
 	@GetMapping("/usuarios")
@@ -75,6 +79,8 @@ public class UsuarioRutas {
 		model.setViewName("usuarios/mostrarUsuario");
 		model.addObject("usuario", usuario);
 
+		List<Playlist> listaPlaylists = (List<Playlist>)playlistDAO.findByUsuario(usuario);
+		model.addObject("listaPlaylists", listaPlaylists);
 		
 		return model;
 		
