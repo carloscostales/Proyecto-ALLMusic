@@ -17,17 +17,17 @@ public class PlaylistCancionRutas {
 	@Autowired
 	private PlaylistCancionDAO pcDAO;
 
-	@GetMapping("/playlist/{playlist}")
+	@GetMapping("/playlists/{playlist}")
 	public ModelAndView playlistCancion(@PathVariable Playlist playlist) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("prueba");
+		mav.setViewName("playlists/mostrarPlaylist");
 		
 		mav.addObject("playlist", playlist);
 		
 		List<PlaylistCancion> lista = (List<PlaylistCancion>) pcDAO.findByPlaylist(playlist);
 		mav.addObject("lista", lista);
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + lista);
-
+		
 		
 		return mav;
 	}
