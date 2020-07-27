@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.datos.albumes.Album;
+import com.carlos.datos.albumes.AlbumDAO;
 import com.carlos.datos.canciones.Cancion;
 import com.carlos.datos.canciones.CancionDAO;
 
@@ -33,6 +35,7 @@ public class AlbumRutas {
 		List<Album> listaAlbumes = (List<Album>) albumDAO.findAll();
 		mav.addObject("albumes", listaAlbumes);
 		
+		
 		return mav;
 		
 	}
@@ -50,6 +53,7 @@ public class AlbumRutas {
 		mav.addObject("canciones", listaCanciones);
 		int contador = listaCanciones.size();
 		mav.addObject("numero_canciones", contador);
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + listaCanciones);
 		
 		return mav;
 		

@@ -2,7 +2,7 @@
 <html lang="es">
 
 	<head>
-		<title>ALLMusic - Albumes</title>
+		<title>PRUEBA</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
@@ -22,7 +22,7 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/logo.png}" width="210"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    	<span class="navbar-toggler-icon"></span>
@@ -54,20 +54,11 @@
 				</div>
 			</div>
 		</nav>
-
+		
 		<!-- Section -->
 		<section class="container mt-5">
-			<div class="row mb-5">
-				<img class="col-3" th:src="${album.portada}" th:alt="${album.titulo}">
-				<div class="col-9 row align-items-center">
-					<p class="col-12 font-weight-bold">Álbum</p>
-					<h1 class="col-9"><span th:text="${album.titulo}"></span></h1>
-					<p class="col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
-					<p class="col-12"><span th:text="${album.fecha_salida}"></span></p>
-					<p class="col-12"><span th:text="${numero_canciones}"></span> canciones</p>
-				</div>
-			</div>	
-			<!--  CANCIONES  -->
+			
+			<h1 th:text="${playlist.nombre}"></h1>
 			
 			<div class="mb-5"> 
 				
@@ -75,20 +66,19 @@
 					<thead>
 						<tr>
 							<th>No.º</th>
-							<th>Titulo</th>
+							<th>Album</th>
 							<th>Duracion</th>
 						</tr>
 					<thead>
 					<tbody>
-						<tr th:each="cancion : ${canciones}">
-							<td th:text="${cancion.numero}">numero</td>
-							<td th:text="${cancion.titulo}">titulo</td>
-							<td th:text="${cancion.duracion}">duracion</td>
+						<tr th:each="lista : ${lista}">
+							<td th:text="${lista.cancion.titulo}">titulo</td>
+							<td th:text="${lista.cancion.album.titulo}">album</td>
+							<td th:text="${lista.cancion.duracion}">duracion</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</section>
-		
 	</body>
 </html>

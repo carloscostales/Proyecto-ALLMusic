@@ -1,12 +1,18 @@
 package com.carlos.datos.playlists;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.carlos.datos.playlist_cancion.PlaylistCancion;
 import com.carlos.datos.usuarios.Usuario;
 
 @Entity
@@ -21,8 +27,19 @@ public class Playlist {
 	
 	@ManyToOne
 	private Usuario usuario = new Usuario();
+	
+	@OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+	private Set<PlaylistCancion> playlist_cancion = new HashSet<>();
 
 	
+	public Set<PlaylistCancion> getPlaylist_cancion() {
+		return playlist_cancion;
+	}
+
+	public void setPlaylist_cancion(Set<PlaylistCancion> playlist_cancion) {
+		this.playlist_cancion = playlist_cancion;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -45,6 +62,11 @@ public class Playlist {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	@Override
+	public String toString() {
+		return "Playlist [id=" + id + ", nombre=" + nombre + ", usuario=" + usuario + "]";
 	}
 	
 }
