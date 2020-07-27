@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<title>ALLMusic - Usuarios</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	    <!-- Icono -->
+	    <link rel="icon" th:href="@{/img/icon.png}">
+	
+		<!-- CSS -->
+		<link rel="stylesheet" href="" type="text/css">
+			
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			
+		<!-- Bootstrap jQuery, Popper.js, Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	</head>
+
+	<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/logo.png}" width="210"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    	<span class="navbar-toggler-icon"></span>
+		    </button>
+		    
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      	<ul class="navbar-nav mr-auto">
+		        	<li class="nav-item active">
+		        		<a class="nav-link" th:href="@{/}">Inicio <span class="sr-only">(current)</span></a>
+		          	</li>
+		          	<li class="nav-item">
+		           		<a class="nav-link" th:href="@{/artistas}">Artistas</a>
+		          	</li>
+		          	<li class="nav-item">
+		            	<a class="nav-link" href="#">Disabled</a>
+		          	</li>
+		        </ul>
+		        
+		        <div class="text-white" sec:authorize="isAnonymous()">
+				    <a type="button" class="btn btn-light" th:href="@{/login}">Login</a>
+				    <a type="button" class="btn btn-light" th:href="@{/registrarse}">Registrarse</a>
+				</div>
+		    	
+		    	<div class="text-white" sec:authorize="isAuthenticated()">
+		    		<!-- <a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}">User: <span sec:authentication="name">miquel</span></a> -->
+		    	
+				    User: <span sec:authentication="name">miquel</span>
+				    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Section -->
+		<section class="mt-5">
+			<div class="container">
+				
+				<h1>TABLA USUARIOS</h1>
+				<div class="mb-5"> <!--  mis datos -->
+					<div th:switch="${#lists.isEmpty(usuarios)}">
+						<div id="noHayNadie" th:case="true">
+							<p>No hay nadie</p>
+						</div>
+						<div id="hayUsuarios" th:case="false">
+							<table class="table table-dark table-hover table-sm ">
+								<thead>
+									<tr>
+										<th>Nombre usuario</th>
+										<th>Email</th>
+										<th>Permisos</th>
+										<th>Visualizar</th>
+										<th>Editar</th>
+										<th>Eliminar</th>
+									</tr>
+									<thead>
+								<tbody>
+									<tr th:each="usuario : ${usuarios}">
+										<td th:text="${usuario.nombreUsuario}">Usuario</td>
+										<td th:text="${usuario.email}">Email</td>
+										<td th:text="${usuario.rol.nombre}">Permisos</td>
+										<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Visualizar</a></td>
+										<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/editar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Editar</a></td>
+										<td><a type="button" class="btn btn-danger btn-sm" th:href="@{/usuarios/borrar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Eliminar</a></td>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div> 
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-3">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearUsuario">
+							Nuevo usuario
+						</button>
+					</div>
+					<div class="col-3">
+						<a class="btn btn-secondary" th:href="@{/}" role="button">Volver a inicio</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Nuevo usuario</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true"></span>
+							</button>
+						</div>
+
+						<form action="#" th:action="@{/usuarios/anadir}" th:object="${usuario}" method="post">
+
+							<div class="modal-body">
+
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<div class="form-group">
+											<label for="username">Usuario</label>
+											<input type="text" th:field="*{nombreUsuario}" placeholder="Inserta un usuario" class="form-control" id="username">
+										</div>
+										<div class="form-group">
+											<label for="texto">Contraseña</label>
+											<input type="password" th:field="*{contrasena}" placeholder="Contraseña" class="form-control" id="contrasena">
+										</div>
+										<div class="form-group">
+											<label for="texto">Nombre</label>
+											<input type="text" th:field="*{nombre}" placeholder="Nombre" class="form-control" id="nombre">
+										</div>
+										<div class="form-group">
+											<label for="texto">Apellidos</label>
+											<input type="text" th:field="*{apellidos}" placeholder="Apellidos" class="form-control" id="apellidos">
+										</div>
+										<div class="form-group">
+											<label for="texto">Email</label>
+											<input type="email" th:field="*{email}" placeholder="Email" class="form-control" id="email">
+										</div>
+										<div class="form-group col-md-12">
+											<label for="texto">Permisos</label>
+											<ul>
+												<li th:each="permiso: ${roles}">
+													<input 
+														type="radio" 
+														name="permisos" 
+														th:text="${permiso.nombre}"
+														th:field="*{rol.nombre}"
+														th:value="${permiso.nombre}"
+													/>
+												</li>
+											</ul>					      
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</body>
+
+</html>
