@@ -3,6 +3,7 @@ package com.carlos.datos.artistas;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import com.carlos.datos.albumes.Album;
 import com.carlos.datos.albumes.AlbumDAO;
 import com.carlos.datos.generos.Genero;
 import com.carlos.datos.generos.GeneroDAO;
+import com.carlos.datos.usuarios.Usuario;
 import com.carlos.servicios.ComparatorFecha;
 
 @Controller
@@ -30,7 +32,7 @@ public class ArtistaRutas {
 	
 	
 	@GetMapping("/artistas")
-	private ModelAndView rutaArtistas() {
+	private ModelAndView rutaArtistas(Authentication auth) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("artistas/artistas");
@@ -39,14 +41,19 @@ public class ArtistaRutas {
 		List<Artista> listaArtistas = (List<Artista>) artistaDAO.findAll();
 		mav.addObject("artistas", listaArtistas);
 		
+		if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
 		return mav;
 		
 	}
 	
 	
-	
 	@GetMapping("/artistas/{artista}")
-	private ModelAndView rutaArtista(@PathVariable Artista artista) {
+	private ModelAndView rutaArtista(@PathVariable Artista artista, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("artistas/mostrarArtista");
 		mav.addObject("artista", artista);
@@ -57,19 +64,31 @@ public class ArtistaRutas {
 
 		mav.addObject("listaAlbumes", listaAlbumes);
         listaAlbumes.sort(new ComparatorFecha());
+        
+        if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
 
 		return mav;
 		
 	}
 	
 	@GetMapping("/nuevoArtista")
-	public ModelAndView nuevoArtista() {
+	public ModelAndView nuevoArtista(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/artistas/nuevoArtista");
 		mav.addObject("artista", new Artista());
 		
 		List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
 		mav.addObject("generos",listaGeneros);
+		
+		if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
 		
 		return mav;
 	}

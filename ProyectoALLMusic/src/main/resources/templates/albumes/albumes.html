@@ -47,9 +47,8 @@
 				</div>
 		    	
 		    	<div class="text-white" sec:authorize="isAuthenticated()">
-		    		<!-- <a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}">User: <span sec:authentication="name">miquel</span></a> -->
-		    	
-				    User: <span sec:authentication="name">miquel</span>
+		    		<a type="button" class="btn btn-info" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+				    <!--  User: <span sec:authentication="name">miquel</span> -->
 				    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
 				</div>
 			</div>
