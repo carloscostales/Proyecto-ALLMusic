@@ -61,7 +61,6 @@
 				<h1>Usuario <span th:text="${usuario.nombreUsuario}"></h1>
 					
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><b>Contraseña: </b><span th:text="${usuario.contrasena}"></span></li>
 					<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
 					<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 					<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
@@ -69,13 +68,10 @@
 				
 				<h1 class="mt-5">Playlists de <span th:text="${usuario.nombreUsuario}"></h1>
 				
-				<ul th:each="playlist : ${listaPlaylists}" class="list-group list-group-flush">
-					<li class="list-group-item">
-						<span th:text="${playlist.nombre}">playlist></span>
-					</li>
+				<ul class="list-group list-group-flush">
+					<li th:each="playlist : ${listaPlaylists}" class="list-group-item"><a th:href="@{/playlists/{id}(id=${playlist.id})}" th:text="${playlist.nombre}"></a></li>
 				</ul>
 					
-				<a class="btn btn-primary mt-5" th:href="@{/usuarios}" role="button">Volver</a>
 			</div>
 		</section>
 	</body>

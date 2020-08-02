@@ -66,6 +66,7 @@
 					<thead>
 						<tr>
 							<th>No.º</th>
+							<th>Artista</th>
 							<th>Album</th>
 							<th>Duracion</th>
 						</tr>
@@ -73,7 +74,8 @@
 					<tbody>
 						<tr th:each="lista : ${lista}">
 							<td th:text="${lista.cancion.titulo}">titulo</td>
-							<td th:text="${lista.cancion.album.titulo}">album</td>
+							<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${lista.cancion.album.artista.nombre}">artista></span></a></td>
+							<td><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${lista.cancion.album.titulo}">album></span></a></td>
 							<td th:text="${lista.cancion.duracion}">duracion</td>
 						</tr>
 					</tbody>
