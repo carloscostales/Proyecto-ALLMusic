@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -36,21 +37,29 @@ public class UsuarioRutas {
 	@GetMapping("/usuarios")
 	private ModelAndView rutaUsuario() {
 		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("usuarios/usuarios");
-		model.addObject("usuario", new Usuario());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("usuarios/usuarios");
 		
 		List<Usuario> listaUsuarios = (List<Usuario>) usuarioDAO.findAll();
-		model.addObject("usuarios", listaUsuarios);
+		mav.addObject("usuarios", listaUsuarios);
 		
-		List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
-		model.addObject("roles",listaRoles);
-		
-		return model;
+		return mav;
 		
 	}
 	
-	@PostMapping("usuarios/anadir")
+	@GetMapping("/nuevoUsuario")
+	private ModelAndView nuevoUsuario(Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("usuarios/nuevoUsuario");
+		mav.addObject("usuario", new Usuario());
+		
+		List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+		mav.addObject("roles",listaRoles);
+		
+		return mav;
+	}
+	
+	@PostMapping("/addUser")
 	private String rutaAnadir(@ModelAttribute Usuario usuario) {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -58,7 +67,7 @@ public class UsuarioRutas {
 		
 		usuarioDAO.save(usuario);
 		
-		return "redirect:/usuarios";
+		return "redirect:/usuarios/usuarios";
 		
 	}
 
@@ -75,28 +84,28 @@ public class UsuarioRutas {
 	
 	@GetMapping("/usuarios/{usuario}")
 	private ModelAndView rutaUsuario(@PathVariable Usuario usuario) {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("usuarios/mostrarUsuario");
-		model.addObject("usuario", usuario);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("usuarios/mostrarUsuario");
+		mav.addObject("usuario", usuario);
 
 		List<Playlist> listaPlaylists = (List<Playlist>)playlistDAO.findByUsuario(usuario);
-		model.addObject("listaPlaylists", listaPlaylists);
+		mav.addObject("listaPlaylists", listaPlaylists);
 		
-		return model;
+		return mav;
 		
 	}
 
 	@GetMapping("/usuarios/editar/{usuario}")
 	private ModelAndView editarUsuario(@PathVariable Usuario usuario) {
 		
-		ModelAndView model = new ModelAndView();
-		model.setViewName("editarUsuario");
-		model.addObject("usuario", usuario);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("usuarios/editarUsuario");
+		mav.addObject("usuario", usuario);
 		
 		List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
-		model.addObject("roles",listaRoles);
+		mav.addObject("roles",listaRoles);
 		
-		return model;
+		return mav;
 		
 	}
 	
@@ -105,37 +114,22 @@ public class UsuarioRutas {
 		
 		System.out.println("bindingResult.hasErrors()" + bindingResult.hasErrors());
 		
-		ModelAndView model = new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 
 		if(bindingResult.hasErrors()) {
-			model.setViewName("editarUsuario");
+			mav.setViewName("usuarios/editarUsuario");
 
 			List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
-			model.addObject("roles",listaRoles);
+			mav.addObject("roles",listaRoles);
 			
-			return model;
+			return mav;
 		}
 		
 		usuarioDAO.save(usuario);
 
-		model.setViewName("redirect:/usuarios");
+		mav.setViewName("redirect:/usuarios/usuarios");
 
-		return model;
-
-	}
-	
-	@GetMapping("/consultas")
-	public String consultas() {
-		
-		// Busqueda
-		List<Usuario> resultado = usuarioDAO.findByEdad(10);
-		
-		List<Usuario> resultadoCompleto = (List<Usuario>) usuarioDAO.findAll();
-		
-		System.out.println(resultadoCompleto);
-		
-		
-		return "redirect:/usuarios";
+		return mav;
 
 	}
 	

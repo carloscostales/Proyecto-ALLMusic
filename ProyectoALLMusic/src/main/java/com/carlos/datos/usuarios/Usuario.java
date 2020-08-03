@@ -44,12 +44,6 @@ public class Usuario implements UserDetails {
 	@Column
 	@Pattern(regexp="^(.+)@(.+)$", message="Email invalido")
 	private String email;
-	
-	@Column
-	private String telefono;
-	
-	@Column
-	private Integer edad;
 
 	@ManyToOne
 	private Rol rol = new Rol();	
@@ -114,22 +108,6 @@ public class Usuario implements UserDetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	public Integer getEdad() {
-		return edad;
-	}
-
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
 	
 	public List<Playlist> getPlaylists() {
 		return playlists;
@@ -187,9 +165,11 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return "[nombreUsuario=" + nombreUsuario + ", edad=" + edad + "]";
+		return "Usuario [nombreUsuario=" + nombreUsuario + ", contrasena=" + contrasena + ", nombre=" + nombre
+				+ ", apellidos=" + apellidos + ", email=" + email + ", rol=" + rol + "]";
 	}
 
 }

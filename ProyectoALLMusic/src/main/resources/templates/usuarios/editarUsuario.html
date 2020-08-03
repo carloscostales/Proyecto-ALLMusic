@@ -85,6 +85,11 @@
 			    </div>
 			    
 			    <div class="form-group">
+				    <label for="email" class="font-weight-bold">Email: </label>
+					<input type="text" class="form-control" id="email" th:field="*{email}">
+			    </div>
+			    
+			    <div class="form-group">
 					<label for="permiso">Permisos</label>
 					<ul class="list-group">
 						<li th:each="permiso: ${roles}" class="list-group-item">

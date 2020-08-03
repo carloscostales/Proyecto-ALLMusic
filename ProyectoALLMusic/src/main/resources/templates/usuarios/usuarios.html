@@ -96,77 +96,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-3">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearUsuario">
-							Nuevo usuario
-						</button>
+						<a type="button" class="btn btn-primary" th:href="@{/nuevoUsuario}">Nuevo usuario</a>
 					</div>
 					<div class="col-3">
 						<a class="btn btn-secondary" th:href="@{/}" role="button">Volver a inicio</a>
-					</div>
-				</div>
-			</div>
-
-			<!-- Modal -->
-			<div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Nuevo usuario</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true"></span>
-							</button>
-						</div>
-
-						<form action="#" th:action="@{/usuarios/anadir}" th:object="${usuario}" method="post">
-
-							<div class="modal-body">
-
-								<div class="form-row">
-									<div class="form-group col-md-12">
-										<div class="form-group">
-											<label for="username">Usuario</label>
-											<input type="text" th:field="*{nombreUsuario}" placeholder="Inserta un usuario" class="form-control" id="username">
-										</div>
-										<div class="form-group">
-											<label for="texto">Contraseña</label>
-											<input type="password" th:field="*{contrasena}" placeholder="Contraseña" class="form-control" id="contrasena">
-										</div>
-										<div class="form-group">
-											<label for="texto">Nombre</label>
-											<input type="text" th:field="*{nombre}" placeholder="Nombre" class="form-control" id="nombre">
-										</div>
-										<div class="form-group">
-											<label for="texto">Apellidos</label>
-											<input type="text" th:field="*{apellidos}" placeholder="Apellidos" class="form-control" id="apellidos">
-										</div>
-										<div class="form-group">
-											<label for="texto">Email</label>
-											<input type="email" th:field="*{email}" placeholder="Email" class="form-control" id="email">
-										</div>
-										<div class="form-group col-md-12">
-											<label for="texto">Permisos</label>
-											<ul>
-												<li th:each="permiso: ${roles}">
-													<input 
-														type="radio" 
-														name="permisos" 
-														th:text="${permiso.nombre}"
-														th:field="*{rol.nombre}"
-														th:value="${permiso.nombre}"
-													/>
-												</li>
-											</ul>					      
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-primary">Guardar</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							</div>
-						</form>
-
 					</div>
 				</div>
 			</div>
