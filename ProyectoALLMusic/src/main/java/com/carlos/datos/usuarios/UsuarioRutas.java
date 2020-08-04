@@ -35,7 +35,7 @@ public class UsuarioRutas {
 	
 	
 	@GetMapping("/usuarios")
-	private ModelAndView rutaUsuario() {
+	private ModelAndView rutaUsuario(Authentication auth) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/usuarios");
@@ -43,12 +43,18 @@ public class UsuarioRutas {
 		List<Usuario> listaUsuarios = (List<Usuario>) usuarioDAO.findAll();
 		mav.addObject("usuarios", listaUsuarios);
 		
+		if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
 		return mav;
 		
 	}
 	
 	@GetMapping("/nuevoUsuario")
-	private ModelAndView nuevoUsuario(Authentication auth) {
+	private ModelAndView nuevoUsuario() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/nuevoUsuario");
 		mav.addObject("usuario", new Usuario());
