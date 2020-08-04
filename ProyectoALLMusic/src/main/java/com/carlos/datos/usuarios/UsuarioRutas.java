@@ -60,14 +60,27 @@ public class UsuarioRutas {
 	}
 	
 	@PostMapping("/addUser")
-	private String rutaAnadir(@ModelAttribute Usuario usuario) {
+	private ModelAndView rutaAnadir(@Valid @ModelAttribute Usuario usuario, BindingResult bindingResult) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		if(bindingResult.hasErrors()) {
+			mav.setViewName("usuarios/nuevoUsuario");
+
+			List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+			mav.addObject("roles",listaRoles);
+
+			return mav;
+		}
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usuario.setContrasena(passwordEncoder.encode(usuario.getPassword()));
 		
 		usuarioDAO.save(usuario);
 		
-		return "redirect:/usuarios/usuarios";
+		mav.setViewName("redirect:/usuarios");
+		
+		return mav;
 		
 	}
 
@@ -127,7 +140,7 @@ public class UsuarioRutas {
 		
 		usuarioDAO.save(usuario);
 
-		mav.setViewName("redirect:/usuarios/usuarios");
+		mav.setViewName("redirect:/usuarios");
 
 		return mav;
 

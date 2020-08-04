@@ -27,18 +27,23 @@ import com.carlos.roles.Rol;
 public class Usuario implements UserDetails {
 
 	@Id
+	@Size(min=2, message="El nombre del usuario debe tener como mínimo 2 caracteres")
 	private String nombreUsuario;
 	
 	@Column
+	@NotNull
+	@Size(min=3, message="La contraseña debe tener como mínimo 3 caracteres")
 	private String contrasena;
 	
 	@Column
 	@NotNull(message="No puedes dejar esto vacio")
-	@Size(min=3)
-	@Size(max=10, message="Nombre no puede ser tan largo. Maximo 10 caracteres")
+	@Size(min=3, message="El nombre debe tener como mínimo 2 caracteres")
+	@Size(max=10, message="El nombre no puede tener mas de 20 caracteres")
 	private String nombre;
 	
 	@Column
+	@Size(min=3, message="El apellido debe tener como mínimo 2 caracteres")
+	@Size(max=10, message="El apellido no puede tener mas de 40 caracteres")
 	private String apellidos;
 	
 	@Column

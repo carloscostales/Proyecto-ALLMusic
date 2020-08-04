@@ -57,11 +57,11 @@
 		<!-- Section -->
 		<section class="container mt-5">
 		
-		<h1>Editar usuario <span th:text="${usuario.nombreUsuario}"></span></h1>
+			<h1>Editar usuario</h1>
 		
 			<form action="#" th:action="@{/updateUsuario}" th:object="${usuario}" method="post">
 			
-			  	<div class="form-group">
+			  	<div class="form-group d-none">
 				    <label for="nombreUsuario" class="font-weight-bold">Nombre usuario</label>
 				    <input type="text" class="form-control-plaintext" id="nombreUsuario" th:field="*{nombreUsuario}" readonly>
 			    </div>
@@ -74,19 +74,19 @@
 			    <div class="form-group">
 				    <label for="nombre" class="font-weight-bold">Nombre: </label>
 					<input type="text" class="form-control" id="nombre" th:field="*{nombre}">
-					<ul>
-			    		<li th:each="err : ${#fields.errors('nombre')}" th:text="${err}"/>
-			    	</ul>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 			    </div>
 			    
 			    <div class="form-group">
 				    <label for="apellidos" class="font-weight-bold">Apellidos: </label>
 					<input type="text" class="form-control" id="apellidos" th:field="*{apellidos}">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
 			    </div>
 			    
 			    <div class="form-group">
 				    <label for="email" class="font-weight-bold">Email: </label>
 					<input type="text" class="form-control" id="email" th:field="*{email}">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 			    </div>
 			    
 			    <div class="form-group">
