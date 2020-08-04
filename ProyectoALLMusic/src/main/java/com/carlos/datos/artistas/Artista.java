@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.carlos.datos.albumes.Album;
@@ -25,16 +26,21 @@ public class Artista {
 	private Integer id;
 	
 	@Column
+	@Size(min=2, message="El nombre debe tener como mínimo 2 caracteres.")
+	@Size(max=40, message="El nombre no puede tener mas de 40 caracteres.")
 	private String nombre;
 	
 	@Column
+	@Size(min=2, message="El origen no puede estar vacio. Mínimo 2 caracteres.")
 	private String origen;
 	
 	@Column
+	@Size(min=2, message="La foto no puede estar vacía. Coloca una URL.")
 	private String foto;
 	
 	@Column
-	@Size(max = 4000)
+	@Size(min=20, message="La descripcion debe tener como mínimo 20 caracteres.")
+	@Size(max=4000, message="La descripcion no puede pasar de 4000 caracteres.")
 	private String bio;
 
 	@ManyToOne

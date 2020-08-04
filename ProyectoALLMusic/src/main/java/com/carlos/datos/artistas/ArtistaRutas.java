@@ -2,9 +2,12 @@ package com.carlos.datos.artistas;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -94,11 +97,64 @@ public class ArtistaRutas {
 	}
 	
 	@PostMapping("/addArtista")
-	private String rutaAnadir(@ModelAttribute Artista artista) {
+	private ModelAndView rutaAnadirArtista(@Valid @ModelAttribute Artista artista, BindingResult bindingResult) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(bindingResult.hasErrors()) {
+			mav.setViewName("artistas/nuevoArtista");
+
+			List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
+			mav.addObject("generos",listaGeneros);
+			
+			return mav;
+		}
 		
 		artistaDAO.save(artista);
 		
-		return "redirect:/";
+		mav.setViewName("redirect:/");
+		
+		return mav;
+		
+	}
+	
+	@GetMapping("/artista/editar/{artista}")
+	public ModelAndView editarArtista(@PathVariable Artista artista, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/artistas/editarArtista");
+		mav.addObject("artista", artista);
+		
+		List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
+		mav.addObject("generos",listaGeneros);
+		
+		if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
+		return mav;
+	}
+	
+	@PostMapping("/updateArtista")
+	private ModelAndView editarArtistaPost(@Valid @ModelAttribute Artista artista, BindingResult bindingResult) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(bindingResult.hasErrors()) {
+			mav.setViewName("artistas/nuevoArtista");
+
+			List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
+			mav.addObject("generos",listaGeneros);
+			
+			return mav;
+		}
+		
+		artistaDAO.save(artista);
+		
+		mav.setViewName("redirect:/");
+		
+		return mav;
 		
 	}
 	

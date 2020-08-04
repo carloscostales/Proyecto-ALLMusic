@@ -62,8 +62,9 @@
 					<img class="col-3 rounded-circle" th:src="${artista.foto}" th:alt="${artista.nombre}" style="height:50%">
 					<div class="col-9 mb-5">
 						<div class="row">
-							<h1 class="mb-5 col-9"><span th:text="${artista.nombre}"></span></h1>
-							<button type="button" class="btn btn-secondary btn-sm col-3" data-toggle="modal" data-target="#crearAlbum">Nuevo album</button>
+							<h1 class="mb-5 col-6"><span th:text="${artista.nombre}"></span></h1>
+							<a role="button" class="btn btn-info col-3" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
+							<button type="button" class="btn btn-secondary col-3" data-toggle="modal" data-target="#crearAlbum">Nuevo album</button>
 						</div>
 						<p><b>Nombre: </b><span th:text="${artista.nombre}"></span></p>
 						<p><b>Origen: </b><span th:text="${artista.origen}"></span><p>

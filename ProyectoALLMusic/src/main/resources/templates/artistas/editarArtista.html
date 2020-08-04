@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html xmlns:th="http://www.thymeleaf.org">
+	
 	<head>
-		<title>ALLMusic - Nuevo Artista</title>
+		<title>ALLMusic - Editar artista</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
@@ -53,13 +53,15 @@
 				</div>
 			</div>
 		</nav>
-	
+		
 		<!-- Section -->
-		<section class="container">
-			<h1>NUEVO ARTISTA</h1>
-			<form action="#" th:action="@{/addArtista}" th:object="${artista}" method="post">
+		<section class="container mt-5">
+		
+			<h1>Editar artista</h1>
+		
+			<form action="#" th:action="@{/updateArtista}" th:object="${artista}" method="post">
 			
-				<div class="form-group">
+			  	<div class="form-group">
 				    <label for="artist" class="font-weight-bold">Nombre</label>
 				    <input type="text" class="form-control" id="artist" th:field="*{nombre}">
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
@@ -91,9 +93,10 @@
 				</div>
 			
 			    <input class="btn btn-success" type="submit" value="Enviar"/>
-			    <a class="btn btn-danger ml-3" th:href="@{/artistas}">Volver</a>
-			   
+			    
 			</form>
 		</section>
+		
+  		
 	</body>
 </html>
