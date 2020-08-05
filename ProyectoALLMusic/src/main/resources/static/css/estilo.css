@@ -13,5 +13,10 @@ td, th {
 
 .list-group-item {
 	background-color: #282828 !important;
-	border-top: 1px solid #0091b5;
+	border-bottom: 1px solid #46474a !important;
+}
+
+.card{
+	width: 18rem !important; 
+	background-color: #282828 !important;
 }
