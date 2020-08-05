@@ -152,7 +152,7 @@ public class ArtistaRutas {
 		
 		artistaDAO.save(artista);
 		
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/artistas/" + artista.getId());
 		
 		return mav;
 		
