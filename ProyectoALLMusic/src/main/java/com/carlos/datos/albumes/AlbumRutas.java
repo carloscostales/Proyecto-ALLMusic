@@ -3,8 +3,10 @@ package com.carlos.datos.albumes;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,11 +77,13 @@ public class AlbumRutas {
 	
 	
 	@PostMapping("/addAlbum")
-	private String rutaAnadirAlbum(@ModelAttribute Album album) {
+	private String rutaAnadirAlbum(@ModelAttribute Album album, HttpServletRequest request) {
 		
+		// Utilizado para volver a la pagina en la que esta el modal
+		String referer = request.getHeader("Referer");
 		albumDAO.save(album);
 		
-		return "redirect:/albumes";
+		return "redirect:" + referer;
 		
 	}
 }

@@ -65,20 +65,21 @@
 						<thead>
 							<tr>
 								<th>Titulo</th>
+								<th>Fecha</th>
 								<th>Artista</th>
 							</tr>
 						<thead>
 						<tbody>
 							<tr th:each="album : ${albumes}">
-								<td><a type="button" class="btn btn-info" th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
-								<td th:text="${album.artista.nombre}">origen</td>
+								<td><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
+								<td th:text="${album.fecha_salida}">fecha salida</td>
+								<td><a th:href="@{/artistas/{artista}(artista=${album.artista.id})}"><span th:text="${album.artista.nombre}">artista></span></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</section>
-		
 	</body>
 
 </html>
