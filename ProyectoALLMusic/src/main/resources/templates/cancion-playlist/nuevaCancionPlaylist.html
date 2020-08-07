@@ -2,7 +2,7 @@
 <html lang="es">
 
 	<head>
-		<title>AllMusic - Registro</title>
+		<title>ALLMusic - Nuevo Artista</title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
@@ -53,62 +53,34 @@
 				</div>
 			</div>
 		</nav>
-		
+	
 		<!-- Section -->
-		<section class="mt-5 container">
-		
-			<h1>NUEVO USUARIO</h1>
-				
-			<form action="#" th:action="@{/addUser}" th:object="${usuario}" method="post">
-				<div class="form-group">
-			    	<label for="nombreUsuario" class="font-weight-bold">Nombre usuario</label>
-			    	<input type="text" class="form-control" id="nombreUsuario" th:field="*{nombreUsuario}">
-			    	<small class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></small>
-			   	</div>
-			   	
-			   	<div class="form-group">
-			    	<label for="contrasena" class="font-weight-bold">Contraseña</label>
-			    	<input type="password" class="form-control" id="contrasena" th:field="*{contrasena}">
-			    	<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></small>
-			   	</div>
-			   	
-			   	<div class="form-group">
-			    	<label for="nombre" class="font-weight-bold">Nombre</label>
-			    	<input type="text" class="form-control" id="nombre" th:field="*{nombre}">
-			    	<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
-			   	</div>
+		<section class="container">
+			<h1>Añadir cancion a playlist del usuario <span sec:authentication="name">miquel</span></h1>
+			<form action="#" th:action="@{/addCancionPlaylist}" th:object="${pc}" method="post">
 			
 				<div class="form-group">
-			    	<label for="apellidos" class="font-weight-bold">Apellidos</label>
-			    	<input type="text" class="form-control" id="apellidos" th:field="*{apellidos}">
-			    	<small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
-			   	</div>
-			   	
-			   	<div class="form-group">
-			    	<label for="email" class="font-weight-bold">Email</label>
-			    	<input type="text" class="form-control" id="email" th:field="*{email}">
-			    	<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
-			   	</div>
-			    	
-			   	<div class="form-group">
-					<label for="permisos">Roles</label>
+					<label for="playlist">Playlist</label>
 					<ul class="list-group list-group-flush">
-						<li th:each="permiso: ${roles}" class="list-group-item">
+						<li th:each="playlists: ${listaPlaylists}" class="list-group-item">
 							<input 
 								type="radio" 
-								name="permisos" 
-								th:text="${permiso.nombre}"
-								th:field="*{rol.nombre}"
-								th:value="${permiso.nombre}"
+								name="playlist" 
+								th:text="${playlists.nombre}"
+								th:field="*{playlist}"
+								th:value="${playlists.id}"
 							/>
 						</li>
 					</ul>					      
 				</div>
-			    			
-			    <input type="submit" value="Registrar" class="btn btn-success">	
-			</form>
+			    
+			    <div class="form-group" hidden>
+					<label for="cancion">Artista</label>
+					<input type="text" th:value="${cancion.id}" name="cancion" id="cancion"/>
+				</div>
 
+			    <input class="btn btn-success" type="submit" value="Enviar"/>
+			   
+			</form>
 		</section>
-		
-   </body>
-</html>
+	</body>

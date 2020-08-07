@@ -76,6 +76,7 @@
 							<th>No.º</th>
 							<th>Titulo</th>
 							<th>Duracion</th>
+							<th sec:authorize="isAuthenticated()"></th>
 						</tr>
 					<thead>
 					<tbody>
@@ -83,6 +84,7 @@
 							<td th:text="${cancion.numero}">numero</td>
 							<td th:text="${cancion.titulo}">titulo</td>
 							<td th:text="${cancion.duracion}">duracion</td>
+							<td sec:authorize="isAuthenticated()"><a type="button" class="btn btn-secondary btn-sm" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}">Add</a></td>
 						</tr>
 					</tbody>
 				</table>
