@@ -59,8 +59,13 @@
 			<div class="row mb-5">
 				<img class="col-3" th:src="${album.portada}" th:alt="${album.titulo}">
 				<div class="col-9 row align-items-center">
-					<p class="col-12 font-weight-bold">Álbum</p>
-					<h1 class="col-9"><span th:text="${album.titulo}"></span></h1>
+					<p class="col-9 font-weight-bold">Álbum</p>
+					<div class="col-3">
+						<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearCancion">Nueva cancion</button>
+						</div>
+					</div>
+					<h1 class="col-12"><span th:text="${album.titulo}"></span></h1>
 					<p class="col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
 					<p class="col-12"><span th:text="${album.fecha_salida}"></span></p>
 					<p class="col-12"><span th:text="${numero_canciones}"></span> canciones</p>
@@ -90,6 +95,48 @@
 				</table>
 			</div>
 		</section>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="crearCancion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Nueva cancion</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<form action="#" th:action="@{/addCancion}" th:object="${cancion}" method="post">
+						<div class="modal-body">
+							
+							<div class="form-group">
+								<label for="numero">Numero</label>
+								<input type="number" th:field="*{numero}" class="form-control" id="numero">
+							</div>
+							
+							<div class="form-group">
+								<label for="titulo">Titulo</label>
+								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
+							</div>
+							
+							<div class="form-group">
+								<label for="duracion">Duracion</label>
+								<input type="text" th:field="*{duracion}" class="form-control" id="duracion">
+							</div>
+							
+							<div class="form-group" hidden>
+								<label for="album">Album</label>
+								<input type="text" th:value="${album.id}" name="album" id="album"/>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		
 	</body>
 </html>

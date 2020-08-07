@@ -62,6 +62,8 @@ public class AlbumRutas {
 		int contador = listaCanciones.size();
 		mav.addObject("numero_canciones", contador);
 		
+		mav.addObject("cancion", new Cancion());
+		
 		if(auth != null) {
 			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
@@ -73,7 +75,7 @@ public class AlbumRutas {
 	}
 	
 	
-	/* La ruta para un nuevo album se encuentra en la vista de mostrarArtista.html*/
+	/* El formulario para un nuevo album se encuentra en la vista de mostrarArtista.html*/
 	
 	
 	@PostMapping("/addAlbum")
