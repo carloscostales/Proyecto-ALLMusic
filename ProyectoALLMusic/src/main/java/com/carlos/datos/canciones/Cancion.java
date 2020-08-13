@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.carlos.datos.albumes.Album;
 import com.carlos.datos.playlist_cancion.PlaylistCancion;
@@ -23,12 +26,16 @@ public class Cancion {
 	private int id;
 	
 	@Column
-	private int numero;
+	@NotNull(message= "El numero no puede estar vacio.")
+	@Min(value=1, message="El numero debe ser mayor de 0.")  
+	private Integer numero;
 	
 	@Column
+	@Size(min=1, message="Campo obligatorio. Mínimo 1 caracter.")
 	private String titulo;
 	
 	@Column
+	@Size(min=1, message="Campo obligatorio. Formate xx:xx")
 	private String duracion;
 	
 	@ManyToOne
@@ -54,11 +61,11 @@ public class Cancion {
 		this.id = id;
 	}
 	
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
