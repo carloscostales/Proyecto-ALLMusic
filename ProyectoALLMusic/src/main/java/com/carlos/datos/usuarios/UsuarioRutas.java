@@ -53,7 +53,7 @@ public class UsuarioRutas {
 		
 	}
 	
-	@GetMapping("/nuevoUsuario")
+	@GetMapping("/registrarse")
 	private ModelAndView nuevoUsuario() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/nuevoUsuario");
@@ -84,7 +84,7 @@ public class UsuarioRutas {
 		
 		usuarioDAO.save(usuario);
 		
-		mav.setViewName("redirect:/usuarios");
+		mav.setViewName("redirect:/");
 		
 		return mav;
 		
