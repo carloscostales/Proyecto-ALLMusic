@@ -33,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    protected void configure(HttpSecurity http) throws Exception {
 	    	http
 	        .authorizeRequests()
+	        	.antMatchers("/usuarios").hasAuthority("ADMIN")
+	        	.antMatchers("/artista/editar/**").hasAnyAuthority("ADMIN")
 		        .and()    	
 	        .formLogin()
 	        	.loginPage("/login")

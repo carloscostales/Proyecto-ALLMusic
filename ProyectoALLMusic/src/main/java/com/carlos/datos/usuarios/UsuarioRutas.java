@@ -146,7 +146,7 @@ public class UsuarioRutas {
 		
 		usuarioDAO.save(usuario);
 
-		mav.setViewName("redirect:/usuarios");
+		mav.setViewName("redirect:/usuarios/" + usuario.getNombreUsuario());
 
 		return mav;
 
