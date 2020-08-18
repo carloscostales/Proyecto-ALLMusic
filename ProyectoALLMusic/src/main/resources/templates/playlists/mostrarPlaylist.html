@@ -68,6 +68,7 @@
 							<th>Artista</th>
 							<th>Album</th>
 							<th>Duracion</th>
+							<th sec:authorize="isAuthenticated()"></th>
 						</tr>
 					<thead>
 					<tbody>
@@ -76,6 +77,7 @@
 							<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${lista.cancion.album.artista.nombre}">artista></span></a></td>
 							<td><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${lista.cancion.album.titulo}">album></span></a></td>
 							<td th:text="${lista.cancion.duracion}">duracion</td>
+							<td sec:authorize="isAuthenticated()"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
 						</tr>
 					</tbody>
 				</table>

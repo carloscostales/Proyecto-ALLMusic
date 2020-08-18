@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.datos.canciones.Cancion;
+import com.carlos.datos.generos.Genero;
 import com.carlos.datos.playlists.Playlist;
 import com.carlos.datos.playlists.PlaylistDAO;
 import com.carlos.datos.usuarios.Usuario;
@@ -74,6 +75,24 @@ public class PlaylistCancionRutas {
 		
 		pcDAO.save(pc);
 		
+		return mav;
+	}
+	
+	@GetMapping("/quitarCancionPlaylist/{pc}")
+	private ModelAndView quitarCancionPlaylist(@PathVariable PlaylistCancion pc, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/playlists/" + pc.getPlaylist().getId());
+		
+		if(auth != null) {
+			System.out.println("nombre: " + auth.getName());
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+			
+			if(pc.getPlaylist().getUsuario().getNombreUsuario().equals(usuario.getNombreUsuario())) {
+				pcDAO.delete(pc);
+			}
+		}
+
 		return mav;
 	}
 	

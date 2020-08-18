@@ -40,15 +40,6 @@ public class GeneroRutas {
 		return mav;
 	}
 	
-	@GetMapping("/generos/borrar/{genero}")
-	public String rutaEliminar(@PathVariable Genero genero) {
-		
-		generoDAO.delete(genero);
-		
-		return("redirect:/generos");
-
-	}
-	
 	@PostMapping("/addGenero")
 	private ModelAndView addGenero(@ModelAttribute Genero genero, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -60,6 +51,15 @@ public class GeneroRutas {
 		
 		return mav;
 		
+	}
+	
+	@GetMapping("/generos/borrar/{genero}")
+	public String rutaEliminar(@PathVariable Genero genero) {
+		
+		generoDAO.delete(genero);
+		
+		return("redirect:/generos");
+
 	}
 	
 }
