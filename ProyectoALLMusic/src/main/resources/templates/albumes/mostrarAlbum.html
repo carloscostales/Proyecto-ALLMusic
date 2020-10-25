@@ -25,24 +25,24 @@
 				$('#submit_button').attr('disabled', true);
 	    		
 	    		$("#numero").blur(function(){
-	    		    if( !$(this).val() || !$('#titulo').val() || !$('#duracion').val() ) {                      //if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);	// boton submit disabled
+	    		    if( !$(this).val() || !$('#titulo').val() || !$('#duracion').val() ) {					//if it is blank. 
+	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
 	    		
 	    		$("#titulo").blur(function(){
-	    		    if( !$(this).val() || !$('#numero').val() || !$('#duracion').val() ) {                      //if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);	// boton submit disabled
+	    		    if( !$(this).val() || !$('#numero').val() || !$('#duracion').val() ) {					//if it is blank. 
+	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
 	    		
 	    		$("#duracion").blur(function(){
-	    		    if( !$(this).val() || !$('#numero').val() || !$('#titulo').val() ) {                      //if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);	// boton submit disabled
+	    		    if( !$(this).val() || !$('#numero').val() || !$('#titulo').val() ) {					//if it is blank. 
+	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
