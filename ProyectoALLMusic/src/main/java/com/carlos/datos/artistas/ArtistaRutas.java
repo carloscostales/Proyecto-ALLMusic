@@ -97,7 +97,7 @@ public class ArtistaRutas {
 	}
 	
 	@PostMapping("/addArtista")
-	private ModelAndView rutaAnadirArtista(@Valid @ModelAttribute Artista artista, BindingResult bindingResult) {
+	private ModelAndView rutaAnadirArtista(@Valid @ModelAttribute Artista artista, BindingResult bindingResult, Authentication auth) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -106,6 +106,8 @@ public class ArtistaRutas {
 
 			List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
 			mav.addObject("generos",listaGeneros);
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
 			
 			return mav;
 		}
