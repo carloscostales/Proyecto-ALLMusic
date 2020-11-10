@@ -55,11 +55,43 @@
 		</nav>
 		
 		<section class="container">
-			<h2>ESTA ES LA PAGINA PRINCIPAL</h2>
-			<a type="button" class="btn btn-info" th:href="@{/albumes}">ALBUMES</a>
-			<a type="button" class="btn btn-info" th:href="@{/usuarios}">USUARIOS</span></a>
-			<a type="button" class="btn btn-info" th:href="@{/artistas}">ARTISTAS</span></a>
-		
+			
+			<h1>¡Bienvenido a ALLMusic!</h1>
+			
+			<h2>Últimos artistas</h2>
+			
+			<div class="row">
+				<div class="card col-2 border-0" th:each="artista : ${ultimosArtistas}">
+					<img class="card-img-top" th:src="${artista.foto}" th:alt="${artista.nombre}">
+				  	<div class="card-body">
+				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+				    	<p th:text="${artista.nombre}" class="card-text"></p>
+				 	</div>
+				</div>
+			</div>
+			
+			
+			<h2>Últimos álbumes</h2>
+			<div class="row">
+				<div class="card col-2 border-0" th:each="album : ${ultimosAlbumes}">
+					<img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}">
+				  	<div class="card-body">
+				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+				 	</div>
+				</div>
+			</div>
+			
+			<h3 sec:authorize="isAuthenticated()">Últimas playlists</h3>
+			<div class="row" sec:authorize="isAuthenticated()">
+				<div class="card col-2 border-0" th:each="playlist : ${ultimasPlaylists}">
+				
+				  	<div class="card-body">
+				    	<h5 class="card-title"><a th:href="@{/playlists/{playlist}(playlist=${playlist.id})}"><span th:text="${playlist.nombre}"></span></a></h5>
+
+				 	</div>
+				</div>
+			</div>
 		</section>
 	</body>
 </html>
