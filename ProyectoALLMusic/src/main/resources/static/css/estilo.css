@@ -3,7 +3,7 @@ body {
 	color: white !important
 }
 
-nav{
+.navbar-dark {
 	background-color: #121212 !important;
 }
 
@@ -19,4 +19,23 @@ td, th {
 .card{
 	width: 18rem !important; 
 	background-color: #282828 !important;
+}
+
+.page-item.active .page-link {
+	color: white !important;
+	background-color: #007BFF	 !important;
+	border-color: #282828 !important;
+}
+
+
+.page-link {
+	color: white !important;
+	background-color: #282828	 !important;
+	border: 1px solid #282828 !important;
+ }
+
+.page-link:hover {
+	color: white !important;
+	background-color: #007BFF !important;
+	border-color: #282828 !important;
 }
