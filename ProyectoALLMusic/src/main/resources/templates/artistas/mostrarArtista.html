@@ -24,30 +24,13 @@
 	    		
 	    		$('#submit_button').attr('disabled', true);
 	    		
-	    		$("#titulo").blur(function(){
-	    		    if( !$(this).val() || !$('#fecha').val() || !$('#portada').val() ) {					//if it is blank. 
+	    		$("input").blur(function(){
+	    			if( !$('#titulo').val() || !$('#fecha').val() || !$('#portada').val() ) {					//if it is blank. 
 	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
-	    		
-	    		$("#fecha").blur(function(){
-	    		    if( !$(this).val() || !$('#titulo').val() || !$('#portada').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
-	    		    } else {
-	    		    	$('#submit_button').attr('disabled', false);
-	    		    }
-	    		});
-	    		
-	    		$("#portada").blur(function(){
-	    		    if( !$(this).val() || !$('#titulo').val() || !$('#fecha').val() ) {						//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
-	    		    } else {
-	    		    	$('#submit_button').attr('disabled', false);
-	    		    }
-	    		});
-	    		
 	    	});
 	    </script>
 	</head>

@@ -57,30 +57,35 @@
 		<!-- Section -->
 		<section class="container">
 			<h1>NUEVO ARTISTA</h1>
-			<form action="#" th:action="@{/addArtista}" th:object="${artista}" method="post">
+			<form th:action="@{/addArtista}" th:object="${artista}" method="post">
 			
 				<div class="form-group">
-				    <label for="artist" class="font-weight-bold">Nombre</label>
-				    <input type="text" class="form-control" id="artist" th:field="*{nombre}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				    <label for="nombre" class="font-weight-bold">Nombre</label>
+				    <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+				    <small class="form-text text-danger" id="errorNombre"></small>
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small> -->
 			    </div>
 			    
 				<div class="form-group">
 				    <label for="origen" class="font-weight-bold">Origen</label>
 				    <input type="text" class="form-control" id="origen" th:field="*{origen}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('origen')}" th:errors="*{origen}"></small>
+				    <small class="form-text text-danger" id="errorOrigen"></small>
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('origen')}" th:errors="*{origen}"></small> -->
 			    </div>
 			    
 			    <div class="form-group">
 				    <label for="bio" class="font-weight-bold">Biografía</label>
 				    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
+				    <small class="form-text text-danger" id="errorBio"></small>
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small> -->
 			    </div>
 			    
 			    <div class="form-group">
 				    <label for="foto" class="font-weight-bold">Foto (url)</label>
-				    <input type="text" class="form-control" id="foto" th:field="*{foto}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></small>
+				    <input type="text" class="form-control" name="foto" id="foto" th:field="*{foto}">
+				    <small class="form-text text-danger" id="errorFoto"></small>
+				    <!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></small> -->
+				    
 			    </div>
 
 			    <div class="form-group">
@@ -90,10 +95,80 @@
 					</select>
 				</div>
 			
-			    <input class="btn btn-success" type="submit" value="Enviar"/>
+			    <input id="submit_button" class="btn btn-success" type="submit" value="Enviar"/>
 			    <a class="btn btn-danger ml-3" th:href="@{/artistas}">Volver</a>
 			   
 			</form>
 		</section>
+		
+		<script type="text/javascript">
+			// Funcion para desactivar y activar el botón de envío.
+			$(function() {
+				$('#submit_button').attr('disabled', true);
+	    		
+	    		$("input, textarea").blur(function(){
+	    			// Si esta vacio o bio es menor que 20
+	    			if ( !$("#nombre").val() || !$("#origen").val() || $("#bio").val().length<20 || !$("#foto").val() ) {
+	    		    	$('#submit_button').attr('disabled', true);
+	    		    } else {
+	    		    	$('#submit_button').attr('disabled', false);
+	    		    }
+	    		});
+			});	
+			
+			// Funcion para la validación del formulario desde la vista.
+			$(function() {
+				$('#errorBio').hide();
+				$('#errorNombre').hide();
+				$('#errorOrigen').hide();
+				$('#errorFoto').hide();
+
+	    		$("#nombre").blur(function(){	
+	    			if ( !$("#nombre").val().length ) {
+	    				error="El nombre no puede estar vacio.";
+	    				$("#errorNombre").show();
+	    				$("#errorNombre").text(error);
+	    				
+	    		
+	    			}else {
+	    				$("#errorNombre").hide();
+	    			}
+	    		});
+	    		
+	    		$("#origen").blur(function(){	
+	    			if ( $("#origen").val().length<2 ) {
+	    				error="El origen no puede ser menor que 2 caracteres.";
+	    				$("#errorOrigen").show();
+	    				$("#errorOrigen").text(error);
+	    				
+	    			}else {
+	    				$("#errorOrigen").hide();
+	    			}
+	    		});
+	    		
+	    		$("#bio").blur(function(){	
+	    			if ( $("#bio").val().length<20 ) {
+	    				error="La biografía no puede ser menor que 20.";
+	    				$("#errorBio").show();
+	    				$("#errorBio").text(error);
+	    				
+	    			}else {
+	    				$("#errorBio").hide();
+	    			}
+	    		});
+	    		
+	    		$("#foto").blur(function(){	
+	    			if ( !$("#foto").val() ) {
+	    				error="La foto no puede estar vacía.";
+	    				$("#errorFoto").show();
+	    				$("#errorFoto").text(error);
+	    				
+	    			}else {
+	    				$("#errorFoto").hide();
+	    			}
+	    		});
+			});
+		</script>
+		
 	</body>
 </html>
