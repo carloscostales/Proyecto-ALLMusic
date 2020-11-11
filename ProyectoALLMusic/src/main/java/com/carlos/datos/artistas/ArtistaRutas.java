@@ -138,7 +138,8 @@ public class ArtistaRutas {
 	}
 	
 	@PostMapping("/addArtista")
-	private ModelAndView rutaAnadirArtista(@ModelAttribute Artista artista, Authentication auth, @RequestParam("foto") MultipartFile multipartFile) throws IOException, IllegalStateException {
+	private ModelAndView rutaAnadirArtista(@ModelAttribute Artista artista, BindingResult bindingResult, Authentication auth,
+			@RequestParam("foto") MultipartFile multipartFile) throws IOException {
 		
 		ModelAndView mav = new ModelAndView();
 		

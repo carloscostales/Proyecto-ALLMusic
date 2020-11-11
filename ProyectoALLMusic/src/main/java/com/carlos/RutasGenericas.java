@@ -39,11 +39,19 @@ public class RutasGenericas {
 		List<Artista> ultimosArtistas = artistaDAO.findLast6();
 		List<Album> albumes = (List<Album>) albumDAO.findAll();
 		
-		albumes.sort(new ComparatorFecha());
-		List<Album> ultimosAlbumes = albumes.subList(0, 6);
+		// Si no hay 6 albumes, se rellena con los que haya.
+		int numero;
+		if (albumes.size() < 6) {
+			numero = albumes.size();
+		}else {
+			numero = 6;
+		}
 		
-		mav.addObject("ultimosArtistas", ultimosArtistas);
+		albumes.sort(new ComparatorFecha());
+		List<Album> ultimosAlbumes = albumes.subList(0, numero);
+		
 		mav.addObject("ultimosAlbumes", ultimosAlbumes);
+		mav.addObject("ultimosArtistas", ultimosArtistas);
 		
 		if(auth != null) {
 			System.out.println("nombre: " + auth.getName());
