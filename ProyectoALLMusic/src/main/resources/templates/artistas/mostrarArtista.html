@@ -72,7 +72,7 @@
 		<section class="container my-5">	
 		
 			<div class="row">
-				<img class="col-3 rounded-circle" th:src="${artista.foto}" th:alt="${artista.nombre}" style="height:50%">
+				<img class="col-3 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
 				<div class="col-9 mb-5">
 					<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 						<div class="row">

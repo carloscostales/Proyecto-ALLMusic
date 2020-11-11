@@ -62,7 +62,7 @@
 			
 			<div class="row">
 				<div class="card col-2 border-0" th:each="artista : ${ultimosArtistas}">
-					<img class="card-img-top" th:src="${artista.foto}" th:alt="${artista.nombre}">
+					<img class="card-img-top" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}">
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
 				    	<p th:text="${artista.nombre}" class="card-text"></p>

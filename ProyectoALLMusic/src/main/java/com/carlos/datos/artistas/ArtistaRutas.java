@@ -1,5 +1,11 @@
 package com.carlos.datos.artistas;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,12 +18,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.datos.albumes.Album;
@@ -130,22 +138,31 @@ public class ArtistaRutas {
 	}
 	
 	@PostMapping("/addArtista")
-	private ModelAndView rutaAnadirArtista(@Valid @ModelAttribute Artista artista, BindingResult bindingResult, Authentication auth) {
+	private ModelAndView rutaAnadirArtista(@ModelAttribute Artista artista, Authentication auth, @RequestParam("foto") MultipartFile multipartFile) throws IOException, IllegalStateException {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		if(bindingResult.hasErrors()) {
-			mav.setViewName("artistas/nuevoArtista");
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
-			List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
-			mav.addObject("generos",listaGeneros);
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			mav.addObject("usuario", usuario);
-			
-			return mav;
+		artista.setFoto(fileName);
+		
+		Artista savedArtista = artistaDAO.save(artista);
+		
+		String uploadDir = "./artista-fotos/" + savedArtista.getId();
+		
+		Path uploadPath = Paths.get(uploadDir);
+		
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
 		}
 		
-		artistaDAO.save(artista);
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH -------------------------------------------------------------------- " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			throw new IOException("No se guardo el archivo subido: " + fileName);
+		}
 		
 		mav.setViewName("redirect:/");
 		
