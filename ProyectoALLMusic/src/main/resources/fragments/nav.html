@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+	<a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/logo.png}" width="210"></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      	<ul class="navbar-nav mr-auto">
+        	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+        		<a class="nav-link" th:href="@{/}">Inicio</a>
+          	</li>
+         	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/artistas' ? 'active':''}">
+           		<a class="nav-link" th:href="@{/artistas}">Artistas</a>
+          	</li>
+          	<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/albumes' ? 'active':''}">
+            	<a class="nav-link" th:href="@{/albumes}">Albumes</a>
+          	</li>
+        </ul>
+       
+        <div class="text-white" sec:authorize="isAnonymous()">
+		    <a type="button" class="btn btn-light" th:href="@{/login}">Login</a>
+		    <a type="button" class="btn btn-light" th:href="@{/registrarse}">Registrarse</a>
+		</div>
+    	
+    	<div class="text-white" sec:authorize="isAuthenticated()">
+    		<a type="button" class="btn btn-info" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+		    <!--  User: <span sec:authentication="name">miquel</span> -->
+		    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
+		</div>
+	</div>
+</nav>

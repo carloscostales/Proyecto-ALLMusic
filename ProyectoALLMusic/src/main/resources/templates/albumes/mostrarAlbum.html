@@ -2,15 +2,12 @@
 <html lang="es">
 
 	<head>
-		<title>ALLMusic - Albumes - <span th:text="${album.titulo}" th:remove="tag"></span></title>
+		<title>ALLMusic - Álbumes - <span th:text="${album.titulo}" th:remove="tag"></span></title>
 	    <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
 	    <!-- Icono -->
 	    <link rel="icon" th:href="@{/img/icon.png}">
-	
-		<!-- CSS -->
-		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 			
 	    <!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,6 +16,9 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+		<!-- CSS y JS -->
+		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 		<script>
 			$(function() {
 	    		
@@ -53,39 +53,10 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark">
-			<a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/logo.png}" width="210"></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    	<span class="navbar-toggler-icon"></span>
-		    </button>
-		    
-		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		      	<ul class="navbar-nav mr-auto">
-		        	<li class="nav-item active">
-		        		<a class="nav-link" th:href="@{/}">Inicio <span class="sr-only">(current)</span></a>
-		          	</li>
-		          	<li class="nav-item">
-		           		<a class="nav-link" th:href="@{/artistas}">Artistas</a>
-		          	</li>
-		          	<li class="nav-item">
-		            	<a class="nav-link" href="#">Disabled</a>
-		          	</li>
-		        </ul>
-		        
-		        <div class="text-white" sec:authorize="isAnonymous()">
-				    <a type="button" class="btn btn-light" th:href="@{/login}">Login</a>
-				    <a type="button" class="btn btn-light" th:href="@{/registrarse}">Registrarse</a>
-				</div>
-		    	
-		    	<div class="text-white" sec:authorize="isAuthenticated()">
-		    		<a type="button" class="btn btn-info" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
-				    <!--  User: <span sec:authentication="name">miquel</span> -->
-				    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
-				</div>
-			</div>
-		</nav>
+		<!-- NAVEGADOR -->
+		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
-		<!-- Section -->
+		<!-- SECTION -->
 		<section class="container mt-5">
 			<div class="row mb-5">
 				<img class="col-3" th:src="${album.portada}" th:alt="${album.titulo}">
@@ -93,7 +64,7 @@
 					<p class="col-9 font-weight-bold">Álbum</p>
 					<div class="col-3">
 						<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearCancion">Nueva cancion</button>
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
 						</div>
 					</div>
 					<h1 class="col-12"><span th:text="${album.titulo}"></span></h1>
@@ -102,16 +73,15 @@
 					<p class="col-12"><span th:text="${numero_canciones}"></span> canciones</p>
 				</div>
 			</div>	
-			<!--  CANCIONES  -->
 			
+			<!--  CANCIONES  -->
 			<div class="mb-5"> 
-				
 				<table class="table table-hover ">
 					<thead>
 						<tr>
 							<th>No.º</th>
-							<th>Titulo</th>
-							<th>Duracion</th>
+							<th>Título</th>
+							<th>Duración</th>
 							<th sec:authorize="isAuthenticated()"></th>
 						</tr>
 					<thead>
@@ -132,7 +102,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content" style="background-color: #282828;">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Nueva cancion</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Nueva canción</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
 							<span aria-hidden="true">x</span>
 						</button>
@@ -141,33 +111,33 @@
 						<div class="modal-body">
 							
 							<div class="form-group">
-								<label for="numero">Numero</label>
+								<label for="numero">Número</label>
 								<input type="number" th:field="*{numero}" class="form-control" id="numero">
 							</div>
 							
 							<div class="form-group">
-								<label for="titulo">Titulo</label>
+								<label for="titulo">Título</label>
 								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
 							</div>
 							
 							<div class="form-group">
-								<label for="duracion">Duracion</label>
+								<label for="duracion">Duración</label>
 								<input type="text" th:field="*{duracion}" class="form-control" id="duracion">
 							</div>
 							
 							<div class="form-group" hidden>
-								<label for="album">Album</label>
+								<label for="album">Álbum</label>
 								<input type="text" th:value="${album.id}" name="album" id="album"/>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary" id="submit_button">Guardar</button>
-						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		
+
 	</body>
 </html>
