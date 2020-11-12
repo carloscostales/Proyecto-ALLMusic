@@ -31,8 +31,17 @@
   				background-size: cover;
   				filter: blur(10px);
   				width: 100%;
-  				height: 320px;
+  				height: 400px;
 	    	}
+	    	
+	    	.listaActivo {
+	    		border-bottom: 2px solid grey;
+	    	}
+	    	
+	    	.listaActivo:hover {
+	    		color:white;
+	    	}
+	    	
 	    </style>
 	    <script>
 	    	$(function() {
@@ -46,6 +55,38 @@
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
+	    	});
+	    	
+	    	$(document).ready(function(){
+	    		$('#albumes').show();
+	    		$('#informacion').hide();
+	    		$('#artistasRel').hide();
+	    		$("a[href*='#listaAlbum']").addClass('listaActivo');
+	    		
+	    		$('#linkAlbumes').click(function(){
+	    			$("a[href*='#']").removeClass('listaActivo');
+	    			$("a[href*='#listaAlbum']").addClass('listaActivo');
+	    			$('#albumes').show();
+		    		$('#informacion').hide();
+		    		$('#artistasRel').hide();
+	    		});
+	    		
+	    		$('#linkInfo').click(function(){
+	    			$("a[href*='#']").removeClass('listaActivo');
+	    			$("a[href*='#listaInfo']").addClass('listaActivo');
+	    			$('#albumes').hide();
+		    		$('#informacion').show();
+		    		$('#artistasRel').hide();
+	    		});
+	    		
+	    		$('#linkArtistas').click(function(){
+	    			$("a[href*='#']").removeClass('listaActivo');
+	    			$("a[href*='#listaArtistasRelacionados']").addClass('listaActivo');
+	    			$('#albumes').hide();
+		    		$('#informacion').hide();
+		    		$('#artistasRel').show();
+	    		});
+	    		
 	    	});
 	    </script>
 	</head>
@@ -62,48 +103,71 @@
 			<div id="contenido" class="row">
 				<img class="col-3 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
 				<div class="col-9 mb-5">
-					<div>
-						<div class="row">
-							<h1 class="mb-5 col-6"><span th:text="${artista.nombre}"></span></h1>
-						
-							<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-								<a role="button" class="btn btn-info" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
-							</div>
-							<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-								<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
-							</div>
+					<div class="row">
+						<h1 class="mb-5 col-6"><span th:text="${artista.nombre}"></span></h1>
+					
+						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<a role="button" class="btn btn-info" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
+						</div>
+						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
 						</div>
 					</div>
 					
 					<hr style="border-color: grey;"/>
-					<p><b>Origen: </b><span th:text="${artista.origen}"></span><p>
-					<p><b>Genero: </b><span th:text="${artista.genero.nombre}"></span></p>
+					<br><br>
+					
+					<div th:if="${ultimoLanzamiento != null}" class="row">
+						<img class="col-2 " th:src="${ultimoLanzamiento.portada}" th:alt="${ultimoLanzamiento.titulo}">
+						<div class="col-9">
+							<p class="col-4">ÚLTIMO LANZAMIENTO</p>
+							<p class="col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
+							<p class="col-5" th:text="${ultimoLanzamiento.fecha_salida}"></p>
+						</div>
+						<div></div>
+					</div>
+					
 				</div>
 			</div>
 			
 			<br><br><br>
 			
-			<div class="row">
-				<div class="col-2">
-					<h3><a href="#">Álbumes</a></h3>
-					<br>
-				</div>
-				<div class="col-2">
-					<h3><a href="#">Información</a></h3>
-					<br>
-				</div>
-				<div class="col-5">
-					<h3><a href="#">Artistas relacionados</a></h3>
-					<br>
-				</div>			
-			</div>
+			<ul class="list-group list-group-horizontal">
+				<li class="list-group-item border-0">
+					<h3 id="linkAlbumes"><a href="#listaAlbum">Álbumes</a></h3>
+				</li>
+				<li class="list-group-item border-0">
+					<h3 id="linkInfo"><a href="#listaInfo">Información</a></h3>
+				</li>
+				<li class="list-group-item border-0">
+					<h3 id="linkArtistas"><a href="#listaArtistasRelacionados">Artistas relacionados</a></h3>
+				</li>			
+			</ul>
+			<br>
+			<br>
 			
-			<div class="row">
+			<div id="albumes" class="row">
 				<div class="card col-3 border-0" th:each="album : ${listaAlbumes}">
-					<img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}">
+					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
 				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+				 	</div>
+				</div>
+			</div>
+			
+			<div id="informacion">
+				<p><strong>Nombre: </strong><span th:text="${artista.nombre}"></span></p>
+				<p><strong>Origen: </strong><span th:text="${artista.origen}"></span></p>
+				<p><strong>Género: : </strong><span th:text="${artista.genero.nombre}"></span></p>
+				<p><strong>Descripción: : </strong><span th:text="${artista.bio}"></span></p>
+			</div>
+			
+			<div id="artistasRel" class="row">
+				<div class="card col-2 border-0" th:each="artista : ${artistasRelacionados}">
+					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="${artista.fotoPath}" th:alt="${artista.nombre}"></a>
+				  	<div class="card-body">
+				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
 				 	</div>
 				</div>
 			</div>

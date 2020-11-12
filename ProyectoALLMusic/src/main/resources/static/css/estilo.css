@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+
+html * {
+   font-family: 'Asap', sans-serif;
+}
+
 body {
 	background-color: #282828 !important;
 	color: white !important
@@ -7,13 +13,21 @@ body {
 	background-color: #121212 !important;
 }
 
+a {
+	color: white;
+}
+
+a:hover {
+	color: grey;
+	text-decoration: initial;
+}
+
 td, th {
 	color: white !important;
 }
 
 .list-group-item {
-	background-color: #282828 !important;
-	border-bottom: 1px solid #46474a !important;
+	background-color: transparent !important;
 }
 
 .card{
@@ -38,4 +52,10 @@ td, th {
 	color: white !important;
 	background-color: #007BFF !important;
 	border-color: #282828 !important;
+}
+
+
+
+.card-footer {
+	background-color: transparent;	
 }

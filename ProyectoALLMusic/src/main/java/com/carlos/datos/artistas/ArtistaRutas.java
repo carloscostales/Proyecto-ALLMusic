@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -105,9 +106,20 @@ public class ArtistaRutas {
 		mav.addObject("album", new Album());
 		
 		List<Album> listaAlbumes = (List<Album>)albumDAO.findByArtista(artista);
-
+		listaAlbumes.sort(new ComparatorFecha());
 		mav.addObject("listaAlbumes", listaAlbumes);
-        listaAlbumes.sort(new ComparatorFecha());
+		
+		if(!listaAlbumes.isEmpty()) {
+			Album ultimo = listaAlbumes.get(0);
+			mav.addObject("ultimoLanzamiento", ultimo);
+			System.out.println("ULTIMO LANZAMIENTO ---------------------------------------" + ultimo);
+		}
+		
+		List<Artista> artistasPorGenero = artistaDAO.findByGenero(artista.getGenero());
+		
+		Collections.shuffle(artistasPorGenero);
+		
+		mav.addObject("artistasRelacionados", artistasPorGenero);
         
         if(auth != null) {
 			System.out.println("nombre: " + auth.getName());
