@@ -31,19 +31,27 @@
 			
 			<h1>¡Bienvenido a ALLMusic!</h1>
 			
-			<h2>Últimos artistas</h2>
+			<div class="row">
+				<h2 class="col-11">Últimos artistas</h2>
+				<a th:href="@{/artistas}">Ver más</a>
+			</div>
+			
+			<br>
 			<div class="row">
 				<div class="card col-2 border-0" th:each="artista : ${ultimosArtistas}">
 					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
-				    	<p th:text="${artista.nombre}" class="card-text"></p>
 				 	</div>
 				</div>
 			</div>
 			<br>
 			
-			<h2>Álbumes recientes</h2>
+			<div class="row">
+				<h2 class="col-11">Álbumes recientes</h2>
+				<a th:href="@{/albumes}">Ver más</a>
+			</div>
+			<br>
 			<div class="row">
 				<div class="card col-2 border-0" th:each="album : ${ultimosAlbumes}">
 					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}"></a>
@@ -59,13 +67,11 @@
 			<br>
 			
 			<h2 sec:authorize="isAuthenticated()">Últimas playlists</h2>
-			<div class="row" sec:authorize="isAuthenticated()">
-				<div class="card col-2 border-0" th:each="playlist : ${ultimasPlaylists}">
-				
-				  	<div class="card-body">
-				    	<h5 class="card-title"><a th:href="@{/playlists/{playlist}(playlist=${playlist.id})}"><span th:text="${playlist.nombre}"></span></a></h5>
-
-				 	</div>
+			<div sec:authorize="isAuthenticated()">
+				 	<ul class="list-group list-group-flush">
+						<li th:each="playlist : ${ultimasPlaylists}" class="list-group-item"><a th:href="@{/playlists/{id}(id=${playlist.id})}" th:text="${playlist.nombre}"></a></li>
+					</ul>
+				 	
 				</div>
 			</div>
 		</section>

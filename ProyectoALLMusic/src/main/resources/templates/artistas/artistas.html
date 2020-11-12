@@ -37,43 +37,35 @@
 			<div class="mb-5"> <!--  mis datos -->
 				
 				<div id="hayArtistas">
-					<table class="table table-hover ">
-						<thead>
-							<tr>
-								<th>Nombre</th>
-								<th>Origen</th>
-								<th>Género</th>
-								<th>Ver más</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="artista : ${lista}">
-								<td th:text="${artista.nombre}">nombre</td>
-								<td th:text="${artista.origen}">origen</td>
-								<td th:text="${artista.genero.nombre}">genero</td>
-								<td><a type="button" class="btn btn-info btn-sm" th:href="@{/artistas/{id}(id=${artista.id})}">Visualizar</a></td>
-							</tr>
-						</tbody>
-					</table>
 					<div class="row">
-						<div class="col-md-2"></div>
-						<div class="col-md-8">
-							<nav aria-label="Pagination">
-								<ul class="pagination justify-content-center">
-									<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
-										<a class="page-link" th:href="@{| /artistas/?page=${prev} |}">Anterior</a>
-									</li>
-							    	<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
-							    		<a class="page-link" th:href="@{| /artistas/?page=${page} |}" th:text="${page}"></a>
-							    	</li>
-							    	<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
-										<a class="page-link" th:href="@{| /artistas/?page=${next} |}">Siguiente</a>
-									</li>
-							  	</ul>
-							</nav>
+						<div class="card col-2 border-0" th:each="artista : ${artistas}">
+							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
+						  	<div class="card-body">
+						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+						 	</div>
 						</div>
-						<div class="col-md-2"></div>
 					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<nav aria-label="Pagination">
+							<ul class="pagination justify-content-center">
+								<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
+									<a class="page-link" th:href="@{| /artistas/?page=${prev} |}">Anterior</a>
+								</li>
+						    	<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
+						    		<a class="page-link" th:href="@{| /artistas/?page=${page} |}" th:text="${page}"></a>
+						    	</li>
+						    	<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+									<a class="page-link" th:href="@{| /artistas/?page=${next} |}">Siguiente</a>
+								</li>
+						  	</ul>
+						</nav>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
 				</div>
 			</div>
 		</section>
