@@ -42,6 +42,18 @@
 	    		color:white;
 	    	}
 	    	
+			#ultimoLanzamiento{ 
+				transition: all .1s ease-in-out;
+			}
+			
+			#ultimoLanzamiento:hover { 
+				transform: scale(0.98);
+				opacity:0.7;
+			}
+			
+			#ultimoLanzamiento a {
+				color: white;
+	    	}
 	    </style>
 	    <script>
 	    	$(function() {
@@ -98,7 +110,7 @@
 		<div class="background-image"></div>
 		
 		<!-- SECTION -->
-		<section class="container my-5">	
+		<section class="container my-5">
 			
 			<div id="contenido" class="row">
 				<img class="col-3 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
@@ -117,17 +129,20 @@
 					<hr style="border-color: grey;"/>
 					<br><br>
 					
-					<div th:if="${ultimoLanzamiento != null}" class="row">
-						<img class="col-2 " th:src="${ultimoLanzamiento.portada}" th:alt="${ultimoLanzamiento.titulo}">
-						<div class="col-9">
-							<p class="col-4">ÚLTIMO LANZAMIENTO</p>
-							<p class="col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
-							<p class="col-5" th:text="${ultimoLanzamiento.fecha_salida}"></p>
-						</div>
-						<div></div>
+					<div id="ultimoLanzamiento" >
+						<a th:href="@{/albumes/{album}(album=${ultimoLanzamiento.id})}">
+							<div th:if="${ultimoLanzamiento != null}" class="row">
+								<img class="col-2 " th:src="${ultimoLanzamiento.portada}" th:alt="${ultimoLanzamiento.titulo}">
+								<div class="col-9">
+									<p class="col-7">ÚLTIMO LANZAMIENTO</p>
+									<p class="col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
+									<p class="col-5" th:text="${ultimoLanzamiento.fecha_salida}"></p>
+								</div>
+							</div>
+						</a>
 					</div>
-					
 				</div>
+				
 			</div>
 			
 			<br><br><br>

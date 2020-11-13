@@ -51,7 +51,7 @@
 			    
 			    <div class="form-group">
 				    <label for="bio" class="font-weight-bold">Biografía</label>
-				    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
+				    <textarea class="form-control" rows="10" id="bio" th:field="*{bio}"></textarea>
 				    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
 			    </div>
 			    
