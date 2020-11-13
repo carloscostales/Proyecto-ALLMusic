@@ -64,7 +64,7 @@
 					<p class="col-9 font-weight-bold">Álbum</p>
 					<div class="col-3">
 						<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
+							<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
 						</div>
 					</div>
 					<h1 class="col-12"><span th:text="${album.titulo}"></span></h1>

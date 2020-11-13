@@ -31,10 +31,10 @@
 			<div class="row">
 				<h2 class="col-9">Lista de Artistas</h2>
 				<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-3">
-					<a type="button" class="btn btn-success" th:href="@{/nuevoArtista}">Añadir un artista</a>
+					<a type="button" class="btn btn-success float-right" th:href="@{/nuevoArtista}">Añadir un artista</a>
 				</div>
 			</div>
-			<div class="mb-5"> <!--  mis datos -->
+			<div class="my-5">
 				
 				<div id="hayArtistas">
 					<div class="row">
@@ -47,6 +47,7 @@
 					</div>
 				</div>
 				
+				<!-- PAGINACIÓN -->
 				<div class="row">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
@@ -65,7 +66,6 @@
 						</nav>
 					</div>
 					<div class="col-md-2"></div>
-				</div>
 				</div>
 			</div>
 		</section>

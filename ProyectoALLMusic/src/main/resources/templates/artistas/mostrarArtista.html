@@ -107,10 +107,10 @@
 						<h1 class="mb-5 col-6"><span th:text="${artista.nombre}"></span></h1>
 					
 						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<a role="button" class="btn btn-info" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
+							<a role="button" class="btn btn-info float-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
 						</div>
 						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
+							<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
 						</div>
 					</div>
 					
