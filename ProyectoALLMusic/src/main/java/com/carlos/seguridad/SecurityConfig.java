@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	        .authorizeRequests()
 	        	.antMatchers("/usuarios").hasAuthority("ADMIN")
 	        	.antMatchers("/artista/editar/**").hasAuthority("ADMIN")
+	        	.antMatchers("/playlists/**").hasAnyAuthority("ADMIN", "USER")
 	        	.antMatchers("/nuevoArtista").hasAuthority("ADMIN")
 	        	.antMatchers("/nuevaPlaylist").hasAnyAuthority("ADMIN", "USER")
 		        .and()    	

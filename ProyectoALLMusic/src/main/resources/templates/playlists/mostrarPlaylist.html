@@ -28,7 +28,8 @@
 		<!-- SECTION -->
 		<section class="container mt-5">
 			
-			<h1 th:text="${playlist.nombre}"></h1>
+			<h1 th:text="${playlist.nombre}"> </h1>
+			<small><span th:text="${numero_canciones}"></span> cancion/es</small>
 			
 			<div class="mb-5"> 
 				
@@ -39,7 +40,7 @@
 							<th>Artista</th>
 							<th>Álbum</th>
 							<th>Duración</th>
-							<th sec:authorize="isAuthenticated()"></th>
+							<th th:if="${owner} == ${usuario.nombreUsuario}">X</th>
 						</tr>
 					<thead>
 					<tbody>
@@ -48,7 +49,7 @@
 							<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${lista.cancion.album.artista.nombre}">artista></span></a></td>
 							<td><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${lista.cancion.album.titulo}">album></span></a></td>
 							<td th:text="${lista.cancion.duracion}">duracion</td>
-							<td sec:authorize="isAuthenticated()"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
+							<td th:if="${owner} == ${usuario.nombreUsuario}"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
 						</tr>
 					</tbody>
 				</table>

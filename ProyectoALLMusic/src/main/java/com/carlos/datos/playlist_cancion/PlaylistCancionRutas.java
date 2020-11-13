@@ -34,9 +34,13 @@ public class PlaylistCancionRutas {
 		
 		mav.addObject("playlist", playlist);
 		
-		List<PlaylistCancion> lista = (List<PlaylistCancion>) pcDAO.findByPlaylist(playlist);
-		mav.addObject("lista", lista);
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + lista);
+		List<PlaylistCancion> listaCanciones = (List<PlaylistCancion>) pcDAO.findByPlaylist(playlist);
+		mav.addObject("lista", listaCanciones);
+		mav.addObject("numero_canciones", listaCanciones.size());
+		if (listaCanciones.size() > 0) {
+			mav.addObject("owner", listaCanciones.get(0).getPlaylist().getUsuario().getNombreUsuario());
+		}
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + listaCanciones);
 		
 		if(auth != null) {
 			System.out.println("nombre: " + auth.getName());
