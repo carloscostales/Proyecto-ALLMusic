@@ -1,5 +1,6 @@
 package com.carlos.datos.albumes;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,14 @@ public class Album {
 	public void setCanciones(List<Cancion> canciones) {
 		this.canciones = canciones;
 	}
+	
+	@Transient
+	public String getPortadaPath() {
+		if (portada == null || this.id == null) return null;
+			
+		return "/artista-fotos/" + artista.getId() + "/album-portadas/" + portada;
+	}
+	
 	
 	@Override
 	public String toString() {

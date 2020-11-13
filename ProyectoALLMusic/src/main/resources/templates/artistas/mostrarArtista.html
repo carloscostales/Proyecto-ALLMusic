@@ -55,21 +55,9 @@
 				color: white;
 	    	}
 	    </style>
-	    <script>
-	    	$(function() {
-	    		
-	    		$('#submit_button').attr('disabled', true);
-	    		
-	    		$("input").blur(function(){
-	    			if( !$('#titulo').val() || !$('#fecha').val() || !$('#portada').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
-	    		    } else {
-	    		    	$('#submit_button').attr('disabled', false);
-	    		    }
-	    		});
-	    	});
-	    	
+	    <script>	
 	    	$(document).ready(function(){
+	    		// Cambia entre las distintas secciones
 	    		$('#albumes').show();
 	    		$('#informacion').hide();
 	    		$('#artistasRel').hide();
@@ -133,7 +121,7 @@
 						<div th:if="${ultimoLanzamiento != null}">
 							<a th:href="@{/albumes/{album}(album=${ultimoLanzamiento.id})}">
 								<div class="row">
-									<img class="col-2 " th:src="${ultimoLanzamiento.portada}" th:alt="${ultimoLanzamiento.titulo}">
+									<img class="col-2 " th:src="@{${ultimoLanzamiento.portadaPath}}" th:alt="${ultimoLanzamiento.titulo}">
 									<div class="col-9">
 										<p class="col-7">ÚLTIMO LANZAMIENTO</p>
 										<p class="col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
@@ -166,7 +154,7 @@
 			
 			<div id="albumes" class="row">
 				<div class="card col-3 border-0" th:each="album : ${listaAlbumes}">
-					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}"></a>
+					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
 				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
@@ -203,7 +191,7 @@
 							<span aria-hidden="true">x</span>
 						</button>
 					</div>
-					<form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post">
+					<form action="#" th:action="@{/addAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="titulo">Título</label>
@@ -217,7 +205,8 @@
 							
 							<div class="form-group">
 								<label for="portada">Portada</label>
-								<input type="text" th:field="*{portada}" class="form-control" id="portada">
+								<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
+								<img id="thumbnail" alt="Logo preview"/>
 							</div>
 							
 							<div class="form-group" hidden>
@@ -234,5 +223,41 @@
 			</div>
 		</div>
 		
+		<script>
+			$(document).ready(function(){
+				// Muestra vista previa de foto en el formulario
+				$('#portada').change(function() {
+					showImageThumbnail(this);
+				});
+				
+			})
+			
+			function showImageThumbnail(fileInput) {
+				file = fileInput.files[0];
+				reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$('#thumbnail').attr('src', e.target.result);
+					$('#thumbnail').attr('width', 200);
+				};
+				
+				reader.readAsDataURL(file);
+			};
+			
+			// Funcion que desactiva el boton hasta que los inputs esten rellenos
+	    	$(function() {
+	    		
+	    		$('#submit_button').attr('disabled', true);
+	    		
+	    		$("input").blur(function(){
+	    			if( !$('#titulo').val() || !$('#fecha').val() || !$('#portada').val() ) {					//if it is blank. 
+	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
+	    		    } else {
+	    		    	$('#submit_button').attr('disabled', false);
+	    		    }
+	    		});
+	    	});
+		
+		</script>
 	</body>
 </html>
