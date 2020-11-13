@@ -95,6 +95,18 @@
 					</tbody>
 				</table>
 			</div>
+			
+			<div class="row">
+				<h3 class="col-12"> Más albumes del artista</h3>
+				<br><br><br>
+				<div class="card col-2 border-0" th:each="album : ${listaAlbumes}">
+					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="${album.portada}" th:alt="${album.titulo}"></a>
+				  	<div class="card-body">
+				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+				 	</div>
+				</div>
+			</div>
 		</section>
 		
 		<!-- Modal -->
