@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.carlos.datos.generos.Genero;
@@ -16,4 +17,7 @@ public interface ArtistaDAO extends JpaRepository<Artista, Integer> {
 	List<Artista> findLast6();
 	
 	List<Artista> findByGenero(Genero genero);
+	
+	@Query(value="SELECT * FROM artista WHERE id!=:id AND genero_nombre=:genero LIMIT 12", nativeQuery=true)
+	List<Artista> findArtistasGenero(@Param("id") Integer id, @Param("genero") String genero);
 }

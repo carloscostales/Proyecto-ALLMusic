@@ -120,6 +120,9 @@ public class ArtistaRutas {
 		Collections.shuffle(artistasPorGenero);
 		
 		mav.addObject("artistasRelacionados", artistasPorGenero);
+		
+		List<Artista> listaExcludeArtista = artistaDAO.findArtistasGenero(artista.getId(), artista.getGenero().getNombre());
+		mav.addObject("listaExcludeArtista", listaExcludeArtista);
         
         if(auth != null) {
 			System.out.println("nombre: " + auth.getName());
