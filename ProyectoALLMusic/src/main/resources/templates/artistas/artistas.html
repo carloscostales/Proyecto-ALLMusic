@@ -29,8 +29,8 @@
 		<!-- SECTION -->
 		<section class="container mt-5">
 			<div class="row">
-				<h2 class="col-9">Lista de Artistas</h2>
-				<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-3">
+				<h2 class="col-lg-9 col-8">Lista de Artistas</h2>
+				<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-3 col-4">
 					<a type="button" class="btn btn-success float-right" th:href="@{/nuevoArtista}">Añadir un artista</a>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 				
 				<div id="hayArtistas">
 					<div class="row">
-						<div class="card col-2 border-0" th:each="artista : ${artistas}">
+						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${artistas}">
 							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 						  	<div class="card-body">
 						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>

@@ -28,17 +28,17 @@
 		
 		<!-- SECTION -->
 		<section class="container">
-			
+			<br>
 			<h1>¡Bienvenido a ALLMusic!</h1>
-			
+			<br><br>
 			<div class="row">
-				<h2 class="col-11">Últimos artistas</h2>
-				<a class="col-1 float-right" th:href="@{/artistas}">Ver más</a>
+				<h2 class="col-lg-11 col-md-10 col-9">Últimos artistas</h2>
+				<a class="col-lg-1 col-md-2 col-3 float-right" th:href="@{/artistas}">Ver más</a>
 			</div>
 			
 			<br>
 			<div class="row">
-				<div class="card col-2 border-0" th:each="artista : ${ultimosArtistas}">
+				<div class="card col-lg-2 col-md-4 col-6 border-0" th:each="artista : ${ultimosArtistas}">
 					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
@@ -48,12 +48,12 @@
 			<br>
 			
 			<div class="row">
-				<h2 class="col-11">Álbumes recientes</h2>
-				<a class="col-1 float-right" th:href="@{/albumes}">Ver más</a>
+				<h2 class="col-lg-11 col-md-10 col-9">Álbumes recientes</h2>
+				<a class="col-lg-1 col-md-2 col-3 float-right" th:href="@{/albumes}">Ver más</a>
 			</div>
 			<br>
 			<div class="row">
-				<div class="card col-2 border-0" th:each="album : ${ultimosAlbumes}">
+				<div class="card col-lg-2 col-md-4 col-6 border-0" th:each="album : ${ultimosAlbumes}">
 					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>

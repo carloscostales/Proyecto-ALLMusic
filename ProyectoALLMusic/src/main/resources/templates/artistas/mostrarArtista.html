@@ -54,6 +54,10 @@
 			#ultimoLanzamiento a {
 				color: white;
 	    	}
+	    	
+	    	#descripcion {
+	    		white-space: pre-wrap;
+	    	}
 	    </style>
 	    <script>	
 	    	$(document).ready(function(){
@@ -100,17 +104,17 @@
 		<!-- SECTION -->
 		<section class="container my-5">	
 			
-			<div id="contenido" class="row">
-				<img class="col-3 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
-				<div class="col-9 mb-5">
+			<div id="contenido" class="row mb-lg-5 mb-md-4">
+				<img class="col-lg-3 col-md-5 col-5 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
+				<div class="col-lg-9 col-md-7 col-7 mb-5">
 					<div class="row">
-						<h1 class="mb-5 col-6"><span th:text="${artista.nombre}"></span></h1>
+						<h1 class="mb-5 col-lg-6 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
 					
-						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<a role="button" class="btn btn-info float-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
+						<div class="col-lg-3 col-md-6 col-12 mb-lg-0 mb-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<a role="button" class="btn btn-info float-lg-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
 						</div>
-						<div class="col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
+						<div class="col-lg-3 col-md-6 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<button type="button" class="btn btn-secondary float-lg-right" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
 						</div>
 					</div>
 					
@@ -121,11 +125,11 @@
 						<div th:if="${ultimoLanzamiento != null}">
 							<a th:href="@{/albumes/{album}(album=${ultimoLanzamiento.id})}">
 								<div class="row">
-									<img class="col-2 " th:src="@{${ultimoLanzamiento.portadaPath}}" th:alt="${ultimoLanzamiento.titulo}">
-									<div class="col-9">
-										<p class="col-7">ÚLTIMO LANZAMIENTO</p>
-										<p class="col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
-										<small class="col-5" th:text="${ultimoLanzamiento.fecha_salida}"></small>
+									<img class="col-lg-2 col-md-4 col-6" th:src="@{${ultimoLanzamiento.portadaPath}}" th:alt="${ultimoLanzamiento.titulo}">
+									<div class="col-lg-9 col-md-8 col-9">
+										<small class="col-lg-7 col-12 mb-5">ÚLTIMO LANZAMIENTO</small>
+										<p class="col-lg-12 col-12 font-weight-bold" th:text="${ultimoLanzamiento.titulo}"></p>
+										<small class="col-lg-12 col-md-12 col-12" th:text="${ultimoLanzamiento.fecha_salida}"></small>
 									</div>
 								</div>
 							</a>
@@ -136,9 +140,7 @@
 				
 			</div>
 			
-			<br><br><br>
-			
-			<ul class="list-group list-group-horizontal">
+			<ul class="list-group list-group-horizontal flex-column flex-sm-row">
 				<li class="list-group-item border-0">
 					<h3 id="linkAlbumes"><a href="#listaAlbum">Álbumes</a></h3>
 				</li>
@@ -153,7 +155,7 @@
 			<br>
 			
 			<div id="albumes" class="row">
-				<div class="card col-3 border-0" th:each="album : ${listaAlbumes}">
+				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaAlbumes}">
 					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
@@ -166,11 +168,11 @@
 				<p><strong>Nombre: </strong><span th:text="${artista.nombre}"></span></p>
 				<p><strong>Origen: </strong><span th:text="${artista.origen}"></span></p>
 				<p><strong>Género: : </strong><span th:text="${artista.genero.nombre}"></span></p>
-				<p><strong>Descripción: : </strong><span th:text="${artista.bio}"></span></p>
+				<p id="descripcion" class="text-justify"><strong>Descripción: : </strong><span th:text="${artista.bio}"></span></p>
 			</div>
 			
 			<div id="artistasRel" class="row">
-				<div class="card col-2 border-0" th:each="artista : ${listaExcludeArtista}">
+				<div class="card col-lg-2 col-md-3 col-4 border-0" th:each="artista : ${listaExcludeArtista}">
 					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="${artista.fotoPath}" th:alt="${artista.nombre}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>

@@ -58,30 +58,36 @@
 
 		<!-- SECTION -->
 		<section class="container mt-5">
-			<div class="row mb-5">
-				<img class="col-3" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}">
-				<div class="col-9 row align-items-center">
-					<p class="col-9 font-weight-bold">Álbum</p>
-					<div class="col-3">
-						<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
+			<div class="row">
+				<div class="col-lg-3 col-md-5 col-12">
+					<img class="col-lg-12 col-md-12 col-12" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}">
+				</div>
+				<div class="col-lg-9 col-md-7 col-12 mt-lg-0 mt-sm-0 mt-5">
+					<div class="row mb-5">
+						<div class="col-lg-12 col-md-12 col-12 row align-items-center">
+							<small class="col-lg-8 col-md-6 col-6 font-weight-bold">ÁLBUM</small>
+							<div class="col-lg-4 col-md-6 col-6">
+								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
+								</div>
+							</div>
+							<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
+							<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
+							<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}"></span></p>
+							<p class="col-lg-12 col-md-12 col-12"><span th:text="${numero_canciones}"></span> canciones</p>
 						</div>
 					</div>
-					<h1 class="col-12"><span th:text="${album.titulo}"></span></h1>
-					<p class="col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
-					<p class="col-12"><span th:text="${album.fecha_salida}"></span></p>
-					<p class="col-12"><span th:text="${numero_canciones}"></span> canciones</p>
 				</div>
-			</div>	
+			</div>
 			
 			<!--  CANCIONES  -->
-			<div class="mb-5"> 
+			<div class="mb-5">
 				<table class="table table-hover ">
 					<thead>
 						<tr>
 							<th>No.º</th>
-							<th>Título</th>
-							<th>Duración</th>
+							<th>TÍTULO</th>
+							<th class="d-lg-table-cell d-md-table-cell d-none">DURACIÓN</th>
 							<th sec:authorize="isAuthenticated()"></th>
 						</tr>
 					<thead>
@@ -89,7 +95,7 @@
 						<tr th:each="cancion : ${canciones}">
 							<td th:text="${cancion.numero}">numero</td>
 							<td th:text="${cancion.titulo}">titulo</td>
-							<td th:text="${cancion.duracion}">duracion</td>
+							<td th:text="${cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
 							<td sec:authorize="isAuthenticated()"><a type="button" class="btn btn-secondary btn-sm" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}">Add</a></td>
 						</tr>
 					</tbody>
@@ -97,9 +103,9 @@
 			</div>
 			
 			<div class="row">
-				<h3 class="col-12"> Más álbumes del artista</h3>
+				<h3 class="col-lg-12"> Más álbumes del artista</h3>
 				<br><br><br>
-				<div class="card col-2 border-0" th:each="album : ${listaAlbumes}">
+				<div class="card col-lg-2 col-md-4 col-6 border-0" th:each="album : ${listaAlbumes}">
 					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
