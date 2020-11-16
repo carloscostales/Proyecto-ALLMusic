@@ -54,7 +54,7 @@ public class RutasGenericas {
 		mav.addObject("ultimosArtistas", ultimosArtistas);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
+			// System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 

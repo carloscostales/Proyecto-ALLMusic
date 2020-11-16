@@ -44,7 +44,6 @@ public class UsuarioRutas {
 		mav.addObject("usuarios", listaUsuarios);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.carlos.datos.artistas.Artista;
 import com.carlos.datos.canciones.Cancion;
 import com.carlos.datos.canciones.CancionDAO;
 import com.carlos.datos.usuarios.Usuario;
@@ -50,7 +49,6 @@ public class AlbumRutas {
 		mav.addObject("albumes", listaAlbumes);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
@@ -83,16 +81,12 @@ public class AlbumRutas {
 			listaAlbumesCorta = listaAlbumes.subList(0, 6);
 		}
 		
-		
-		
-		
 		mav.addObject("listaAlbumes", listaAlbumesCorta);
 		
 		
 		mav.addObject("cancion", new Cancion());
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}

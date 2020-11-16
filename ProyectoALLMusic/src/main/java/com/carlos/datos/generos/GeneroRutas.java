@@ -32,7 +32,6 @@ public class GeneroRutas {
 		mav.addObject("genero", new Genero());
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}

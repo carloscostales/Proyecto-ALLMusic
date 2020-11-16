@@ -43,7 +43,6 @@ public class PlaylistCancionRutas {
 		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + listaCanciones);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
@@ -60,7 +59,6 @@ public class PlaylistCancionRutas {
 		mav.addObject("cancion", cancion);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 			
@@ -88,7 +86,6 @@ public class PlaylistCancionRutas {
 		mav.setViewName("redirect:/playlists/" + pc.getPlaylist().getId());
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 			

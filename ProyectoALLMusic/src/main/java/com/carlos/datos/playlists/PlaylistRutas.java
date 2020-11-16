@@ -23,7 +23,6 @@ public class PlaylistRutas {
 		mav.addObject("playlist", new Playlist());
 		
 		if (auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}

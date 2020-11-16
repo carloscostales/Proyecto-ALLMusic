@@ -88,7 +88,6 @@ public class ArtistaRutas {
 		
 		
 		if (auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
@@ -125,7 +124,6 @@ public class ArtistaRutas {
 		mav.addObject("listaExcludeArtista", listaExcludeArtista);
         
         if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
@@ -144,7 +142,6 @@ public class ArtistaRutas {
 		mav.addObject("generos",listaGeneros);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
@@ -196,7 +193,6 @@ public class ArtistaRutas {
 		mav.addObject("generos",listaGeneros);
 		
 		if(auth != null) {
-			System.out.println("nombre: " + auth.getName());
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
