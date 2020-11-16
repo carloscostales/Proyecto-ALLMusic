@@ -40,25 +40,26 @@
 			  	<div class="form-group">
 				    <label for="artist" class="font-weight-bold">Nombre</label>
 				    <input type="text" class="form-control" id="artist" th:field="*{nombre}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 			    </div>
 			    
 				<div class="form-group">
 				    <label for="origen" class="font-weight-bold">Origen</label>
 				    <input type="text" class="form-control" id="origen" th:field="*{origen}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('origen')}" th:errors="*{origen}"></small>
 			    </div>
 			    
 			    <div class="form-group">
 				    <label for="bio" class="font-weight-bold">Biografía</label>
 				    <textarea class="form-control" rows="10" id="bio" th:field="*{bio}"></textarea>
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></small>
 			    </div>
 			    
-			    <div class="form-group">
+			    <div class="form-group d-none">
 				    <label for="foto" class="font-weight-bold">Foto</label>
 				    <input type="text" class="form-control" id="foto" th:field="*{foto}">
-				    <small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></small>
+			    </div>
+			    
+			    <div class="form-group d-none">
+				    <label for="foto_fondo" class="font-weight-bold">Foto</label>
+				    <input type="text" class="form-control" id="foto" th:field="*{foto_fondo}">
 			    </div>
 
 			    <div class="form-group">

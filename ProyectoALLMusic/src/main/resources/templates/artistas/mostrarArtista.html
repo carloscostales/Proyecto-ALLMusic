@@ -31,6 +31,11 @@
   				width: 100%;
   				height: 480px;
 				box-shadow: inset 0 -60px 50px #282828;
+				 opacity:0.4;
+	    	}
+	    	
+	    	#nombre {
+	    		font-size: 50px;
 	    	}
 	    	
 	    	.listaActivo {
@@ -112,11 +117,14 @@
 						<div class="col-lg-12 col-md-12 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 							<a type="button" class=" badge badge-info" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
 						</div>
+						<div class="col-lg-12 col-md-12 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<a type="button" class=" badge badge-info" data-toggle="modal" data-target="#cambiarFotoFondo">Cambiar foto fondo</a>
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-9 col-md-7 col-7 mb-5">
 					<div class="row">
-						<h1 class="mb-5 col-lg-6 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
+						<h1 id="nombre" class="mb-5 col-lg-6 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
 					
 						<div class="col-lg-3 col-md-6 col-12 mb-lg-0 mb-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 							<a role="button" class="btn btn-info float-lg-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
@@ -126,7 +134,6 @@
 						</div>
 					</div>
 					
-					<hr style="border-color: grey;"/>
 					<br><br>
 					
 					<div id="ultimoLanzamiento" >
@@ -270,7 +277,60 @@
 								<label for="genero">Género</label>
 								<input type="text" th:field="*{genero}" class="form-control" id="genero">
 							</div>
-							<img id="fotoThumbnail" class="rounded-circle" alt="Logo preview" th:src="*{fotoPath}" width="300"/>
+							<img id="fotoThumbnail" class="rounded-circle" alt="Vista previa foto" th:src="*{fotoPath}" width="300"/>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" id="submit_button">Guardar</button>
+						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="cambiarFotoFondo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Cambiar foto de fondo</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<form action="#" th:action="@{/updateArtistaFotoFondo}" th:object="${artista}" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="foto_fondo">Foto fondo</label>
+								<input type="file" th:field="*{foto_fondo}" class="form-control-file" id="foto_fondo" accept="image/png, image/jpeg">
+								<small>Foto actual:</small>
+							</div>
+							<div class="form-group d-none">
+								<label for="id">Id</label>
+								<input type="text" th:field="*{id}" class="form-control" id="id">
+							</div>
+							<div class="form-group d-none">
+								<label for="nombre">Nombre</label>
+								<input type="text" th:field="*{nombre}" class="form-control" id="nombre">
+							</div>
+							<div class="form-group d-none">
+								<label for="origen">Origen</label>
+								<input type="text" th:field="*{origen}" class="form-control" id="origen">
+							</div>
+							<div class="form-group d-none">
+							    <label for="bio" class="font-weight-bold">Biografía</label>
+							    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
+						    </div>
+							<div class="form-group d-none">
+								<label for="foto">Foto</label>
+								<input type="text" th:field="*{foto}" class="form-control-file" id="foto" accept="image/png, image/jpeg">
+							</div>
+							<div class="form-group d-none">
+								<label for="genero">Género</label>
+								<input type="text" th:field="*{genero}" class="form-control" id="genero">
+							</div>
+							<img id="fotoFondoThumbnail" alt="Vista previa foto de fondo" th:src="*{fotoFondoPath}" width="300"/>
 							
 						</div>
 						<div class="modal-footer">
@@ -291,6 +351,10 @@
 				
 				$('#foto').change(function() {
 					showImageThumbnail2(this);
+				});
+				
+				$('#foto_fondo').change(function() {
+					showImageThumbnail3(this);
 				});
 				
 			})
@@ -314,6 +378,18 @@
 				reader.onload = function(e) {
 					$('#fotoThumbnail').attr('src', e.target.result);
 					$('#fotoThumbnail').attr('width', 200);
+				};
+				
+				reader.readAsDataURL(file);
+			};
+			
+			function showImageThumbnail3(fileInput) {
+				file = fileInput.files[0];
+				reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$('#fotoFondoThumbnail').attr('src', e.target.result);
+					$('#fotoFondoThumbnail').attr('width', 200);
 				};
 				
 				reader.readAsDataURL(file);
