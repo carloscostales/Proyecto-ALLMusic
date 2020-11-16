@@ -111,7 +111,6 @@ public class ArtistaRutas {
 		if(!listaAlbumes.isEmpty()) {
 			Album ultimo = listaAlbumes.get(0);
 			mav.addObject("ultimoLanzamiento", ultimo);
-			System.out.println("ULTIMO LANZAMIENTO ---------------------------------------" + ultimo);
 		}
 		
 		List<Artista> artistasPorGenero = artistaDAO.findByGenero(artista.getGenero());

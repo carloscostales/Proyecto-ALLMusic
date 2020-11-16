@@ -33,6 +33,9 @@ public class Artista {
 	@Column
 	private String foto;
 	
+	@Column
+	private String foto_fondo;
+
 	@Column(length=4000)
 	private String bio;
 
@@ -83,6 +86,14 @@ public class Artista {
 		this.foto = foto;
 	}
 	
+	public String getFoto_fondo() {
+		return foto_fondo;
+	}
+
+	public void setFoto_fondo(String foto_fondo) {
+		this.foto_fondo = foto_fondo;
+	}
+	
 	public String getBio() {
 		return bio;
 	}
@@ -114,10 +125,17 @@ public class Artista {
 		return "/artista-fotos/" + id + "/" + foto;
 	}
 	
+	@Transient
+	public String getFotoFondoPath() {
+		if (foto_fondo == null || id == null) return null;
+			
+		return "/artista-fotos/" + id + "/" + foto_fondo;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "Artista [id=" + id + ", nombre=" + nombre + ", origen=" + origen + ", genero=" + genero + "]";
+		return "Artista [id=" + id + ", nombre=" + nombre + ", origen=" + origen + ", genero=" + genero + ", foto=" + getFotoPath() + ", foto_fondo=" + getFotoFondoPath() + "]";
 	}
 	
 }

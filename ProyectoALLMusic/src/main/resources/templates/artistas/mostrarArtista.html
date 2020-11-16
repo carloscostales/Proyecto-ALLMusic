@@ -26,12 +26,11 @@
 			  	right: 0;
 			  	z-index: -1;
 			  	display: block;
-			  	background-image: url('https://media.pitchfork.com/photos/5e6137c340430a0008960757/2:1/w_5294,h_2647,c_limit/Lil-Uzi-Vert.jpg');
 	    		background-repeat: no-repeat;
   				background-size: cover;
-  				filter: blur(10px);
   				width: 100%;
-  				height: 400px;
+  				height: 480px;
+				box-shadow: inset 0 -60px 50px #282828;
 	    	}
 	    	
 	    	.listaActivo {
@@ -99,8 +98,10 @@
 		<!-- NAVEGADOR -->
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
-		<div class="background-image" style="background-image: url('https://media.pitchfork.com/photos/5e6137c340430a0008960757/2:1/w_5294,h_2647,c_limit/Lil-Uzi-Vert.jpg');"></div>
-		
+		<div class="background-image">
+			<img id="foto-fondo" class="d-none" th:src="${artista.fotoFondoPath}">
+		</div>
+				
 		<!-- SECTION -->
 		<section class="container my-5">	
 			
@@ -331,6 +332,12 @@
 	    		    }
 	    		});
 	    	});
+			
+			$(document).ready(function(){
+				fondo=$("#foto-fondo").attr('src');
+				
+				$(".background-image").css("background-image", "url('"+fondo+"')");
+			})
 		
 		</script>
 	</body>
