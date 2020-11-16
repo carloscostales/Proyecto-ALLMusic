@@ -205,15 +205,6 @@ public class ArtistaRutas {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		if(bindingResult.hasErrors()) {
-			mav.setViewName("artistas/nuevoArtista");
-
-			List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
-			mav.addObject("generos",listaGeneros);
-			
-			return mav;
-		}
-		
 		artistaDAO.save(artista);
 		
 		mav.setViewName("redirect:/artistas/" + artista.getId());
@@ -222,4 +213,38 @@ public class ArtistaRutas {
 		
 	}
 	
+	@PostMapping("/updateArtistaFoto")
+	private ModelAndView editarArtistaFotoPost(@ModelAttribute Artista artista, BindingResult bindingResult, Authentication auth,
+			@RequestParam("foto") MultipartFile multipartFile) throws IOException {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+		artista.setFoto(fileName);
+		
+		Artista savedArtista = artistaDAO.save(artista);
+		
+		String uploadDir = "./artista-fotos/" + savedArtista.getId();
+		
+		Path uploadPath = Paths.get(uploadDir);
+		
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH -------------------------------------------------------------------- " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			
+		}
+		
+		mav.setViewName("redirect:/");
+		
+		return mav;
+		
+	}
+
 }
