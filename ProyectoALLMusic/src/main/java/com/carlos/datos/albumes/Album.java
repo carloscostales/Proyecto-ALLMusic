@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 
 import com.carlos.datos.artistas.Artista;
 import com.carlos.datos.canciones.Cancion;
+import com.carlos.enums.TipoAlbumModel;
 
 @Entity
 public class Album {
@@ -32,6 +35,10 @@ public class Album {
 	
 	@Column
 	private String portada;
+	
+	@Column
+	@Enumerated(EnumType.STRING)
+	private TipoAlbumModel tipo_album;
 
 	@ManyToOne
 	private Artista artista = new Artista();
@@ -78,6 +85,14 @@ public class Album {
 	public void setPortada(String portada) {
 		this.portada = portada;
 	}
+	
+	public TipoAlbumModel getTipo_album() {
+		return tipo_album;
+	}
+
+	public void setTipo_album(TipoAlbumModel tipo_album) {
+		this.tipo_album = tipo_album;
+	}
 
 	public Artista getArtista() {
 		return artista;
@@ -101,11 +116,12 @@ public class Album {
 			
 		return "/artista-fotos/" + artista.getId() + "/album-portadas/" + portada;
 	}
-	
+
 	
 	@Override
 	public String toString() {
-		return "Album [id=" + id + ", titulo=" + titulo + ", fecha_salida=" + fecha_salida + ", artista=" + artista + "]";
+		return "Album [id=" + id + ", titulo=" + titulo + ", fecha_salida=" + fecha_salida + ", portada=" + portada
+				+ ", tipo_album=" + tipo_album + ", artista=" + artista + ", canciones=" + canciones + "]";
 	}
 	
 }

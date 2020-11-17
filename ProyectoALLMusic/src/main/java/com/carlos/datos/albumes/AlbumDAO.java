@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.carlos.datos.artistas.Artista;
@@ -17,4 +18,7 @@ public interface AlbumDAO extends CrudRepository<Album, Integer> {
     // Saca los últimos 6 álbumes agregados a la base de datos
     @Query(value="SELECT* FROM album ORDER BY id DESC LIMIT 6", nativeQuery = true)
     List<Album> findLast6();
+    
+    @Query(value="SELECT* FROM album WHERE artista_id=:id AND tipo_album=:tipo", nativeQuery=true)
+    List<Album> findAllByTipo_album(@Param("id") Integer id, @Param("tipo") String tipo);
 }

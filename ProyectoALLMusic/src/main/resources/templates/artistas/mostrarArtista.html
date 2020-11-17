@@ -152,12 +152,11 @@
 					</div>
 					
 				</div>
-				
 			</div>
 			
 			<ul class="list-group list-group-horizontal flex-column flex-sm-row">
 				<li class="list-group-item border-0">
-					<h3 id="linkAlbumes"><a href="#listaAlbum">Álbumes</a></h3>
+					<h3 id="linkAlbumes"><a href="#listaAlbum">Lanzamientos</a></h3>
 				</li>
 				<li class="list-group-item border-0">
 					<h3 id="linkInfo"><a href="#listaInfo">Información</a></h3>
@@ -170,11 +169,34 @@
 			<br>
 			
 			<div id="albumes" class="row">
-				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaAlbumes}">
-					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
-				  	<div class="card-body">
-				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
-				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+				<div class="col-12">
+					<h3 class="col-12">Álbumes</h3>
+					<hr style="border-color:white">
+				</div>
+				<hr style="border:15px; border-color:red">
+				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoAlbum}">
+					<div>
+						<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
+					  	<div class="card-body">
+					    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+					    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+					    	<p th:text="${album.tipo_album}" class="card-text"></p>
+					 	</div>
+					</div>
+				</div>
+				
+				<div class="col-12">
+					<h3 class="col-12">Sencillos y EP</h3>
+					<hr style="border-color:white">
+				</div>
+				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoSingle}">
+					<div>
+						<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
+					  	<div class="card-body">
+					    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+					    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+					    	<p th:text="${album.tipo_album}" class="card-text"></p>
+					 	</div>
 				 	</div>
 				</div>
 			</div>
@@ -221,11 +243,23 @@
 							</div>
 							
 							<div class="form-group">
+								<label>Tipo de album</label>
+								<div class="form-check">
+						            <div th:each="enum : ${T(com.carlos.enums.TipoAlbumModel).values()}">
+						                <div>
+						                    <input type="radio" th:field="*{tipo_album}" th:value="${enum}" class="form-check-input">
+						                    <label th:for="${enum}" class="form-check-label" th:text="${enum}"></label>
+						                </div>
+						            </div>
+								</div>
+							</div>
+							
+							<div class="form-group">
 								<label for="portada">Portada</label>
 								<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
 								<img id="thumbnail" alt="Logo preview"/>
 							</div>
-							
+
 							<div class="form-group" hidden>
 								<label for="artista">Artista</label>
 								<input type="text" th:value="${artista.id}" name="artista" id="artista"/>

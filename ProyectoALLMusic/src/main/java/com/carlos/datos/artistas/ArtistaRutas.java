@@ -34,6 +34,7 @@ import com.carlos.datos.albumes.AlbumDAO;
 import com.carlos.datos.generos.Genero;
 import com.carlos.datos.generos.GeneroDAO;
 import com.carlos.datos.usuarios.Usuario;
+import com.carlos.enums.TipoAlbumModel;
 import com.carlos.paginacion.ArtistaServiceAPI;
 import com.carlos.servicios.ComparatorFecha;
 
@@ -111,14 +112,19 @@ public class ArtistaRutas {
 		if(!listaAlbumes.isEmpty()) {
 			Album ultimo = listaAlbumes.get(0);
 			mav.addObject("ultimoLanzamiento", ultimo);
+			
+			List<Album> listaTipoAlbum = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.ALBUM.toString());
+			mav.addObject("listaTipoAlbum", listaTipoAlbum);
+			List<Album> listaTipoSingle = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.SINGLE.toString());
+			mav.addObject("listaTipoSingle", listaTipoSingle);
 		}
 		
+		// Artistas con el mismo género que el artista de la ruta
 		List<Artista> artistasPorGenero = artistaDAO.findByGenero(artista.getGenero());
-		
 		Collections.shuffle(artistasPorGenero);
-		
 		mav.addObject("artistasRelacionados", artistasPorGenero);
 		
+		// Lista de artistas del mismo género excluyendo el artista de la ruta
 		List<Artista> listaExcludeArtista = artistaDAO.findArtistasGenero(artista.getId(), artista.getGenero().getNombre());
 		mav.addObject("listaExcludeArtista", listaExcludeArtista);
         
@@ -126,6 +132,7 @@ public class ArtistaRutas {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
+        
 
 		return mav;
 		
