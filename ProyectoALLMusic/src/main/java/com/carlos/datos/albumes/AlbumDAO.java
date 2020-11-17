@@ -16,9 +16,14 @@ public interface AlbumDAO extends CrudRepository<Album, Integer> {
     List<Album> findByArtista(Artista artista);
     
     // Saca los últimos 6 álbumes agregados a la base de datos
-    @Query(value="SELECT* FROM album ORDER BY id DESC LIMIT 6", nativeQuery = true)
+    @Query(value="SELECT * FROM album ORDER BY id DESC LIMIT 6", nativeQuery = true)
     List<Album> findLast6();
-    
-    @Query(value="SELECT* FROM album WHERE artista_id=:id AND tipo_album=:tipo", nativeQuery=true)
+    // Saca los albumes de un artista y tipo en concreto
+    @Query(value="SELECT * FROM album WHERE artista_id=:id AND tipo_album=:tipo", nativeQuery=true)
     List<Album> findAllByTipo_album(@Param("id") Integer id, @Param("tipo") String tipo);
+    
+    // Saca todos los albumes de un artista excepto uno, el contenido por el id
+    @Query(value="SELECT* FROM album WHERE artista_id=:artista_id AND id!=:id", nativeQuery=true)
+    List<Album> findTodosMenosUnoArtista(@Param("artista_id") Integer artista_id, @Param("id") Integer id);
+
 }

@@ -71,7 +71,7 @@ public class AlbumRutas {
 		int contador = listaCanciones.size();
 		mav.addObject("numero_canciones", contador);
 		
-		List<Album> listaAlbumes = albumDAO.findByArtista(album.getArtista());
+		List<Album> listaAlbumes = albumDAO.findTodosMenosUnoArtista(album.getArtista().getId(), album.getId());
 		List<Album> listaAlbumesCorta = null;
 		Collections.shuffle(listaAlbumes);
 		
@@ -136,12 +136,12 @@ public class AlbumRutas {
 		
 		albumDAO.save(album);
 		
-		return "redirect:/album/" + album.getId();
+		return "redirect:/albumes/" + album.getId();
 		
 	}
 	
-	@PostMapping("/updateFotoAlbum")
-	private String rutaActualizarFotoAlbum(@ModelAttribute Album album, BindingResult bindingResult, @RequestParam("portada")  MultipartFile multipartFile) throws IOException {
+	@PostMapping("/updatePortadaAlbum")
+	private String rutaActualizarPortadaAlbum(@ModelAttribute Album album, BindingResult bindingResult, @RequestParam("portada")  MultipartFile multipartFile) throws IOException {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
@@ -162,10 +162,10 @@ public class AlbumRutas {
 			System.out.println("FILEPATH -> " + filePath.toFile().getAbsolutePath());
 			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
 		} catch (IOException e) {
-			throw new IOException("No se guardo el archivo subido: " + fileName);
+			
 		}
 		
-		return "redirect:/album/" + album.getId();
+		return "redirect:/albumes/" + album.getId();
 		
 	}
 	

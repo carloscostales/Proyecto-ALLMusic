@@ -110,12 +110,16 @@ public class ArtistaRutas {
 		mav.addObject("listaAlbumes", listaAlbumes);
 		
 		if(!listaAlbumes.isEmpty()) {
+			// Ultimo lanzamiento del artista
 			Album ultimo = listaAlbumes.get(0);
 			mav.addObject("ultimoLanzamiento", ultimo);
 			
+			// Albumes por tipo. Ordenacion por fecha
 			List<Album> listaTipoAlbum = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.ALBUM.toString());
+			listaTipoAlbum.sort(new ComparatorFecha());
 			mav.addObject("listaTipoAlbum", listaTipoAlbum);
 			List<Album> listaTipoSingle = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.SINGLE.toString());
+			listaTipoSingle.sort(new ComparatorFecha());
 			mav.addObject("listaTipoSingle", listaTipoSingle);
 		}
 		

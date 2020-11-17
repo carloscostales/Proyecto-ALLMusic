@@ -19,6 +19,39 @@
 		
 		<!-- CSS y JS -->
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
+		<style>
+			#cambiarFoto {
+				position:absolute;
+				left: -90px;
+				top: -10px;
+			}
+			
+			#containerImagen .image {
+				transition: .5s ease;
+				backface-visibility: hidden;
+				opacity: 1;
+				
+			}
+			
+			.middle {
+				transition: .5s ease;
+				opacity: 0;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				text-align: center;
+			}
+						
+			#containerImagen:hover .image{
+ 				opacity: 0.3;
+			}
+			
+			#containerImagen:hover .middle {
+ 				opacity: 1;
+			}
+		</style>
 		<script>
 			$(function() {
 	    		
@@ -59,33 +92,42 @@
 		<!-- SECTION -->
 		<section class="container mt-5">
 			<div class="row">
-				<div class="col-lg-3 col-md-5 col-12">
-					<img class="col-lg-12 col-md-12 col-12" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}">
+				<div id="containerImagen" class="col-lg-3 col-md-5 col-12">
+					<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+						<img class="col-lg-12 col-md-12 col-12 image" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}">
+						<a type="button" class="middle" data-toggle="modal" data-target="#cambiarPortada">Cambiar portada</a>
+					</div>
+					<div th:if="(!${#authorization.expression('hasAuthority(''ADMIN'')')})">
+						<img class="col-lg-12 col-md-12 col-12" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}">
+					</div>
 				</div>
 				<div class="col-lg-9 col-md-7 col-12 mt-lg-0 mt-sm-0 mt-5">
 					<div class="row mb-5">
 						<div class="col-lg-12 col-md-12 col-12">
-							<div class="row align-items-center">
-								<div th:if="${numero_canciones <=3}">
-									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">SENCILLO</small>
+							<div class="row ">
+								<div th:if="${numero_canciones <=3}" class="col-lg-2 col-md-2 col-2 font-weight-bold"	>
+									<small >SENCILLO</small>
 								</div>
-								<div th:if="${numero_canciones >3 and numero_canciones <=7}">
-									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">EP</small>
+								<div th:if="${numero_canciones > 3 and numero_canciones <= 7}"class="col-lg-2 col-md-2 col-2 font-weight-bold">
+									<small >EP</small>
 								</div>
-								<div th:if="${numero_canciones > 7}">
-									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">ÁLBUM</small>
+								<div th:if="${numero_canciones > 7}"  class="col-lg-2 col-md-2 col-2 font-weight-bold">
+									<small>ÁLBUM</small>
 								</div>
-								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-7 col-md-5 col-5">
-									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Editar álbum</button>
+
+								<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
+								<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
+								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}">fecha</span></p>
+								<p class="col-lg-3 col-md-2 col-3"><span th:text="${numero_canciones}"></span> canciones</p>
+								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-6 col-md-5 col-4">
+									<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#editarAlbum">Editar álbum</button>
 								</div>
 								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-3 col-md-5 col-5">
 									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
 								</div>
-								<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
-								<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
-								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}"></span></p>
-								<p class="col-lg-12 col-md-12 col-12"><span th:text="${numero_canciones}"></span> canciones</p>
-								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.tipo_album}"></span></p>
+								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" id="cambiarFoto">
+									<a type="button" class="badge badge-primary" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
+								</div>
 							</div>
 							
 						</div>
@@ -123,6 +165,7 @@
 				  	<div class="card-body">
 				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
 				    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+				    	<p th:text="${album.tipo_album}" class="text-muted"></p>
 				 	</div>
 				</div>
 			</div>
@@ -183,17 +226,25 @@
 					<form action="#" th:action="@{/updateAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 							<div class="form-group">
+								<label for="titulo">Título</label>
+								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
+							</div>
+							<div class="form-group">
+							    <label for="fecha_salida" class="font-weight-bold">Fecha salida</label>
+								<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha_salida">
+						    </div>
+						    <div class="form-group d-none">
 								<label for="id">Id</label>
 								<input type="text" th:field="*{id}" class="form-control" id="id">
 							</div>
-							<div class="form-group">
-								<label for="titulo">Titulo</label>
-								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
-							</div>
-							<div class="form-group d-none">
-							    <label for="fecha_salida" class="font-weight-bold">Fecha salida</label>
-								<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha_salida">
-						    </div>							
+						    <div class="form-group d-none">
+							    <label for="artista" class="font-weight-bold">Artista</label>
+								<input type="text" th:field="*{artista}" class="form-control" id="artista">
+						    </div>
+						    <div class="form-group d-none">
+							    <label for="portadaAlbum" class="font-weight-bold">Portada</label>
+								<input type="text" th:field="*{portada}" class="form-control" id="portadaAlbum">
+						    </div>
 						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary" id="submit_button">Guardar</button>
@@ -203,6 +254,72 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="cambiarPortada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Cambiar portada</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<form action="#" th:action="@{/updatePortadaAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="portada">Portada</label>
+								<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
+								<small>Portada actual:</small>
+							</div>
+							 <div class="form-group d-none">
+								<label for="id">Id</label>
+								<input type="text" th:field="*{id}" class="form-control" id="id">
+							</div>
+							<div class="form-group d-none">
+								<label for="titulo">Título</label>
+								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
+							</div>
+							<div class="form-group d-none">
+							    <label for="fecha_salida" class="font-weight-bold">Fecha salida</label>
+								<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha_salida">
+						    </div>
+						    <div class="form-group d-none">
+							    <label for="artista" class="font-weight-bold">Artista</label>
+								<input type="text" th:field="*{artista}" class="form-control" id="artista">
+						    </div>
+							<img id="portadaThumbnail" alt="Vista previa foto" th:src="*{portadaPath}" width="300"/>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" id="submit_button">Guardar</button>
+						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
 	
+		<script>
+			$(document).ready(function(){
+				// Muestra vista previa de foto en el formulario
+				$('#portada').change(function() {
+					showImageThumbnail2(this);
+				});
+			});
+			
+			function showImageThumbnail2(fileInput) {
+				file = fileInput.files[0];
+				reader = new FileReader();
+				
+				reader.onload = function(e) {
+					$('#portadaThumbnail').attr('src', e.target.result);
+					$('#portadaThumbnail').attr('width', 200);
+				};
+				
+				reader.readAsDataURL(file);
+			};
+		</script>
 	</body>
 </html>

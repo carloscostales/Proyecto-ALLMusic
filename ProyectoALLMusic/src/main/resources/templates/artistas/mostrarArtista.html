@@ -168,35 +168,37 @@
 			<br>
 			<br>
 			
-			<div id="albumes" class="row">
-				<div class="col-12">
-					<h3 class="col-12">Álbumes</h3>
-					<hr style="border-color:white">
-				</div>
-				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoAlbum}">
-					<div>
-						<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
-					  	<div class="card-body">
-					    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
-					    	<p th:text="${album.fecha_salida}" class="card-text"></p>
-					    	<p th:text="${album.tipo_album}" class="card-text"></p>
-					 	</div>
+			<div id="albumes">
+				<div class="row mb-5">
+					<div class="col-12">
+						<h3 class="col-12">Álbumes</h3>
+						<hr style="border-color:white">
+					</div>
+					<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoAlbum}">
+						<div>
+							<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
+						  	<div class="card-body">
+						    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+						    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+						 	</div>
+						</div>
 					</div>
 				</div>
 				
-				<div class="col-12">
-					<h3 class="col-12">Sencillos y EP</h3>
-					<hr style="border-color:white">
-				</div>
-				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoSingle}">
-					<div>
-						<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
-					  	<div class="card-body">
-					    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
-					    	<p th:text="${album.fecha_salida}" class="card-text"></p>
-					    	<p th:text="${album.tipo_album}" class="card-text"></p>
+				<div class="row">
+					<div class="col-12">
+						<h3 class="col-12">Sencillos y EP</h3>
+						<hr style="border-color:white">
+					</div>
+					<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoSingle}">
+						<div>
+							<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
+						  	<div class="card-body">
+						    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+						    	<p th:text="${album.fecha_salida}" class="card-text"></p>
+						 	</div>
 					 	</div>
-				 	</div>
+					</div>
 				</div>
 			</div>
 			
@@ -390,6 +392,10 @@
 					showImageThumbnail3(this);
 				});
 				
+				fondo=$("#foto-fondo").attr('src');
+				
+				$(".background-image").css("background-image", "url('"+fondo+"')");
+				
 			})
 			
 			function showImageThumbnail(fileInput) {
@@ -441,13 +447,6 @@
 	    		    }
 	    		});
 	    	});
-			
-			$(document).ready(function(){
-				fondo=$("#foto-fondo").attr('src');
-				
-				$(".background-image").css("background-image", "url('"+fondo+"')");
-			})
-		
 		</script>
 	</body>
 </html>
