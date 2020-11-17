@@ -38,7 +38,7 @@ public class Album {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private TipoAlbumModel tipo_album;
+	private TipoAlbumModel tipo_album = TipoAlbumModel.ALBUM;
 
 	@ManyToOne
 	private Artista artista = new Artista();

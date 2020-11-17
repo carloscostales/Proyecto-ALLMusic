@@ -127,10 +127,46 @@ public class AlbumRutas {
 			throw new IOException("No se guardo el archivo subido: " + fileName);
 		}
 		
-		
-		albumDAO.save(album);
-		
 		return "redirect:" + referer;
 		
 	}
+	
+	@PostMapping("/updateAlbum")
+	private String rutaActualizarAlbum(@ModelAttribute Album album, BindingResult bindingResult) throws IOException {
+		
+		albumDAO.save(album);
+		
+		return "redirect:/album/" + album.getId();
+		
+	}
+	
+	@PostMapping("/updateFotoAlbum")
+	private String rutaActualizarFotoAlbum(@ModelAttribute Album album, BindingResult bindingResult, @RequestParam("portada")  MultipartFile multipartFile) throws IOException {
+		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+		album.setPortada(fileName);
+		
+		Album savedAlbum = albumDAO.save(album);
+		
+		String uploadDir = "./artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		
+		Path uploadPath = Paths.get(uploadDir);
+		
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+		
+		try (InputStream inputStream = multipartFile.getInputStream()){
+			Path filePath = uploadPath.resolve(fileName);
+			System.out.println("FILEPATH -> " + filePath.toFile().getAbsolutePath());
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);	
+		} catch (IOException e) {
+			throw new IOException("No se guardo el archivo subido: " + fileName);
+		}
+		
+		return "redirect:/album/" + album.getId();
+		
+	}
+	
 }

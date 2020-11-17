@@ -173,7 +173,6 @@
 					<h3 class="col-12">Álbumes</h3>
 					<hr style="border-color:white">
 				</div>
-				<hr style="border:15px; border-color:red">
 				<div class="card col-lg-3 col-md-3 col-6 border-0" th:each="album : ${listaTipoAlbum}">
 					<div>
 						<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>

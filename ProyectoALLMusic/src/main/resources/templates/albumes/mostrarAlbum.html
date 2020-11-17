@@ -64,17 +64,30 @@
 				</div>
 				<div class="col-lg-9 col-md-7 col-12 mt-lg-0 mt-sm-0 mt-5">
 					<div class="row mb-5">
-						<div class="col-lg-12 col-md-12 col-12 row align-items-center">
-							<small class="col-lg-8 col-md-6 col-6 font-weight-bold">ÁLBUM</small>
-							<div class="col-lg-4 col-md-6 col-6">
-								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+						<div class="col-lg-12 col-md-12 col-12">
+							<div class="row align-items-center">
+								<div th:if="${numero_canciones <=3}">
+									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">SENCILLO</small>
+								</div>
+								<div th:if="${numero_canciones >3 and numero_canciones <=7}">
+									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">EP</small>
+								</div>
+								<div th:if="${numero_canciones > 7}">
+									<small class="col-lg-2 col-md-2 col-2 font-weight-bold">ÁLBUM</small>
+								</div>
+								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-7 col-md-5 col-5">
+									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Editar álbum</button>
+								</div>
+								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-3 col-md-5 col-5">
 									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
 								</div>
+								<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
+								<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
+								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}"></span></p>
+								<p class="col-lg-12 col-md-12 col-12"><span th:text="${numero_canciones}"></span> canciones</p>
+								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.tipo_album}"></span></p>
 							</div>
-							<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
-							<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
-							<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}"></span></p>
-							<p class="col-lg-12 col-md-12 col-12"><span th:text="${numero_canciones}"></span> canciones</p>
+							
 						</div>
 					</div>
 				</div>
@@ -156,6 +169,40 @@
 				</div>
 			</div>
 		</div>
-
+		
+		<!-- Modal -->
+		<div class="modal fade" id="editarAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Editar álbum</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<form action="#" th:action="@{/updateAlbum}" th:object="${album}" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="id">Id</label>
+								<input type="text" th:field="*{id}" class="form-control" id="id">
+							</div>
+							<div class="form-group">
+								<label for="titulo">Titulo</label>
+								<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
+							</div>
+							<div class="form-group d-none">
+							    <label for="fecha_salida" class="font-weight-bold">Fecha salida</label>
+								<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha_salida">
+						    </div>							
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary" id="submit_button">Guardar</button>
+						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	
 	</body>
 </html>
