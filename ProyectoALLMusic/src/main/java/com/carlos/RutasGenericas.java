@@ -8,14 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.carlos.datos.albumes.Album;
-import com.carlos.datos.albumes.AlbumDAO;
-import com.carlos.datos.artistas.Artista;
-import com.carlos.datos.artistas.ArtistaDAO;
-import com.carlos.datos.playlists.Playlist;
-import com.carlos.datos.playlists.PlaylistDAO;
-import com.carlos.datos.usuarios.Usuario;
-import com.carlos.servicios.ComparatorFecha;
+import com.carlos.model.Album;
+import com.carlos.model.Artista;
+import com.carlos.model.Playlist;
+import com.carlos.model.Usuario;
+import com.carlos.repository.AlbumDAO;
+import com.carlos.repository.ArtistaDAO;
+import com.carlos.repository.PlaylistDAO;
+import com.carlos.service.ComparatorFecha;
 
 @Controller
 public class RutasGenericas {
