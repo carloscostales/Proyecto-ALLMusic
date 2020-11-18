@@ -130,7 +130,7 @@
 							<a role="button" class="btn btn-info float-lg-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
 						</div>
 						<div class="col-lg-3 col-md-6 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary float-lg-right" data-toggle="modal" data-target="#crearAlbum">Nuevo álbum</button>
+							<button type="button" class="btn btn-secondary float-lg-right" data-toggle="modal" data-target="#nuevoAlbum">Nuevo álbum</button>
 						</div>
 					</div>
 					
@@ -221,8 +221,8 @@
 			<a class="btn btn-primary mt-5" th:href="@{/artistas}" role="button">Volver</a>
 		</section>
 		
-		<!-- Modal -->
-		<div class="modal fade" id="crearAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- Modal - NUEVO ALBUM -->
+		<div class="modal fade" id="nuevoAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content" style="background-color: #282828;">
 					<div class="modal-header">
@@ -258,6 +258,7 @@
 							<div class="form-group">
 								<label for="portada">Portada</label>
 								<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
+								<br>
 								<img id="thumbnail" alt="Logo preview"/>
 							</div>
 
@@ -275,7 +276,7 @@
 			</div>
 		</div>
 		
-		<!-- Modal -->
+		<!-- Modal - CAMBIAR FOTO -->
 		<div class="modal fade" id="cambiarFoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content" style="background-color: #282828;">
@@ -324,7 +325,7 @@
 			</div>
 		</div>
 		
-		<!-- Modal -->
+		<!-- Modal - CAMBIAR FOTO FONDO -->
 		<div class="modal fade" id="cambiarFotoFondo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content" style="background-color: #282828;">
@@ -379,6 +380,7 @@
 		
 		<script>
 			$(document).ready(function(){
+				$('#thumbnail').hide();
 				// Muestra vista previa de foto en el formulario
 				$('#portada').change(function() {
 					showImageThumbnail(this);
@@ -403,6 +405,8 @@
 				reader = new FileReader();
 				
 				reader.onload = function(e) {
+					
+					$('#thumbnail').show()
 					$('#thumbnail').attr('src', e.target.result);
 					$('#thumbnail').attr('width', 200);
 				};
@@ -447,6 +451,11 @@
 	    		    }
 	    		});
 	    	});
+			
+	    	$("#portada").blur(function(){	
+    			if ( !$("#portada").val() ) 
+    				$('#thumbnail').hide();
+    		});
 		</script>
 	</body>
 </html>
