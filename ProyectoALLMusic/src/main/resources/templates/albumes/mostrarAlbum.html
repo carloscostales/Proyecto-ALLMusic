@@ -41,7 +41,7 @@
 				opacity: 0;
 				position: absolute;
 				top: 50%;
-				left: 50%;
+				left: 30%;
 				transform: translate(-50%, -50%);
 				-ms-transform: translate(-50%, -50%);
 				text-align: center;
@@ -53,6 +53,7 @@
 			
 			#containerImagen:hover .middle {
  				opacity: 1;
+ 				left:50%;
 			}
 			
 			.red-icon{
@@ -136,10 +137,6 @@
 								<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrarAlbum"><i class="far fa-trash-alt"></i></button>
 								</div>
-								
-								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" id="cambiarFoto">
-									<a type="button" class="badge badge-primary" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
-								</div>
 							</div>
 							
 						</div>
@@ -149,14 +146,14 @@
 			
 			<!--  CANCIONES  -->
 			<div class="mb-5">
-				<table class="table table-hover ">
+				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>No.º</th>
-							<th>TÍTULO</th>
-							<th class="d-lg-table-cell d-md-table-cell d-none">DURACIÓN</th>
-							<th sec:authorize="isAuthenticated()"></th>
-							<th sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"></th>
+							<th style="width: 5%">No.º</th>
+							<th style="width: 70%">TÍTULO</th>
+							<th style="width: 15%" class="d-lg-table-cell d-md-table-cell d-none">DURACIÓN</th>
+							<th style="width: 5%" sec:authorize="isAuthenticated()"></th>
+							<th style="width: 5%" sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"></th>
 						</tr>
 					<thead>
 					<tbody>

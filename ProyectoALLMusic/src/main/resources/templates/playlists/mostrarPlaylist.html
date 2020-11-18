@@ -36,18 +36,18 @@
 				<table class="table table-hover ">
 					<thead>
 						<tr>
-							<th>No.º</th>
-							<th>Artista</th>
-							<th class="d-lg-table-cell d-md-table-cell d-none">Álbum</th>
-							<th class="d-lg-table-cell d-md-table-cell d-none">Duración</th>
-							<th th:if="${owner} == ${usuario.nombreUsuario}">X</th>
+							<th style="width: 25%">No.º</th>
+							<th style="width: 20%">Artista</th>
+							<th style="width: 20%" class="d-lg-table-cell d-md-table-cell d-none">Álbum</th>
+							<th style="width: 5%" class="d-lg-table-cell d-md-table-cell d-none">Duración</th>
+							<th style="width: 5%" th:if="${owner} == ${usuario.nombreUsuario}">X</th>
 						</tr>
 					<thead>
 					<tbody>
 						<tr th:each="lista : ${lista}">
 							<td th:text="${lista.cancion.titulo}">titulo</td>
-							<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${lista.cancion.album.artista.nombre}">artista></span></a></td>
-							<td class="d-lg-table-cell d-md-table-cell d-none"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${lista.cancion.album.titulo}">album></span></a></td>
+							<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${#strings.abbreviate(lista.cancion.album.artista.nombre,16)}">artista></span></a></td>
+							<td class="d-lg-table-cell d-md-table-cell d-none"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${#strings.abbreviate(lista.cancion.album.titulo,20)}">album></span></a></td>
 							<td th:text="${lista.cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
 							<td th:if="${owner} == ${usuario.nombreUsuario}"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
 						</tr>
