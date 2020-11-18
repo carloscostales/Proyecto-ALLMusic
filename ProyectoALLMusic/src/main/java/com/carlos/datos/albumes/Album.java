@@ -43,7 +43,8 @@ public class Album {
 	@ManyToOne
 	private Artista artista = new Artista();
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "album", cascade=CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "album", cascade=CascadeType.REMOVE)
+
 	private List<Cancion> canciones = new ArrayList<Cancion>();
 	
 	public void addAlbum(Cancion cancion) {

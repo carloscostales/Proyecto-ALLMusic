@@ -291,4 +291,13 @@ public class ArtistaRutas {
 		
 	}
 	
+	@GetMapping("/borrarArtista/{artista}")
+	private String rutaBorrarAlbum(@ModelAttribute Artista artista)  {
+		
+		artistaDAO.delete(artista);
+		
+		return "redirect:/artistas";
+		
+	}
+	
 }

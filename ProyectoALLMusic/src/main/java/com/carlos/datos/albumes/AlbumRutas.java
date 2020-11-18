@@ -100,7 +100,7 @@ public class AlbumRutas {
 	
 	
 	@PostMapping("/addAlbum")
-	private String rutaAnadirAlbum(@ModelAttribute Album album, BindingResult bindingResult, HttpServletRequest request,@RequestParam("portada")  MultipartFile multipartFile) throws IOException {
+	private String rutaAnadirAlbum(@ModelAttribute Album album, BindingResult bindingResult, HttpServletRequest request, @RequestParam("portada")  MultipartFile multipartFile) throws IOException {
 		
 		// Utilizado para volver a la pagina en la que esta el modal
 		String referer = request.getHeader("Referer");
@@ -132,7 +132,7 @@ public class AlbumRutas {
 	}
 	
 	@PostMapping("/updateAlbum")
-	private String rutaActualizarAlbum(@ModelAttribute Album album, BindingResult bindingResult) throws IOException {
+	private String rutaActualizarAlbum(@ModelAttribute Album album, BindingResult bindingResult) {
 		
 		albumDAO.save(album);
 		
@@ -166,6 +166,15 @@ public class AlbumRutas {
 		}
 		
 		return "redirect:/albumes/" + album.getId();
+		
+	}
+	
+	@GetMapping("/borrarAlbum/{album}")
+	private String rutaBorrarAlbum(@ModelAttribute Album album)  {
+		
+		albumDAO.delete(album);
+		
+		return "redirect:/artistas/" + album.getArtista().getId();
 		
 	}
 	
