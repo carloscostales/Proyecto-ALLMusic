@@ -88,17 +88,6 @@ public class UsuarioRutas {
 		return mav;
 		
 	}
-
-	@GetMapping("/usuarios/borrar/{usuario}")
-	public String rutaEliminar(@PathVariable String usuario) {
-
-		
-		//Version 2
-		usuarioDAO.deleteById(usuario);
-		
-		return("redirect:/usuarios");
-
-	}
 	
 	@GetMapping("/usuarios/{usuario}")
 	private ModelAndView rutaUsuario(@PathVariable Usuario usuario) {
@@ -148,6 +137,15 @@ public class UsuarioRutas {
 		mav.setViewName("redirect:/usuarios/" + usuario.getNombreUsuario());
 
 		return mav;
+
+	}
+	
+	@GetMapping("/borrarUsuario/{usuario}")
+	public String rutaEliminar(@PathVariable String usuario) {
+
+		usuarioDAO.deleteById(usuario);
+		
+		return "redirect:/usuarios";
 
 	}
 	

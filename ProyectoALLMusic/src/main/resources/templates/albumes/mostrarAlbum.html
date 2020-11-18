@@ -17,6 +17,9 @@
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		
+		<!-- ICONOS FONT AWESOME -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
+	    
 		<!-- CSS y JS -->
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 		<style>
@@ -50,6 +53,10 @@
 			
 			#containerImagen:hover .middle {
  				opacity: 1;
+			}
+			
+			.red-icon{
+				color: #dc3545;
 			}
 		</style>
 		<script>
@@ -118,13 +125,18 @@
 								<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
 								<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
 								<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}">fecha</span></p>
-								<p class="col-lg-3 col-md-2 col-3"><span th:text="${numero_canciones}"></span> canciones</p>
-								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-6 col-md-5 col-4">
-									<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#editarAlbum">Editar álbum</button>
+								<p class="col-lg-9 col-md-6 col-6"><span th:text="${numero_canciones}"></span> canciones</p>
+								
+								<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editarAlbum"><i class="far fa-edit"></i></button>
 								</div>
-								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-lg-3 col-md-5 col-5">
-									<button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#crearCancion">Nueva canción</button>
+								<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearCancion"><i class="fas fa-plus"></i></button>
 								</div>
+								<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrarAlbum"><i class="far fa-trash-alt"></i></button>
+								</div>
+								
 								<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" id="cambiarFoto">
 									<a type="button" class="badge badge-primary" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
 								</div>
@@ -144,6 +156,7 @@
 							<th>TÍTULO</th>
 							<th class="d-lg-table-cell d-md-table-cell d-none">DURACIÓN</th>
 							<th sec:authorize="isAuthenticated()"></th>
+							<th sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"></th>
 						</tr>
 					<thead>
 					<tbody>
@@ -151,7 +164,8 @@
 							<td th:text="${cancion.numero}">numero</td>
 							<td th:text="${cancion.titulo}">titulo</td>
 							<td th:text="${cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
-							<td sec:authorize="isAuthenticated()"><a type="button" class="btn btn-secondary btn-sm" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}">Add</a></td>
+							<td sec:authorize="isAuthenticated()"><a type="button" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}"><i class="fas fa-plus"></i></a></td>
+							<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/borrarCancion/{cancion}(cancion=${cancion.id})}"><i class="far fa-trash-alt red-icon"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -300,7 +314,27 @@
 			</div>
 		</div>
 		
-	
+		<!-- Modal - BORRAR ÁLBUM -->
+		<div class="modal fade" id="borrarAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres borrar el álbum <span th:text="${album.titulo}"></span>?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Si borras el álbum, también se borrarán sus canciones. ¡No hay vuelta atras!</p>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-danger" th:href="@{/borrarAlbum/{album}(album=${album.id})}">BORRAR</a>
+					  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<script>
 			$(document).ready(function(){
 				// Muestra vista previa de foto en el formulario

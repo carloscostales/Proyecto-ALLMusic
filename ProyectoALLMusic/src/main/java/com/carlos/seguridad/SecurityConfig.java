@@ -38,6 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	        	.antMatchers("/playlists/**").hasAnyAuthority("ADMIN", "USER")
 	        	.antMatchers("/nuevoArtista").hasAuthority("ADMIN")
 	        	.antMatchers("/nuevaPlaylist").hasAnyAuthority("ADMIN", "USER")
+	        	.antMatchers("/playlists/nuevaCancionPlaylist/**").hasAuthority("ADMIN")
+	        	.antMatchers("/borrarArtista/**").hasAuthority("ADMIN")
+	        	.antMatchers("/borrarAlbum/**").hasAuthority("ADMIN")
+	        	.antMatchers("/borrarCancion/**").hasAuthority("ADMIN")
+	        	.antMatchers("/borrarGenero/**").hasAuthority("ADMIN")
 		        .and()    	
 	        .formLogin()
 	        	.loginPage("/login")
@@ -52,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	            .logoutSuccessUrl("/login")
 	            .and()
 	        .csrf().disable();   
-
 
 	    }
 	

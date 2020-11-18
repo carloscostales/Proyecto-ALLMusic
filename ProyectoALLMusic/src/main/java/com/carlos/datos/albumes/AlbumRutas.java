@@ -170,7 +170,7 @@ public class AlbumRutas {
 	}
 	
 	@GetMapping("/borrarAlbum/{album}")
-	private String rutaBorrarAlbum(@ModelAttribute Album album)  {
+	private String rutaBorrarAlbum(@PathVariable Album album)  {
 		
 		albumDAO.delete(album);
 		

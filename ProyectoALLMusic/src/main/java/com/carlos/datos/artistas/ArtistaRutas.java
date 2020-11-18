@@ -292,7 +292,7 @@ public class ArtistaRutas {
 	}
 	
 	@GetMapping("/borrarArtista/{artista}")
-	private String rutaBorrarAlbum(@ModelAttribute Artista artista)  {
+	private String rutaBorrarAlbum(@PathVariable Artista artista)  {
 		
 		artistaDAO.delete(artista);
 		

@@ -52,7 +52,7 @@ public class GeneroRutas {
 		
 	}
 	
-	@GetMapping("/generos/borrar/{genero}")
+	@GetMapping("/borrarGenero/{genero}")
 	public String rutaEliminar(@PathVariable Genero genero) {
 		
 		generoDAO.delete(genero);

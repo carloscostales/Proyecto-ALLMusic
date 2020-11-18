@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.datos.canciones.Cancion;
-import com.carlos.datos.generos.Genero;
 import com.carlos.datos.playlists.Playlist;
 import com.carlos.datos.playlists.PlaylistDAO;
 import com.carlos.datos.usuarios.Usuario;
@@ -34,13 +33,15 @@ public class PlaylistCancionRutas {
 		
 		mav.addObject("playlist", playlist);
 		
-		List<PlaylistCancion> listaCanciones = (List<PlaylistCancion>) pcDAO.findByPlaylist(playlist);
-		mav.addObject("lista", listaCanciones);
-		mav.addObject("numero_canciones", listaCanciones.size());
-		if (listaCanciones.size() > 0) {
-			mav.addObject("owner", listaCanciones.get(0).getPlaylist().getUsuario().getNombreUsuario());
+		List<PlaylistCancion> canciones_playlist = pcDAO.findByPlaylist(playlist);
+		mav.addObject("lista", canciones_playlist);
+		Integer n_canciones = canciones_playlist.size();
+		mav.addObject("numero_canciones", n_canciones);
+		
+		if (!canciones_playlist.isEmpty()) {
+			Usuario owner = playlist.getUsuario();
+			mav.addObject("owner", owner.getNombreUsuario());
 		}
-		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" + listaCanciones);
 		
 		if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();

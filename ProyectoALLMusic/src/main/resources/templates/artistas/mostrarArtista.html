@@ -17,6 +17,9 @@
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	    
+	    <!-- ICONOS FONT AWESOME -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
+	    
 	    <!-- CSS y JS -->
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 	    <style>
@@ -115,22 +118,26 @@
 					<div class="row">
 						<img class="col-lg-12 col-md-12 col-12 rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}" style="height:50%">
 						<div class="col-lg-12 col-md-12 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<a type="button" class=" badge badge-info" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
+							<a type="button" class="badge badge-info" data-toggle="modal" data-target="#cambiarFoto">Cambiar foto</a>
 						</div>
 						<div class="col-lg-12 col-md-12 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<a type="button" class=" badge badge-info" data-toggle="modal" data-target="#cambiarFotoFondo">Cambiar foto fondo</a>
+							<a type="button" class="badge badge-info" data-toggle="modal" data-target="#cambiarFotoFondo">Cambiar foto fondo</a>
 						</div>
 					</div>
 				</div>
+				
 				<div class="col-lg-9 col-md-7 col-7 mb-5">
 					<div class="row">
-						<h1 id="nombre" class="mb-5 col-lg-6 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
+						<h1 id="nombre" class="mb-5 col-lg-9 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
 					
-						<div class="col-lg-3 col-md-6 col-12 mb-lg-0 mb-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<a role="button" class="btn btn-info float-lg-right" th:href="@{/artista/editar/{artista}(artista=${artista.id})}">Editar artista</a>
+						<div class="col-lg-1 col-md-2 col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<a role="button" class="btn btn-info" th:href="@{/artista/editar/{artista}(artista=${artista.id})}"><i class="far fa-edit"></i></a>
 						</div>
-						<div class="col-lg-3 col-md-6 col-12" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-							<button type="button" class="btn btn-secondary float-lg-right" data-toggle="modal" data-target="#nuevoAlbum">Nuevo álbum</button>
+						<div class="col-lg-1 col-md-2 col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#nuevoAlbum"><i class="fas fa-plus"></i></button>
+						</div>
+						<div class="col-lg-1 col-md-2 col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrarArtista"><i class="far fa-trash-alt"></i></button>
 						</div>
 					</div>
 					
@@ -374,6 +381,27 @@
 						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal - BORRAR ARTISTA -->
+		<div class="modal fade" id="borrarArtista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres borrar el artista <span th:text="${artista.nombre}"></span>?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Si borras el artista, también se borrarán sus respectivos álbumes y canciones. ¡No hay vuelta atras!</p>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-danger" th:href="@{/borrarArtista/{artista}(artista=${artista.id})}">BORRAR</a>
+					  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+					</div>
 				</div>
 			</div>
 		</div>
