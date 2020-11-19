@@ -176,7 +176,7 @@
 			<br>
 			
 			<div id="albumes">
-				<div class="row mb-5">
+				<div class="row mb-5"  th:if="${not #lists.isEmpty(listaTipoAlbum)}">
 					<div class="col-12">
 						<h3 class="col-12">Álbumes</h3>
 						<hr style="border-color:white">
@@ -192,7 +192,7 @@
 					</div>
 				</div>
 				
-				<div class="row">
+				<div class="row" th:if="${not #lists.isEmpty(listaTipoSingle)}">
 					<div class="col-12">
 						<h3 class="col-12">Sencillos y EP</h3>
 						<hr style="border-color:white">
@@ -208,6 +208,7 @@
 					</div>
 				</div>
 			</div>
+
 			
 			<div id="informacion">
 				<p><strong>Nombre: </strong><span th:text="${artista.nombre}"></span></p>
@@ -216,12 +217,17 @@
 				<p id="descripcion" class="text-justify"><strong>Descripción: : </strong><span th:text="${artista.bio}"></span></p>
 			</div>
 			
-			<div id="artistasRel" class="row">
-				<div class="card col-lg-2 col-md-3 col-4 border-0" th:each="artista : ${listaExcludeArtista}">
-					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="${artista.fotoPath}" th:alt="${artista.nombre}"></a>
-				  	<div class="card-body">
-				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
-				 	</div>
+			<div id="artistasRel" th:switch="${#lists.isEmpty(listaRelacionados)}">
+				<div th:case="false" class="row">
+					<div class="card col-lg-2 col-md-3 col-4 border-0" th:each="artista : ${listaRelacionados}">
+						<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="${artista.fotoPath}" th:alt="${artista.nombre}"></a>
+					  	<div class="card-body">
+					    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+					 	</div>
+					</div>
+				</div>
+				<div th:case="true">
+					<h5>No hay artistas creados relacionados con <span th:text="${artista.nombre}"></span>.</h5>
 				</div>
 			</div>
 					

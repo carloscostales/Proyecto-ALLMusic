@@ -36,15 +36,16 @@
 				    <label for="id" class="font-weight-bold">Id</label>
 				    <input type="text" class="form-control" id="id" th:field="*{id}">
 			    </div>
-			
-			  	<div class="form-group">
-				    <label for="artist" class="font-weight-bold">Nombre</label>
-				    <input type="text" class="form-control" id="artist" th:field="*{nombre}">
-			    </div>
-			    
-				<div class="form-group">
-				    <label for="origen" class="font-weight-bold">Origen</label>
-				    <input type="text" class="form-control" id="origen" th:field="*{origen}">
+				<div class="row">
+				  	<div class="form-group col-6">
+					    <label for="artist" class="font-weight-bold">Nombre</label>
+					    <input type="text" class="form-control" id="artist" th:field="*{nombre}">
+				    </div>
+				   	
+					<div class="form-group col-6">
+					    <label for="origen" class="font-weight-bold">Origen</label>
+					    <input type="text" class="form-control" id="origen" th:field="*{origen}">
+				    </div>
 			    </div>
 			    
 			    <div class="form-group">

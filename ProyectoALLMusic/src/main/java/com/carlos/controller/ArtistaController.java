@@ -131,8 +131,8 @@ public class ArtistaController {
 		mav.addObject("artistasRelacionados", artistasPorGenero);
 		
 		// Lista de artistas del mismo género excluyendo el artista de la ruta
-		List<Artista> listaExcludeArtista = artistaDAO.findArtistasGenero(artista.getId(), artista.getGenero().getNombre());
-		mav.addObject("listaExcludeArtista", listaExcludeArtista);
+		List<Artista> listaRelacionados = artistaDAO.findArtistasGenero(artista.getId(), artista.getGenero().getNombre());
+		mav.addObject("listaRelacionados", listaRelacionados);
         
         if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
