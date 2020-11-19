@@ -8,28 +8,91 @@
 	    
 	    <!-- Icono -->
 	    <link rel="icon" th:href="@{/img/icon.png}">
-	
+		
 		<!-- CSS -->
 		<link rel="stylesheet" th:href="@{/static/css/estilo.css}" type="text/css"/>
-			
+		
 	    <!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-			
+		
 		<!-- Bootstrap jQuery, Popper.js, Bootstrap JS -->
 	    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+		<!-- FONT AWESOME -->
+		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
+  		<script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
 	</head>
-
+	<style>
+		body {
+			background-color: #282828;
+		}
+		
+		.mainbox {
+		 	background-color: #282828;
+		 	margin: auto;
+		 	height: 600px;
+		 	width: 600px;
+		 	position: relative;
+		}
+		
+		.err {
+			color: #ffffff;
+		    font-family: 'Nunito Sans', sans-serif;
+		    font-size: 11rem;
+		    position:absolute;
+		    left: 20%;
+		    top: 8%;
+		  }
+		
+		.far {
+		  	position: absolute;
+		  	font-size: 8.5rem;
+		  	left: 42%;
+		  	top: 15%;
+		  	color: #ffffff;
+		}
+		
+		.err2 {
+		    color: #ffffff;
+		    font-family: 'Nunito Sans', sans-serif;
+		    font-size: 11rem;
+		    position:absolute;
+		    left: 68%;
+		    top: 8%;
+		  }
+		
+		.msg {
+		    text-align: center;
+		    color: white;
+		    font-family: 'Nunito Sans', sans-serif;
+		    font-size: 1.6rem;
+		    position:absolute;
+		    left: 16%;
+		    top: 45%;
+		    width: 75%;
+		  }
+		
+		a {
+		  	text-decoration: none;
+		  	color: grey;
+		}
+		
+		a:hover {
+			color: yellow; 
+		  	text-decoration: none;
+		}
+	</style>
+	
 	<body>
 		
-		<section class="container">
-		
-			<h1 class="text-danger ">Error 403: no tienes permisos</h1>
-			
-			Haz click <a href="/"/>aqui</a>
-			para volver a la pagina principal.			
-		</section>
+		<div class="mainbox">
+    		<div class="err">4</div>
+		    <i class="far fa-question-circle fa-spin"></i>
+		    <div class="err2">3</div>
+		    <div class="msg">¡No tienes permisos para ver esta página!<p>Vamos a la <a href="/">página principal</a> y prueba desde aquí.</p></div>
+      	</div>
 		
 	</body>
 	
