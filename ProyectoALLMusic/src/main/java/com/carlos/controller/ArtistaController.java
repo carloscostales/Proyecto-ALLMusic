@@ -89,6 +89,7 @@ public class ArtistaController {
 		mav.addObject("prev", page);
 		mav.addObject("last", totalPage);
 		
+		mav.addObject("busqueda", new Artista());
 		
 		if (auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
@@ -300,6 +301,46 @@ public class ArtistaController {
 		
 		return "redirect:/artistas";
 		
+	}
+	
+	@GetMapping("/artista/buscar")
+	private ModelAndView buscarPorArtista(@RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Artista busqueda, Authentication auth) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("artistas/busquedaArtistas");
+		mav.addObject("busqueda", busqueda);
+		
+		mav.addObject("artistas", artistaDAO.findByNombreStartsWith(nombre));
+
+		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+		// Pagina que vamos a buscar y cuantos registros cargamos por página.
+		PageRequest pageRequest = PageRequest.of(page, 10);
+
+		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
+		Page<Artista> pageArtista = artistaAPI.getAll(pageRequest);
+
+		// Total de páginas.
+		int totalPage = pageArtista.getTotalPages();
+
+		// Crea un stream del 1 al total de páginas. Lo convertimos en una lista(.boxed().collect(Collectors.toList())
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+
+		mav.addObject("lista", pageArtista.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
+		
+		if (auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		return mav;
 	}
 	
 }

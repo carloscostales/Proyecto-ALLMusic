@@ -13,12 +13,18 @@ import com.carlos.model.Genero;
 @Repository
 public interface ArtistaDAO extends JpaRepository<Artista, Integer> {
 
-	// Saca los últimos 6 artistas agregados a la base de datos
+	// Busca los últimos 6 artistas agregados a la base de datos
 	@Query(value="SELECT * FROM artista ORDER BY id desc LIMIT 6", nativeQuery = true)
 	List<Artista> findLast6();
 	
+	// Busca todos los artistas de un mismo género
 	List<Artista> findByGenero(Genero genero);
 	
+	// Selecciona artistas con el mismo género que el :id. Limitado a 12.
 	@Query(value="SELECT * FROM artista WHERE id!=:id AND genero_nombre=:genero LIMIT 12", nativeQuery=true)
 	List<Artista> findArtistasGenero(@Param("id") Integer id, @Param("genero") String genero);
+	
+	// Busca artistas que empiezen por el string dado.
+	List<Artista> findByNombreStartsWith(String nombre);
+	
 }

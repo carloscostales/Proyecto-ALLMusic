@@ -32,7 +32,7 @@
 		<!-- SECTION -->
 		<section class="container mt-5">
 			<div class="row">
-				<h2 class="col-lg-7 col-8">Lista de Artistas</h2>
+				<h2 class="col-lg-7 col-8">Busqueda: <span th:text="${busqueda.nombre}"></span></h2>
 				<div sec:authorize="isAuthenticated()" th:remove="tag">
 					<div th:switch="${#authorization.expression('hasAuthority(''ADMIN'')')}" th:remove="tag">
 						<div th:case="true" th:remove="tag">
