@@ -18,22 +18,22 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Playlist;
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
-import com.carlos.repository.PlaylistDAO;
-import com.carlos.repository.RolDAO;
-import com.carlos.repository.UsuarioDAO;
+import com.carlos.service.PlaylistService;
+import com.carlos.service.RolService;
+import com.carlos.service.UsuarioService;
 
 
 @Controller
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private UsuarioService usuarioService;
 	
 	@Autowired
-	private RolDAO rolDAO;
+	private RolService rolService;
 	
 	@Autowired
-	private PlaylistDAO playlistDAO;
+	private PlaylistService playlistService;
 	
 	
 	@GetMapping("/usuarios")
@@ -42,7 +42,7 @@ public class UsuarioController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("usuarios/usuarios");
 		
-		List<Usuario> listaUsuarios = (List<Usuario>) usuarioDAO.findAll();
+		List<Usuario> listaUsuarios = (List<Usuario>) usuarioService.listaUsuarios();
 		mav.addObject("usuarios", listaUsuarios);
 		
 		if(auth != null) {
@@ -60,7 +60,7 @@ public class UsuarioController {
 		mav.setViewName("usuarios/nuevoUsuario");
 		mav.addObject("usuario", new Usuario());
 		
-		List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+		List<Rol> listaRoles = (List<Rol>)rolService.listaRoles();
 		mav.addObject("roles",listaRoles);
 		
 		return mav;
@@ -74,7 +74,7 @@ public class UsuarioController {
 		if(bindingResult.hasErrors()) {
 			mav.setViewName("usuarios/nuevoUsuario");
 
-			List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+			List<Rol> listaRoles = (List<Rol>)rolService.listaRoles();
 			mav.addObject("roles",listaRoles);
 
 			return mav;
@@ -83,7 +83,7 @@ public class UsuarioController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usuario.setContrasena(passwordEncoder.encode(usuario.getPassword()));
 		
-		usuarioDAO.save(usuario);
+		usuarioService.add(usuario);
 		
 		mav.setViewName("redirect:/");
 		
@@ -97,7 +97,7 @@ public class UsuarioController {
 		mav.setViewName("usuarios/mostrarUsuario");
 		mav.addObject("usuario", usuario);
 
-		List<Playlist> listaPlaylists = (List<Playlist>)playlistDAO.findByUsuario(usuario);
+		List<Playlist> listaPlaylists = (List<Playlist>)playlistService.buscarPorUsuario(usuario);
 		mav.addObject("listaPlaylists", listaPlaylists);
 		
 		return mav;
@@ -111,7 +111,7 @@ public class UsuarioController {
 		mav.setViewName("usuarios/editarUsuario");
 		mav.addObject("usuario", usuario);
 		
-		List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+		List<Rol> listaRoles = (List<Rol>)rolService.listaRoles();
 		mav.addObject("roles",listaRoles);
 		
 		return mav;
@@ -128,13 +128,13 @@ public class UsuarioController {
 		if(bindingResult.hasErrors()) {
 			mav.setViewName("usuarios/editarUsuario");
 
-			List<Rol> listaRoles = (List<Rol>)rolDAO.findAll();
+			List<Rol> listaRoles = (List<Rol>)rolService.listaRoles();
 			mav.addObject("roles",listaRoles);
 			
 			return mav;
 		}
 		
-		usuarioDAO.save(usuario);
+		usuarioService.add(usuario);
 
 		mav.setViewName("redirect:/usuarios/" + usuario.getNombreUsuario());
 
@@ -144,8 +144,8 @@ public class UsuarioController {
 	
 	@GetMapping("/borrarUsuario/{usuario}")
 	public String rutaEliminar(@PathVariable String usuario) {
-
-		usuarioDAO.deleteById(usuario);
+		
+		usuarioService.deleteById(usuario);
 		
 		return "redirect:/usuarios";
 

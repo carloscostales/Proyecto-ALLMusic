@@ -27,17 +27,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.carlos.model.Album;
 import com.carlos.model.Cancion;
 import com.carlos.model.Usuario;
-import com.carlos.repository.AlbumDAO;
-import com.carlos.repository.CancionDAO;
+import com.carlos.service.AlbumService;
+import com.carlos.service.CancionService;
 
 @Controller
 public class AlbumController {
 	
 	@Autowired
-	private AlbumDAO albumDAO;
+	private AlbumService albumService;
 	
 	@Autowired
-	private CancionDAO cancionDAO;
+	private CancionService cancionService;
 	
 	
 	@GetMapping("/albumes")
@@ -47,7 +47,7 @@ public class AlbumController {
 		mav.setViewName("albumes/albumes");
 		mav.addObject("album", new Album());
 		
-		List<Album> listaAlbumes = (List<Album>) albumDAO.findAll();
+		List<Album> listaAlbumes = albumService.listaAlbumesCompleta();
 		mav.addObject("albumes", listaAlbumes);
 		
 		if(auth != null) {
@@ -66,14 +66,14 @@ public class AlbumController {
 		mav.setViewName("albumes/mostrarAlbum");
 		mav.addObject("album", album);
 		
-		List<Cancion> listaCanciones = (List<Cancion>) cancionDAO.findByAlbum(album);
+		List<Cancion> listaCanciones = (List<Cancion>) cancionService.buscarPorAlbum(album);
 		// Ordenar las canciones por su numero en el album
 		Collections.sort(listaCanciones, (a, b) -> a.getNumero() < b.getNumero() ? -1 : a.getNumero() == b.getNumero() ? 0 : 1);
 		mav.addObject("canciones", listaCanciones);
 		int contador = listaCanciones.size();
 		mav.addObject("numero_canciones", contador);
 		
-		List<Album> listaAlbumes = albumDAO.findTodosMenosUnoArtista(album.getArtista().getId(), album.getId());
+		List<Album> listaAlbumes = albumService.buscarTodosMenosUnoArtista(album.getArtista().getId(), album.getId());
 		List<Album> listaAlbumesCorta = null;
 		Collections.shuffle(listaAlbumes);
 		
@@ -111,7 +111,9 @@ public class AlbumController {
 
 		album.setPortada(fileName);
 		
-		Album savedAlbum = albumDAO.save(album);
+		albumService.add(album);
+		
+		Album savedAlbum = album; 
 		
 		String uploadDir = "./artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
@@ -136,7 +138,7 @@ public class AlbumController {
 	@PostMapping("/updateAlbum")
 	private String rutaActualizarAlbum(@ModelAttribute Album album, BindingResult bindingResult) {
 		
-		albumDAO.save(album);
+		albumService.add(album);
 		
 		return "redirect:/albumes/" + album.getId();
 		
@@ -149,7 +151,9 @@ public class AlbumController {
 
 		album.setPortada(fileName);
 		
-		Album savedAlbum = albumDAO.save(album);
+		albumService.add(album);
+		
+		Album savedAlbum = album;
 		
 		String uploadDir = "./artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
@@ -174,7 +178,7 @@ public class AlbumController {
 	@GetMapping("/borrarAlbum/{album}")
 	private String rutaBorrarAlbum(@PathVariable Album album)  {
 		
-		albumDAO.delete(album);
+		albumService.delete(album);
 		
 		return "redirect:/artistas/" + album.getArtista().getId();
 		

@@ -34,26 +34,26 @@ import com.carlos.model.Album;
 import com.carlos.model.Artista;
 import com.carlos.model.Genero;
 import com.carlos.model.Usuario;
-import com.carlos.repository.AlbumDAO;
-import com.carlos.repository.ArtistaDAO;
-import com.carlos.repository.GeneroDAO;
+import com.carlos.service.AlbumService;
+import com.carlos.service.ArtistaService;
 import com.carlos.service.ComparatorFecha;
+import com.carlos.service.GeneroService;
 import com.carlos.service.PaginacionArtistaAPI;
 
 @Controller
 public class ArtistaController {
 
 	@Autowired
-	private ArtistaDAO artistaDAO;
+	private ArtistaService artistaService;
 	
 	@Autowired
-	private GeneroDAO generoDAO;
+	private GeneroService generoService;
 	
 	@Autowired
-	private AlbumDAO albumDAO;
+	private AlbumService albumService;
 	
 	@Autowired
-	private PaginacionArtistaAPI artistaAPI;
+	private PaginacionArtistaAPI paginacionArtistaAPI;
 
 	@GetMapping("/artistas")
 	private ModelAndView rutaArtistas(@RequestParam Map<String, Object> params, Authentication auth) {
@@ -62,7 +62,7 @@ public class ArtistaController {
 		mav.setViewName("artistas/artistas");
 		mav.addObject("artista", new Artista());
 
-		List<Artista> listaArtistas = (List<Artista>) artistaDAO.findAll();
+		List<Artista> listaArtistas = artistaService.listaArtistasCompleta();
 		mav.addObject("artistas", listaArtistas);
 
 		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
@@ -72,7 +72,7 @@ public class ArtistaController {
 		PageRequest pageRequest = PageRequest.of(page, 10);
 
 		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
-		Page<Artista> pageArtista = artistaAPI.getAll(pageRequest);
+		Page<Artista> pageArtista = paginacionArtistaAPI.getAll(pageRequest);
 
 		// Total de páginas.
 		int totalPage = pageArtista.getTotalPages();
@@ -100,6 +100,46 @@ public class ArtistaController {
 
 	}
 	
+	@GetMapping("/artista/buscar")
+	private ModelAndView buscarPorArtista(@RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Artista busqueda, Authentication auth) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("artistas/busquedaArtistas");
+		mav.addObject("busqueda", busqueda);
+		
+		mav.addObject("artistas", artistaService.buscarPorNombreEmpiezaCon(nombre));
+
+		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
+		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+		// Pagina que vamos a buscar y cuantos registros cargamos por página.
+		PageRequest pageRequest = PageRequest.of(page, 10);
+
+		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
+		Page<Artista> pageArtista = paginacionArtistaAPI.getAll(pageRequest);
+
+		// Total de páginas.
+		int totalPage = pageArtista.getTotalPages();
+
+		// Crea un stream del 1 al total de páginas. Lo convertimos en una lista(.boxed().collect(Collectors.toList())
+		if (totalPage > 0) {
+			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+			mav.addObject("paginas", pages);
+		}
+
+		mav.addObject("lista", pageArtista.getContent());
+		mav.addObject("current", page+1);
+		mav.addObject("next", page+2);
+		mav.addObject("prev", page);
+		mav.addObject("last", totalPage);
+		
+		if (auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		return mav;
+	}
+	
 	@GetMapping("/artistas/{artista}")
 	private ModelAndView rutaArtista(@PathVariable Artista artista, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
@@ -108,7 +148,7 @@ public class ArtistaController {
 		
 		mav.addObject("album", new Album());
 		
-		List<Album> listaAlbumes = (List<Album>)albumDAO.findByArtista(artista);
+		List<Album> listaAlbumes = (List<Album>)albumService.buscarAlbumesDeArtista(artista);
 		listaAlbumes.sort(new ComparatorFecha());
 		mav.addObject("listaAlbumes", listaAlbumes);
 		
@@ -118,21 +158,21 @@ public class ArtistaController {
 			mav.addObject("ultimoLanzamiento", ultimo);
 			
 			// Albumes por tipo. Ordenacion por fecha
-			List<Album> listaTipoAlbum = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.ALBUM.toString());
+			List<Album> listaTipoAlbum = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.ALBUM.toString());
 			listaTipoAlbum.sort(new ComparatorFecha());
 			mav.addObject("listaTipoAlbum", listaTipoAlbum);
-			List<Album> listaTipoSingle = albumDAO.findAllByTipo_album(artista.getId(), TipoAlbumModel.SINGLE.toString());
+			List<Album> listaTipoSingle = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.SINGLE.toString());
 			listaTipoSingle.sort(new ComparatorFecha());
 			mav.addObject("listaTipoSingle", listaTipoSingle);
 		}
 		
 		// Artistas con el mismo género que el artista de la ruta
-		List<Artista> artistasPorGenero = artistaDAO.findByGenero(artista.getGenero());
+		List<Artista> artistasPorGenero = artistaService.buscarPorGenero(artista.getGenero());
 		Collections.shuffle(artistasPorGenero);
 		mav.addObject("artistasRelacionados", artistasPorGenero);
 		
 		// Lista de artistas del mismo género excluyendo el artista de la ruta
-		List<Artista> listaRelacionados = artistaDAO.findArtistasGenero(artista.getId(), artista.getGenero().getNombre());
+		List<Artista> listaRelacionados = artistaService.buscarArtistasDelMismoGenero(artista.getId(), artista.getGenero().getNombre());
 		mav.addObject("listaRelacionados", listaRelacionados);
         
         if(auth != null) {
@@ -151,7 +191,7 @@ public class ArtistaController {
 		mav.setViewName("/artistas/nuevoArtista");
 		mav.addObject("artista", new Artista());
 		
-		List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
+		List<Genero> listaGeneros = generoService.listaGeneros();
 		mav.addObject("generos",listaGeneros);
 		
 		if(auth != null) {
@@ -172,7 +212,9 @@ public class ArtistaController {
 
 		artista.setFoto(fileName);
 		
-		Artista savedArtista = artistaDAO.save(artista);
+		artistaService.add(artista);
+		
+		Artista savedArtista = artista;
 		
 		String uploadDir = "./artista-fotos/" + savedArtista.getId();
 		
@@ -202,7 +244,7 @@ public class ArtistaController {
 		mav.setViewName("/artistas/editarArtista");
 		mav.addObject("artista", artista);
 		
-		List<Genero> listaGeneros = (List<Genero>)generoDAO.findAll();
+		List<Genero> listaGeneros = generoService.listaGeneros();
 		mav.addObject("generos",listaGeneros);
 		
 		if(auth != null) {
@@ -218,7 +260,7 @@ public class ArtistaController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		artistaDAO.save(artista);
+		artistaService.update(artista);
 		
 		mav.setViewName("redirect:/artistas/" + artista.getId());
 		
@@ -236,7 +278,9 @@ public class ArtistaController {
 
 		artista.setFoto(fileName);
 		
-		Artista savedArtista = artistaDAO.save(artista);
+		artistaService.add(artista);
+		
+		Artista savedArtista = artista;
 		
 		String uploadDir = "./artista-fotos/" + savedArtista.getId();
 		
@@ -270,7 +314,9 @@ public class ArtistaController {
 
 		artista.setFoto_fondo(fileName);
 		
-		Artista savedArtista = artistaDAO.save(artista);
+		artistaService.add(artista);
+		
+		Artista savedArtista = artista;
 		
 		String uploadDir = "./artista-fotos/" + savedArtista.getId();
 		
@@ -297,50 +343,10 @@ public class ArtistaController {
 	@GetMapping("/borrarArtista/{artista}")
 	private String rutaBorrarAlbum(@PathVariable Artista artista)  {
 		
-		artistaDAO.delete(artista);
+		artistaService.delete(artista);
 		
 		return "redirect:/artistas";
 		
-	}
-	
-	@GetMapping("/artista/buscar")
-	private ModelAndView buscarPorArtista(@RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Artista busqueda, Authentication auth) {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("artistas/busquedaArtistas");
-		mav.addObject("busqueda", busqueda);
-		
-		mav.addObject("artistas", artistaDAO.findByNombreStartsWith(nombre));
-
-		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
-		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
-
-		// Pagina que vamos a buscar y cuantos registros cargamos por página.
-		PageRequest pageRequest = PageRequest.of(page, 10);
-
-		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
-		Page<Artista> pageArtista = artistaAPI.getAll(pageRequest);
-
-		// Total de páginas.
-		int totalPage = pageArtista.getTotalPages();
-
-		// Crea un stream del 1 al total de páginas. Lo convertimos en una lista(.boxed().collect(Collectors.toList())
-		if (totalPage > 0) {
-			List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
-			mav.addObject("paginas", pages);
-		}
-
-		mav.addObject("lista", pageArtista.getContent());
-		mav.addObject("current", page+1);
-		mav.addObject("next", page+2);
-		mav.addObject("prev", page);
-		mav.addObject("last", totalPage);
-		
-		if (auth != null) {
-			Usuario usuario = (Usuario) auth.getPrincipal();
-			mav.addObject("usuario", usuario);
-		}
-		return mav;
 	}
 	
 }

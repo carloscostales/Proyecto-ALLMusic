@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Cancion;
-import com.carlos.repository.CancionDAO;
+import com.carlos.service.CancionService;
 
 @Controller
 public class CancionController {
 	
 	@Autowired
-	private CancionDAO cancionDAO;
+	private CancionService cancionService;
 
 	
-	/* El formulario para una nueva cancion se encuentra en la vista de mostrarAlbum.html*/
+	/* El formulario para una nueva cancion se encuentra en la vista de mostrarAlbum.html */
 	
 	
 	@PostMapping("/addCancion")
@@ -33,7 +33,7 @@ public class CancionController {
 		if(bindingResult.hasErrors()) {
 			mav.setViewName("albumes/mostrarAlbum");
 
-			List<Cancion> listaCanciones = (List<Cancion>) cancionDAO.findByAlbum(cancion.getAlbum());
+			List<Cancion> listaCanciones = (List<Cancion>) cancionService.buscarPorAlbum(cancion.getAlbum());
 			// Ordenar las canciones por su numero en el album
 			Collections.sort(listaCanciones, (a, b) -> a.getNumero() < b.getNumero() ? -1 : a.getNumero() == b.getNumero() ? 0 : 1);
 			mav.addObject("canciones", listaCanciones);
@@ -43,7 +43,7 @@ public class CancionController {
 			return mav;
 		}
 		
-		cancionDAO.save(cancion);
+		cancionService.add(cancion);
 		
 		String referer = request.getHeader("Referer");
 		mav.setViewName("redirect:" + referer);
@@ -53,7 +53,7 @@ public class CancionController {
 	@GetMapping("/borrarCancion/{cancion}")
 	private String rutaBorrarCancion(@ModelAttribute Cancion cancion)  {
 		
-		cancionDAO.delete(cancion);
+		cancionService.delete(cancion);
 		
 		return "redirect:/albumes/" + cancion.getAlbum().getId();
 		

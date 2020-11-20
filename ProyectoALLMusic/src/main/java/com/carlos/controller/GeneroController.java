@@ -15,20 +15,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Genero;
 import com.carlos.model.Usuario;
-import com.carlos.repository.GeneroDAO;
+import com.carlos.service.GeneroService;
 
 @Controller
 public class GeneroController {
 
 	@Autowired
-	private GeneroDAO generoDAO;
+	private GeneroService generoService;
 	
 	@GetMapping("/generos")
 	private ModelAndView verGeneros(Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("generos/generos");
 		
-		List<Genero> listaGeneros = (List<Genero>) generoDAO.findAll();
+		List<Genero> listaGeneros = generoService.listaGeneros();
 		mav.addObject("generos", listaGeneros);
 		
 		mav.addObject("genero", new Genero());
@@ -45,7 +45,7 @@ public class GeneroController {
 	private ModelAndView addGenero(@ModelAttribute Genero genero, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
-		generoDAO.save(genero);
+		generoService.add(genero);
 		
 		String referer = request.getHeader("Referer");
 		mav.setViewName("redirect:" + referer);
@@ -57,7 +57,7 @@ public class GeneroController {
 	@GetMapping("/borrarGenero/{genero}")
 	public String rutaEliminar(@PathVariable Genero genero) {
 		
-		generoDAO.delete(genero);
+		generoService.delete(genero);
 		
 		return("redirect:/generos");
 

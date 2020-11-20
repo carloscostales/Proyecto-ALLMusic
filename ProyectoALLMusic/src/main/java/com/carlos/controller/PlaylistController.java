@@ -10,13 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Playlist;
 import com.carlos.model.Usuario;
-import com.carlos.repository.PlaylistDAO;
+import com.carlos.service.PlaylistService;
 
 @Controller
 public class PlaylistController {
 	
 	@Autowired
-	private PlaylistDAO playlistDAO;
+	private PlaylistService playlistService;
 	
 	@GetMapping(value="/nuevaPlaylist")
 	private ModelAndView nuevaPlaylist(Authentication auth) {
@@ -37,7 +37,7 @@ public class PlaylistController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/");
 		
-		playlistDAO.save(playlist);
+		playlistService.add(playlist);
 		
 		return mav;
 	}

@@ -15,17 +15,17 @@ import com.carlos.model.Cancion;
 import com.carlos.model.Playlist;
 import com.carlos.model.PlaylistCancion;
 import com.carlos.model.Usuario;
-import com.carlos.repository.PlaylistCancionDAO;
-import com.carlos.repository.PlaylistDAO;
+import com.carlos.service.PlaylistCancionService;
+import com.carlos.service.PlaylistService;
 
 @Controller
 public class PlaylistCancionController {
 	
 	@Autowired
-	private PlaylistCancionDAO pcDAO;
+	private PlaylistCancionService pcService;
 	
 	@Autowired
-	private PlaylistDAO playlistDAO;
+	private PlaylistService playlistService;
 
 
 	@GetMapping("/playlists/{playlist}")
@@ -35,7 +35,7 @@ public class PlaylistCancionController {
 		
 		mav.addObject("playlist", playlist);
 		
-		List<PlaylistCancion> canciones_playlist = pcDAO.findByPlaylist(playlist);
+		List<PlaylistCancion> canciones_playlist = pcService.buscarCancionesDePlaylist(playlist);
 		mav.addObject("lista", canciones_playlist);
 		Integer n_canciones = canciones_playlist.size();
 		mav.addObject("numero_canciones", n_canciones);
@@ -65,7 +65,7 @@ public class PlaylistCancionController {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 			
-			List<Playlist> listaPlaylists = (List<Playlist>) playlistDAO.findByUsuario(usuario);
+			List<Playlist> listaPlaylists = (List<Playlist>) playlistService.buscarPorUsuario(usuario);
 			mav.addObject("listaPlaylists", listaPlaylists);
 			
 		}
@@ -78,7 +78,7 @@ public class PlaylistCancionController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/albumes/" + pc.getCancion().getAlbum().getId());
 		
-		pcDAO.save(pc);
+		pcService.add(pc);
 		
 		return mav;
 	}
@@ -93,7 +93,7 @@ public class PlaylistCancionController {
 			mav.addObject("usuario", usuario);
 			
 			if(pc.getPlaylist().getUsuario().getNombreUsuario().equals(usuario.getNombreUsuario())) {
-				pcDAO.delete(pc);
+				pcService.delete(pc);
 			}
 		}
 
