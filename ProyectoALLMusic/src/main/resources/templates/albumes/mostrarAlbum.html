@@ -101,14 +101,14 @@
 		<!-- NAVEGADOR -->
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
-		<div th:if="${artista == null}" th:remove="tag">
+		<div th:if="${album == null}" th:remove="tag">
 			<!-- SECTION -->
 			<section class="container my-5">
 				<h2>Este álbum no existe.</h2>
 			</section>
 		</div>
 		
-		<div th:if="${artista != null}" th:remove="tag">
+		<div th:if="${album != null}" th:remove="tag">
 			<!-- SECTION -->
 			<section class="container mt-5">
 				<div class="row">
