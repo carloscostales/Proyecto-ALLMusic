@@ -71,5 +71,16 @@ public class RutasGenericas {
 		mav.setViewName("login");
 		return mav;
 	}
+	
+	@GetMapping("/login-error")
+	public ModelAndView loginError() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login");
+		
+		boolean loginError = true;
+		mav.addObject("loginError", loginError);
+		
+		return mav;
+	}
 
 }
