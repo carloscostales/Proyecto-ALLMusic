@@ -164,7 +164,8 @@
 								<th style="width: 5%">No.º</th>
 								<th style="width: 70%">TÍTULO</th>
 								<th style="width: 15%" class="d-lg-table-cell d-md-table-cell d-none">DURACIÓN</th>
-								<th style="width: 5%" sec:authorize="isAuthenticated()"></th>
+								<th style="width: 2%" sec:authorize="isAuthenticated()"></th>
+								<th style="width: 3%" sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"></th>
 								<th style="width: 5%" sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"></th>
 							</tr>
 						<thead>
@@ -174,6 +175,7 @@
 								<td th:text="${cancion.titulo}">titulo</td>
 								<td th:text="${cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
 								<td sec:authorize="isAuthenticated()"><a type="button" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}"><i class="fas fa-plus"></i></a></td>
+								<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/cancion/editar/{cancion}(cancion=${cancion.id})}"><i class="far fa-edit"></i></a></td>
 								<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/borrarCancion/{cancion}(cancion=${cancion.id})}"><i class="far fa-trash-alt red-icon"></i></a></td>
 							</tr>
 						</tbody>

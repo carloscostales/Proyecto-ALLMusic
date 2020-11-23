@@ -6,14 +6,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.carlos.model.Cancion;
+import com.carlos.model.Usuario;
 import com.carlos.service.CancionService;
 
 @Controller
@@ -41,6 +44,7 @@ public class CancionController {
 			mav.addObject("numero_canciones", contador);
 			
 			return mav;
+			
 		}
 		
 		cancionService.add(cancion);
@@ -48,6 +52,31 @@ public class CancionController {
 		String referer = request.getHeader("Referer");
 		mav.setViewName("redirect:" + referer);
 		return mav;
+	}
+	
+	@GetMapping("/cancion/editar/{cancion}")
+	public ModelAndView editarArtista(@PathVariable Cancion cancion, Authentication auth) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("canciones/editarCancion");
+		mav.addObject("cancion", cancion);
+		
+		
+		if(auth != null) {
+			Usuario usuario = (Usuario) auth.getPrincipal();
+			mav.addObject("usuario", usuario);
+		}
+		
+		return mav;
+		
+	}
+	
+	@PostMapping("/updateCancion")
+	private String updateCancion(@ModelAttribute Cancion cancion) {
+	
+		cancionService.add(cancion);
+		
+		return "redirect:/albumes/" + cancion.getAlbum().getId();
+		
 	}
 	
 	@GetMapping("/borrarCancion/{cancion}")

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<head>
+		<title>ALLMusic - Editar canción</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	    <!-- Icono -->
+	    <link rel="icon" th:href="@{/img/icon.png}">
+			
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			
+		<!-- Bootstrap jQuery, Popper.js, Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+		<!-- CSS y JS -->
+		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
+	</head>
+
+	<body>
+		<!-- SECTION -->
+		<section class="container mt-5">
+		
+			<h1>Editar canción</h1>
+		
+			<form action="#" th:action="@{/updateCancion}" th:object="${cancion}" method="post">
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group">
+						    <label for="id" class="font-weight-bold">Id</label>
+						    <input type="text" class="form-control" id="id" th:field="*{id}">
+					    </div>
+					    <div class="form-group">
+						    <label for="numero" class="font-weight-bold">Número</label>
+						    <input type="text" class="form-control" id="album" th:field="*{numero}">
+					    </div>
+					  	<div class="form-group">
+						    <label for="titulo" class="font-weight-bold">Título</label>
+						    <input type="text" class="form-control" id="titulo" th:field="*{titulo}">
+					    </div>
+					    <div class="form-group">
+						    <label for="origen" class="font-weight-bold">Duración</label>
+						    <input type="text" class="form-control" id="origen" th:field="*{duracion}">
+					    </div>
+					    <div class="form-group">
+						    <label for="album" class="font-weight-bold">Álbum</label>
+						    <input type="text" class="form-control" id="album" th:field="*{album}">
+					    </div>
+				    </div>
+				    <div class="col-6">
+				    	<figure>
+						    <img th:src="${cancion.album.portadaPath}" style="width:60%;">
+						    <figcaption><span th:text="${cancion.album.titulo}" th:remove="tag"></span> by <span th:text="${cancion.album.artista.nombre}" th:remove="tag"></span></figcaption>
+						</figure>
+				   	</div>
+			    </div>
+			    <input class="btn btn-success" type="submit" value="Enviar"/>
+			    
+			</form>
+		</section>
+		
+	</body>
+</html>

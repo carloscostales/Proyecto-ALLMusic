@@ -15,6 +15,7 @@ public class CancionServiceImpl implements CancionService {
 	@Autowired
 	private CancionDAO cancionDAO;
 	
+	
 	@Override
 	public void add(Cancion cancion) {
 		
@@ -22,9 +23,17 @@ public class CancionServiceImpl implements CancionService {
 	}
 	
 	@Override
+	public void update(Cancion cancion) {
+		
+		if (cancionDAO.existsById(cancion.getId()))
+			cancionDAO.save(cancion);
+	}
+	
+	@Override
 	public void delete(Cancion cancion) {
 		
-		cancionDAO.delete(cancion);
+		if (cancionDAO.existsById(cancion.getId()))
+			cancionDAO.delete(cancion);
 	}
 	
 	@Override

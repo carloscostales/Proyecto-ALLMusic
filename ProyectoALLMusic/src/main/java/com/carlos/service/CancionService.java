@@ -9,6 +9,8 @@ public interface CancionService {
 
 	public void add(Cancion cancion);
 	
+	public void update(Cancion cancion);
+	
 	public void delete(Cancion cancion);
 	
 	public List<Cancion> buscarPorAlbum(Album album);

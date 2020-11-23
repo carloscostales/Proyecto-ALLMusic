@@ -6,14 +6,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 public class Cancion {
@@ -23,22 +22,19 @@ public class Cancion {
 	private int id;
 	
 	@Column
-	@NotNull(message= "El numero no puede estar vacio.")
 	@Min(value=1, message="El numero debe ser mayor de 0.")  
 	private Integer numero;
 	
 	@Column
-	@Size(min=1, message="Campo obligatorio. Mínimo 1 caracter.")
 	private String titulo;
 	
 	@Column
-	@Size(min=1, message="Campo obligatorio. Formate xx:xx")
 	private String duracion;
 	
 	@ManyToOne
 	private Album album = new Album();
 	
-	@OneToMany(mappedBy = "cancion", cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "cancion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<PlaylistCancion> playlist_cancion= new HashSet<>();
 
 
@@ -92,8 +88,10 @@ public class Cancion {
 
 	@Override
 	public String toString() {
-		return "Cancion [id=" + id + ", numero=" + numero + ", titulo=" + titulo + ", duracion=" + duracion + ", album="
-				+ album + "]";
+		return "Cancion [id=" + id + ", numero=" + numero + ", titulo=" + titulo + ", duracion=" + duracion + ", playlist_cancion=" + playlist_cancion + "]";
 	}
+
+	
+	
 	
 }
