@@ -73,14 +73,19 @@ public class AlbumController {
 		int contador = listaCanciones.size();
 		mav.addObject("numero_canciones", contador);
 		
-		List<Album> listaAlbumes = albumService.buscarTodosMenosUnoArtista(album.getArtista().getId(), album.getId());
+		// Lista de albumes que aparece al final de la vista
+		List<Album> listaAlbumes = null;
 		List<Album> listaAlbumesCorta = null;
-		Collections.shuffle(listaAlbumes);
-		
-		if(listaAlbumes.size() < 6 ) {
-			listaAlbumesCorta = listaAlbumes.subList(0, listaAlbumes.size());
-		} else {
-			listaAlbumesCorta = listaAlbumes.subList(0, 6);
+		if(album != null) {
+			listaAlbumes = albumService.buscarTodosMenosUnoArtista(album.getArtista().getId(), album.getId());
+			listaAlbumesCorta = null;
+			Collections.shuffle(listaAlbumes);
+			
+			if(listaAlbumes.size() < 6 ) {
+				listaAlbumesCorta = listaAlbumes.subList(0, listaAlbumes.size());
+			} else {
+				listaAlbumesCorta = listaAlbumes.subList(0, 6);
+			}
 		}
 		
 		mav.addObject("listaAlbumes", listaAlbumesCorta);

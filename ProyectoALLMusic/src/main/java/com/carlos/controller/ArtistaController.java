@@ -167,20 +167,20 @@ public class ArtistaController {
 		}
 		
 		// Artistas con el mismo género que el artista de la ruta
-		List<Artista> artistasPorGenero = artistaService.buscarPorGenero(artista.getGenero());
-		Collections.shuffle(artistasPorGenero);
-		mav.addObject("artistasRelacionados", artistasPorGenero);
-		
-		// Lista de artistas del mismo género excluyendo el artista de la ruta
-		List<Artista> listaRelacionados = artistaService.buscarArtistasDelMismoGenero(artista.getId(), artista.getGenero().getNombre());
-		mav.addObject("listaRelacionados", listaRelacionados);
-        
+		if (artista != null) {
+			List<Artista> artistasPorGenero = artistaService.buscarPorGenero(artista.getGenero());
+			Collections.shuffle(artistasPorGenero);
+			mav.addObject("artistasRelacionados", artistasPorGenero);
+			
+			// Lista de artistas del mismo género excluyendo el artista de la ruta
+			List<Artista> listaRelacionados = artistaService.buscarArtistasDelMismoGenero(artista.getId(), artista.getGenero().getNombre());
+			mav.addObject("listaRelacionados", listaRelacionados);
+		}
         if(auth != null) {
 			Usuario usuario = (Usuario) auth.getPrincipal();
 			mav.addObject("usuario", usuario);
 		}
         
-
 		return mav;
 		
 	}
@@ -253,6 +253,7 @@ public class ArtistaController {
 		}
 		
 		return mav;
+		
 	}
 	
 	@PostMapping("/updateArtista")
