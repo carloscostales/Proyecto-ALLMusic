@@ -41,7 +41,7 @@
 							</div>
 							<div class="col-lg-4 col-4">
 								<form th:action="@{/artista/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
-									<input type="text" th:field="*{nombre}" class="form-control mr-sm-3">
+									<input type="text" th:field="*{nombre}" class="form-control mr-sm-3" placeholder="Buscar...">
 									<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
 								</form>
 							</div>

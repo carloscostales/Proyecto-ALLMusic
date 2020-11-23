@@ -33,19 +33,19 @@
 				<div class="row">
 					<div class="form-group col-6">
 					    <label for="nombre" class="font-weight-bold">Nombre</label>
-					    <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+					    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre">
 					    <small class="form-text text-danger" id="errorNombre"></small>
 				    </div>
 				    
 					<div class="form-group col-6">
 					    <label for="origen" class="font-weight-bold">Origen</label>
-					    <input type="text" class="form-control" id="origen" th:field="*{origen}">
+					    <input type="text" class="form-control" id="origen" th:field="*{origen}" placeholder="Origen">
 					    <small class="form-text text-danger" id="errorOrigen"></small>
 				    </div>
 			    
 				    <div class="form-group col-12">
 					    <label for="bio" class="font-weight-bold">Biografía</label>
-					    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
+					    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}" placeholder="Biografia"></textarea>
 					    <small class="form-text text-danger" id="errorBio"></small>
 				    </div>
 				    
@@ -98,8 +98,8 @@
 				$('#errorOrigen').hide();
 				$('#errorFoto').hide();
 	    		
-	    		$("input, textarea").blur(function(){
-	    			if ( !$("#nombre").val() || !$("#origen").val() || $("#bio").val().length<20 || !$("#foto").val() ) {		//if it is blank. 
+	    		$("input, textarea").keyup(function(){
+	    			if ( !$("#nombre").val() || $("#origen").val().length<2 || $("#bio").val().length<20 || !$("#foto").val() ) {		//if it is blank. 
 	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
@@ -108,7 +108,7 @@
 	    			
 	    		
 	    		// Validaciones para los campos del formulario desde la vista.
-	    		$("#nombre").blur(function(){	
+	    		$("#nombre").keyup(function(){	
 	    			if ( !$("#nombre").val().length ) {
 	    				error="El nombre no puede estar vacio.";
 	    				$("#errorNombre").show();
@@ -119,21 +119,20 @@
 	    				$("#errorNombre").hide();
 	    			}
 	    		});
-	    		$("#origen").blur(function(){	
+	    		$("#origen").keyup(function(){	
 	    			if ( $("#origen").val().length<2 ) {
 	    				error="El origen no puede ser menor que 2 caracteres.";
 	    				$("#errorOrigen").show();
 	    				$("#errorOrigen").text(error);
 	    				
 	    			}else {
-	    				$("#errorNombre").hide();
+	    				$("#errorOrigen").hide();
 	    			}
 	    		});
-	    		$("#bio").blur(function(){	
+	    		$("#bio").keyup(function(){
+					$("#errorBio").text("Minimo 20 caracteres: " + (20 - $(this).val().length) + "/20");
 	    			if ( $("#bio").val().length<20 ) {
-	    				error="La biografía no puede ser menor que 20.";
 	    				$("#errorBio").show();
-	    				$("#errorBio").text(error);
 	    				
 	    			}else {
 	    				$("#errorBio").hide();

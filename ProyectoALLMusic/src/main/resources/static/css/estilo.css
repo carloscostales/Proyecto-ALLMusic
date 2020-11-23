@@ -54,8 +54,19 @@ td, th {
 	border-color: #282828 !important;
 }
 
-
-
 .card-footer {
 	background-color: transparent;	
+}
+
+input[type='text'], input[type='number'], textarea, select {
+	background-color: transparent !important;
+  	border-radius: 0 !important;
+  	color: white !important;
+  	border: none !important;
+  	border-bottom: 1px solid white !important;
+  	border-right: 1px solid white !important;
+}
+
+option{
+	background-color: #282828;
 }
