@@ -36,6 +36,7 @@ import com.carlos.model.Genero;
 import com.carlos.model.Usuario;
 import com.carlos.service.AlbumService;
 import com.carlos.service.ArtistaService;
+import com.carlos.service.CancionService;
 import com.carlos.service.ComparatorFecha;
 import com.carlos.service.GeneroService;
 import com.carlos.service.PaginacionArtistaAPI;
@@ -51,6 +52,9 @@ public class ArtistaController {
 	
 	@Autowired
 	private AlbumService albumService;
+	
+	@Autowired
+	private CancionService cancionService;
 	
 	@Autowired
 	private PaginacionArtistaAPI paginacionArtistaAPI;
@@ -341,9 +345,11 @@ public class ArtistaController {
 		
 	}
 	
-	@GetMapping("/borrarArtista/{artista}")
+	@GetMapping("/artista/borrar/{artista}")
 	private String rutaBorrarAlbum(@PathVariable Artista artista)  {
 		
+		cancionService.borrarCancionesDeArtista(artista.getId());
+		albumService.borrarAlbumesDeArtista(artista.getId());
 		artistaService.delete(artista);
 		
 		return "redirect:/artistas";

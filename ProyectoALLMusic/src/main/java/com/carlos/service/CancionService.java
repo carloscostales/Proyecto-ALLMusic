@@ -14,4 +14,11 @@ public interface CancionService {
 	public void delete(Cancion cancion);
 	
 	public List<Cancion> buscarPorAlbum(Album album);
+	
+	public void borrarCancionesDeArtista(Integer id);
+	
+	public void borrarCancionesDeAlbum(Integer id);
+	
+	public void borrarCancion(Integer id);
+	
 }

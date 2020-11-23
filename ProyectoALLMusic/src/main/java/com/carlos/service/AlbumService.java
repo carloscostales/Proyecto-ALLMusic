@@ -23,4 +23,8 @@ public interface AlbumService {
 	
 	public List<Album> buscarTodosMenosUnoArtista(Integer artista_id, Integer album_id);
 	
+	public void borrarAlbumesDeArtista(Integer id);
+	
+	public void borrarAlbum(Integer id);
+	
 }

@@ -32,7 +32,8 @@ public class AlbumServiceImpl implements AlbumService {
 	@Override
 	public void delete(Album album) {
 		
-		albumDAO.delete(album);
+		if (albumDAO.existsById(album.getId()))
+			albumDAO.delete(album);
 	}
 	
 	@Override
@@ -62,6 +63,20 @@ public class AlbumServiceImpl implements AlbumService {
 	public List<Album> buscarTodosMenosUnoArtista(Integer artista_id, Integer album_id) {
 		
 		return albumDAO.findTodosMenosUnoArtista(artista_id, album_id);
+	}
+
+	@Override
+	public void borrarAlbumesDeArtista(Integer id) {
+		
+		if (albumDAO.existsById(id))
+			albumDAO.borrarAlbumesDeArtista(id);
+	}
+
+	@Override
+	public void borrarAlbum(Integer id) {
+		
+		if (albumDAO.existsById(id))
+			albumDAO.borrarAlbum(id);
 	}
 	
 }

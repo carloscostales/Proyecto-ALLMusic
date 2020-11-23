@@ -79,10 +79,10 @@ public class CancionController {
 		
 	}
 	
-	@GetMapping("/borrarCancion/{cancion}")
+	@GetMapping("/cancion/borrar/{cancion}")
 	private String rutaBorrarCancion(@ModelAttribute Cancion cancion)  {
 		
-		cancionService.delete(cancion);
+		cancionService.borrarCancion(cancion.getId());
 		
 		return "redirect:/albumes/" + cancion.getAlbum().getId();
 		

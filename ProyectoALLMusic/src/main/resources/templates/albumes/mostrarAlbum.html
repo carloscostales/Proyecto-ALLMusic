@@ -176,7 +176,7 @@
 								<td th:text="${cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
 								<td sec:authorize="isAuthenticated()"><a type="button" th:href="@{/playlists/nuevaCancionPlaylist/{cancion}(cancion=${cancion.id})}"><i class="fas fa-plus"></i></a></td>
 								<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/cancion/editar/{cancion}(cancion=${cancion.id})}"><i class="far fa-edit"></i></a></td>
-								<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/borrarCancion/{cancion}(cancion=${cancion.id})}"><i class="far fa-trash-alt red-icon"></i></a></td>
+								<td sec:authorize="isAuthenticated()" th:if="${usuario.rol.nombre == 'ADMIN'}"><a th:href="@{/cancion/borrar/{cancion}(cancion=${cancion.id})}"><i class="far fa-trash-alt red-icon"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -339,7 +339,7 @@
 							<p>Si borras el álbum, también se borrarán sus canciones. ¡No hay vuelta atras!</p>
 						</div>
 						<div class="modal-footer">
-							<a type="button" class="btn btn-danger" th:href="@{/borrarAlbum/{album}(album=${album.id})}">BORRAR</a>
+							<a type="button" class="btn btn-danger" th:href="@{/album/borrar/{album}(album=${album.id})}">BORRAR</a>
 						  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
 						</div>
 					</div>

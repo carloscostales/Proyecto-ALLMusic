@@ -180,10 +180,11 @@ public class AlbumController {
 		
 	}
 	
-	@GetMapping("/borrarAlbum/{album}")
+	@GetMapping("/album/borrar/{album}")
 	private String rutaBorrarAlbum(@PathVariable Album album)  {
 		
-		albumService.delete(album);
+		cancionService.borrarCancionesDeAlbum(album.getId());
+		albumService.borrarAlbum(album.getId());
 		
 		return "redirect:/artistas/" + album.getArtista().getId();
 		
