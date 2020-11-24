@@ -30,38 +30,43 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
 		<!-- SECTION -->
-		<section class="container mt-5">
-			<h2>Lista de Álbumes</h2>
+		<section class="container my-5">
+			<div class="row">
+				<h2 class="col-12">Lista de álbumes</h2>
+			</div>	
+			<div th:if="${not #lists.isEmpty(listaAlbumes)}" th:remove="tag">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Título</th>
+							<th>Fecha</th>
+							<th>Artista</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="album : ${albumes}">
+							<td><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
+							<td th:text="${album.fecha_salida}">fecha salida</td>
+							<td><a th:href="@{/artistas/{artista}(artista=${album.artista.id})}"><span th:text="${album.artista.nombre}">artista></span></a></td>
+						</tr>
+					</tbody>
+					<tfoot>
+			            <tr>
+			                <th>Título</th>
+							<th>Fecha</th>
+							<th>Artista</th>
+			            </tr>
+			        </tfoot>
+				</table>
+			</div>
 			
-			<div class="mb-5">
-				
-				<div id="hayAlbumes">
-					<table id="tablaAlbumes" class="table table-hover">
-						<thead>
-							<tr>
-								<th>Título</th>
-								<th>Fecha</th>
-								<th>Artista</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="album : ${albumes}">
-								<td><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}">titulo></span></a></td>
-								<td th:text="${album.fecha_salida}">fecha salida</td>
-								<td><a th:href="@{/artistas/{artista}(artista=${album.artista.id})}"><span th:text="${album.artista.nombre}">artista></span></a></td>
-							</tr>
-						</tbody>
-						<tfoot>
-				            <tr>
-				                <th>Título</th>
-								<th>Fecha</th>
-								<th>Artista</th>
-				            </tr>
-				        </tfoot>
-					</table>
-				</div>
+			<div th:if="${#lists.isEmpty(listaAlbumes)}" th:remove="tag">
+				<h4 class="mt-5">No hay álbumes creados.</h4>
 			</div>
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 	</body>
 	

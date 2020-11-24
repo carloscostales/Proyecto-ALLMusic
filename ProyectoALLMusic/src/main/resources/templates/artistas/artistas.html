@@ -30,50 +30,47 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
 		<!-- SECTION -->
-		<section class="container mt-5">
+		<section class="container my-5">
 			<div class="row">
-				<h2 class="col-lg-7 col-8">Lista de Artistas</h2>
+				<h2 class="col-lg-7 col-md-6 col-8">Lista de artistas</h2>
 				<div sec:authorize="isAuthenticated()" th:remove="tag">
 					<div th:switch="${#authorization.expression('hasAuthority(''ADMIN'')')}" th:remove="tag">
 						<div th:case="true" th:remove="tag">
-							<div class="col-lg-1 col-4">
+							<div class="col-lg-1 col-md-1 col-4">
 								<a type="button" class="btn btn-success float-right" th:href="@{/nuevoArtista}"><i class="fas fa-plus"></i></a>
 							</div>
-							<div class="col-lg-4 col-4">
-								<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
+							<div class="col-lg-4 col-md-5 col-12">
+								<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-md-right float-none">
 									<input type="text" th:field="*{nombre}" class="form-control mr-sm-3" placeholder="Buscar...">
-									<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
+									<button type="submit" class="btn btn-outline-success d-md-block d-none"><i class="fas fa-search"></i></button>
 								</form>
 							</div>
 						</div>
-						<div th:case="false" class="col-lg-5 col-4">
-							<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
-								<input type="text" th:field="*{nombre}" class="form-control mr-sm-3">
-								<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
+						<div th:case="false" class="col-lg-4 col-md-6 col-12">
+							<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-md-right float-none">
+								<input type="text" th:field="*{nombre}" class="form-control mr-sm-3" placeholder="Buscar...">
+								<button type="submit" class="btn btn-outline-success d-md-block d-none"><i class="fas fa-search"></i></button>
 							</form>
 						</div>
 					</div>
 				</div>
 				<div sec:authorize="!isAuthenticated()" th:remove="tag">
-					<div class="col-lg-5 col-4">
-						<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
-							<input type="text" th:field="*{nombre}" class="form-control mr-sm-3">
-							<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
+					<div class="col-lg-4 col-md-6 col-12">
+						<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-md-right float-none">
+							<input type="text" th:field="*{nombre}" class="form-control mr-sm-3" placeholder="Buscar...">
+							<button type="submit" class="btn btn-outline-success d-md-block d-none"><i class="fas fa-search"></i></button>
 						</form>
 					</div>
 				</div>
 			</div>
 			
-			<div class="my-5">
-				
-				<div id="hayArtistas">
-					<div class="row">
-						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${lista}">
-							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
-						  	<div class="card-body">
-						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
-						 	</div>
-						</div>
+			<div th:if="${not #lists.isEmpty(listaArtistas)}" th:remove="tag">
+				<div class="row mt-5">
+					<div class="card col-lg-2 col-4 border-0" th:each="artista : ${listaArtistas}">
+						<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
+					  	<div class="card-body">
+					    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+					 	</div>
 					</div>
 				</div>
 				
@@ -98,7 +95,14 @@
 					<div class="col-md-2"></div>
 				</div>
 			</div>
+			
+			<div th:if="${#lists.isEmpty(listaArtistas)}" th:remove="tag">
+				<h4 class="mt-5">No hay artistas creados.</h4>
+			</div>
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 	</body>
 </html>

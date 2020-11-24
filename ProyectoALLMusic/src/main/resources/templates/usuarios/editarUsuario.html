@@ -26,8 +26,7 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<!-- SECTION -->
-		<section class="container mt-5">
-		
+		<section class="container my-5">
 			<h1>Editar usuario</h1>
 		
 			<form action="#" th:action="@{/updateUsuario}" th:object="${usuario}" method="post">
@@ -78,7 +77,11 @@
 			    <input class="btn btn-success" type="submit" value="Enviar" />
 			    <a class="btn btn-primary" th:href="@{/usuarios}" role="button">Volver</a>
 			</form>
+			
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 	</body>
 </html>

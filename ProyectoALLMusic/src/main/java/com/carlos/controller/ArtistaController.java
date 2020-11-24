@@ -82,7 +82,7 @@ public class ArtistaController {
 			mav.addObject("paginas", pages);
 		}
 
-		mav.addObject("lista", pageArtista.getContent());
+		mav.addObject("listaArtistas", pageArtista.getContent());
 		mav.addObject("current", page+1);
 		mav.addObject("next", page+2);
 		mav.addObject("prev", page);
@@ -125,7 +125,7 @@ public class ArtistaController {
 			mav.addObject("paginas", pages);
 		}
 
-		mav.addObject("lista", pageArtista.getContent());
+		mav.addObject("listaArtistas", pageArtista.getContent());
 		mav.addObject("current", page+1);
 		mav.addObject("next", page+2);
 		mav.addObject("prev", page);

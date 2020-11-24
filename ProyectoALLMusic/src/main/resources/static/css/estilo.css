@@ -58,7 +58,7 @@ td, th {
 	background-color: transparent;	
 }
 
-input[type='text'], input[type='number'], textarea, select {
+input[type='text'], input[type='number'], input[type='password'], textarea, select {
 	background-color: transparent !important;
   	color: white !important;
   	border: none !important;
@@ -69,4 +69,13 @@ input[type='text'], input[type='number'], textarea, select {
 
 option{
 	background-color: #282828;
+}
+
+			
+.red-icon{
+	color: #dc3545;
+}
+
+.red-icon:hover {
+	color: #a71d2a;
 }

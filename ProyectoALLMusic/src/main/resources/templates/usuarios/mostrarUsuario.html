@@ -31,38 +31,39 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<!-- SECTION -->
-		<section class="mt-5">
-			<div class="container mb-5">
-				<h1>Usuario <span th:text="${usuario.nombreUsuario}"></h1>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
-					<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
-					<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
-				</ul>
+		<section class="container my-5">
+			<h1>Usuario <span th:text="${usuario.nombreUsuario}"></h1>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
+				<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
+				<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
+			</ul>
+			
+			<br><br>
+			
+			<div class="row">
+				<h2 class="col-10">Lista de playlists</h2>
+				<div class="col-2" sec:authorize="isAuthenticated()">
+					<a type="button" class="btn btn-success float-right" th:href="@{/nuevaPlaylist}">Crear playlist</a>
+			</div>
 				
-				<br><br>
-				
-				<div class="row">
-					<h2 class="col-10">Lista de playlists</h2>
-					<div class="col-2" sec:authorize="isAuthenticated()">
-						<a type="button" class="btn btn-success float-right" th:href="@{/nuevaPlaylist}">Crear playlist</a>
+				<div th:switch="${#lists.isEmpty(listaPlaylists)}" th:remove="tag">
+					<div th:case="true" th:remove="tag">
+						<p class="col-12">No tienes playlists creadas. ¡A qué esperas!</p>
 					</div>
-					
-					<div th:switch="${#lists.isEmpty(listaPlaylists)}" th:remove="tag">
-						<div th:case="true" th:remove="tag">
-							<p class="col-12">No tienes playlists creadas. ¡A qué esperas!</p>
-						</div>
-					
-						<div th:case="false" class="col-12">
-							<ul class="list-group list-group-flush">
-								<li th:each="playlist : ${listaPlaylists}" class="list-group-item"><a th:href="@{/playlists/{id}(id=${playlist.id})}" th:text="${playlist.nombre}"></a></li>
-							</ul>
-						</div>
+				
+					<div th:case="false" class="col-12">
+						<ul class="list-group list-group-flush">
+							<li th:each="playlist : ${listaPlaylists}" class="list-group-item"><a th:href="@{/playlists/{id}(id=${playlist.id})}" th:text="${playlist.nombre}"></a></li>
+						</ul>
 					</div>
 				</div>
-				
 			</div>
+			
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 	</body>
 </html>

@@ -17,6 +17,9 @@
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	    
+	    <!-- ICONOS FONT AWESOME -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
+	    
 	    <!-- CSS y JS -->
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 	</head>
@@ -26,43 +29,41 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
 		<!-- SECTION -->
-		<section class="mt-5">
-			<div class="container">
-				<div class="row">
-					<h1 class="col-9">GENEROS</h1>
-					<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearGenero">Nuevo género</button>
-					</div>
-				</div>
-				<div class="mb-5">
-					<div th:switch="${#lists.isEmpty(generos)}">
-						<div id="noHayGeneros" th:case="true">
-							<p>No hay géneros</p>
-						</div>
-						<div id="hayGeneros" th:case="false">
-							<table class="table table-hover ">
-								<thead>
-									<tr>
-										<th>Nombre</th>
-										<th th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})"></th>
-									</tr>
-								<thead>
-								<tbody>
-									<tr th:each="genero: ${generos}">
-										<td th:text="${genero.nombre}">nombre genero</td>
-										<td th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})"><a type="button" class="btn btn-danger btn-sm" th:href="@{/generos/borrar/{genero}(genero=${genero.nombre})}">Borrar</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div> 
-				</div>
-
-				<div class="col-3">
-					<a class="btn btn-secondary" th:href="@{/}" role="button">Volver</a>
+		<section class="container my-5">
+			<div class="row">
+				<h1 class="col-9">GÉNEROS</h1>
+				<div th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})" class="col-3">
+					<a type="button" class="btn btn-success float-right" th:href="@{/nuevoGenero}"><i class="fas fa-plus"></i></a>
 				</div>
 			</div>
+			
+			<div th:switch="${#lists.isEmpty(generos)}" th:remove="tag">
+					<div th:case="true">
+						<p>No hay géneros creados.</p>
+					</div>
+					<div th:case="false" th:remove="tag">
+						<table class="table table-hover ">
+							<thead>
+								<tr>
+									<th width="95%">Nombre</th>
+									<th width="5%" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})"></th>
+								</tr>
+							<thead>
+							<tbody>
+								<tr th:each="genero: ${generos}">
+									<td th:text="${genero.nombre}">nombre genero</td>
+									<td th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})"><a th:href="@{/generos/borrar/{genero}(genero=${genero.nombre})}"><i class="far fa-trash-alt red-icon"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			<a class="btn btn-secondary" th:href="@{/}" role="button">Volver</a>
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 		<!-- Modal -->
 		<div class="modal fade" id="crearGenero" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

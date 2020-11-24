@@ -26,55 +26,54 @@
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 
 		<!-- SECTION -->
-		<section class="mt-5">
-			<div class="container">
-				<h1>TABLA USUARIOS</h1>
-				
-				<div class="mb-5">
-					<div th:switch="${#lists.isEmpty(usuarios)}">
-						<div id="noHayNadie" th:case="true">
-							<p>No hay nadie</p>
-						</div>
-						<div id="hayUsuarios" th:case="false">
-							<table class="table table-hover">
+		<section class="container my-5">
+			<h1>TABLA USUARIOS</h1>
+			
+			<div class="mb-5">
+				<div th:switch="${#lists.isEmpty(usuarios)}">
+					<div th:case="true" th:remove="tag">
+						<p>No hay nadie</p>
+					</div>
+					<div th:case="false" th:remove="tag">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Nombre usuario</th>
+									<th>Email</th>
+									<th>Permisos</th>
+									<th>Visualizar</th>
+									<th>Editar</th>
+									<th>Eliminar</th>
+								</tr>
 								<thead>
-									<tr>
-										<th>Nombre usuario</th>
-										<th>Email</th>
-										<th>Permisos</th>
-										<th>Visualizar</th>
-										<th>Editar</th>
-										<th>Eliminar</th>
-									</tr>
-									<thead>
-								<tbody>
-									<tr th:each="usuario : ${usuarios}">
-										<td th:text="${usuario.nombreUsuario}">Usuario</td>
-										<td th:text="${usuario.email}">Email</td>
-										<td th:text="${usuario.rol.nombre}">Permisos</td>
-										<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Visualizar</a></td>
-										<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/editar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Editar</a></td>
-										<td><a type="button" class="btn btn-danger btn-sm" th:href="@{/usuarios/borrar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Eliminar</a></td>
-									</tr>
-								</tbody>
-
-							</table>
-						</div>
-					</div> 
+							<tbody>
+								<tr th:each="usuario : ${usuarios}">
+									<td th:text="${usuario.nombreUsuario}">Usuario</td>
+									<td th:text="${usuario.email}">Email</td>
+									<td th:text="${usuario.rol.nombre}">Permisos</td>
+									<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Visualizar</a></td>
+									<td><a type="button" class="btn btn-info btn-sm" th:href="@{/usuarios/editar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Editar</a></td>
+									<td><a type="button" class="btn btn-danger btn-sm" th:href="@{/usuarios/borrar/{nombreUsuario}(nombreUsuario=${usuario.nombreUsuario})}">Eliminar</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> 
+			</div>
+			
+			<div class="row">
+				<div class="col-3">
+					<a type="button" class="btn btn-primary" th:href="@{/registrarse}">Nuevo usuario</a>
+				</div>
+				<div class="col-3">
+					<a class="btn btn-secondary" th:href="@{/}" role="button">Volver a inicio</a>
 				</div>
 			</div>
-
-			<div class="container">
-				<div class="row">
-					<div class="col-3">
-						<a type="button" class="btn btn-primary" th:href="@{/registrarse}">Nuevo usuario</a>
-					</div>
-					<div class="col-3">
-						<a class="btn btn-secondary" th:href="@{/}" role="button">Volver a inicio</a>
-					</div>
-				</div>
-			</div>
+			
 		</section>
+		
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
 		
 	</body>
 </html>

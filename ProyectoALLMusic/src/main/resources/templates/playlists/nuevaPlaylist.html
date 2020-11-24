@@ -21,18 +21,18 @@
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
 	</head>
 
-	<body onLoad="document.nuevaPlaylist.nombre.focus()">
+	<body>
 		<!-- NAVEGADOR -->
 		<nav th:replace="../fragments/nav.html :: nav"></nav>
 		
 		<!-- SECTION -->
-		<section class="mt-5 container">
+		<section class="container my-5">
 			<h1>NUEVA PLAYLIST</h1>
 			
 			<form action="#" th:action="@{/addPlaylist}" th:object="${playlist}" name="nuevaPlaylist" method="post">
 				<div class="form-group">
 			    	<label for="nombre" class="font-weight-bold">Nombre</label>
-			    	<input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}">
+			    	<input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Nombre playlist" autofocus>
 			    	<!-- <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small> -->
 			   	</div>
 			   	
@@ -44,7 +44,11 @@
 			   	
 			    <input type="submit" value="Crear" class="btn btn-success">	
 			</form>
+			
 		</section>
 		
-   </body>
+		<!-- FOOTER -->
+		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+	</body>
 </html>
