@@ -3,6 +3,8 @@ package com.carlos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.carlos.model.Artista;
@@ -43,6 +45,12 @@ public class ArtistaServiceImpl implements ArtistaService {
 	}
 	
 	@Override
+	public Page<Artista> listaArtistasCompleta(Pageable pageable) {
+		
+		return artistaDAO.findAll(pageable);
+	}
+	
+	@Override
 	public List<Artista> buscarUltimosSeis() {
 
 		return artistaDAO.findLast6();
@@ -64,6 +72,12 @@ public class ArtistaServiceImpl implements ArtistaService {
 	public List<Artista> buscarPorNombreEmpiezaCon(String nombre) {
 
 		return artistaDAO.findByNombreStartsWith(nombre);
+	}
+
+	@Override
+	public Page<Artista> buscarPorNombreEmpiezaCon(Pageable pageable, String nombre) {
+		
+		return artistaDAO.findByNombreStartsWith(pageable, nombre);
 	}
 
 }

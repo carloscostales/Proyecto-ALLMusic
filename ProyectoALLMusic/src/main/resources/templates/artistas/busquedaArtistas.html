@@ -68,7 +68,7 @@
 				
 				<div id="hayArtistas">
 					<div class="row">
-						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${artistas}">
+						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${lista}">
 							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 						  	<div class="card-body">
 						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
@@ -84,13 +84,13 @@
 						<nav aria-label="Pagination">
 							<ul class="pagination justify-content-center">
 								<li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
-									<a class="page-link" th:href="@{| /artistas/?page=${prev} |}">Anterior</a>
+									<a class="page-link" th:href="@{| /artistas/buscar?nombre=${busqueda.nombre}&page=${prev} |}">Anterior</a>
 								</li>
 						    	<li class="page-item" th:each="page: ${paginas}" th:classappend="${current == page ? 'active': ''}">
-						    		<a class="page-link" th:href="@{| /artistas/?page=${page} |}" th:text="${page}"></a>
+						    		<a class="page-link" th:href="@{| /artistas/buscar?nombre=${busqueda.nombre}&page=${page} |}" th:text="${page}"></a>
 						    	</li>
 						    	<li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
-									<a class="page-link" th:href="@{| /artistas/?page=${next} |}">Siguiente</a>
+									<a class="page-link" th:href="@{| /artistas/buscar?nombre=${busqueda.nombre}&page=${next} |}">Siguiente</a>
 								</li>
 						  	</ul>
 						</nav>

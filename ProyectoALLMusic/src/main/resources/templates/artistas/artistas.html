@@ -40,14 +40,14 @@
 								<a type="button" class="btn btn-success float-right" th:href="@{/nuevoArtista}"><i class="fas fa-plus"></i></a>
 							</div>
 							<div class="col-lg-4 col-4">
-								<form th:action="@{/artista/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
+								<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
 									<input type="text" th:field="*{nombre}" class="form-control mr-sm-3" placeholder="Buscar...">
 									<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
 								</form>
 							</div>
 						</div>
 						<div th:case="false" class="col-lg-5 col-4">
-							<form th:action="@{/artista/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
+							<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
 								<input type="text" th:field="*{nombre}" class="form-control mr-sm-3">
 								<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
 							</form>
@@ -56,7 +56,7 @@
 				</div>
 				<div sec:authorize="!isAuthenticated()" th:remove="tag">
 					<div class="col-lg-5 col-4">
-						<form th:action="@{/artista/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
+						<form th:action="@{/artistas/buscar}" th:object="${busqueda}" method="get" class="form-inline float-right">
 							<input type="text" th:field="*{nombre}" class="form-control mr-sm-3">
 							<button type="submit" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
 						</form>
@@ -68,7 +68,7 @@
 				
 				<div id="hayArtistas">
 					<div class="row">
-						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${artistas}">
+						<div class="card col-lg-2 col-4 border-0" th:each="artista : ${lista}">
 							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 						  	<div class="card-body">
 						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>

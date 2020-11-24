@@ -2,6 +2,9 @@ package com.carlos.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.carlos.model.Artista;
 import com.carlos.model.Genero;
 
@@ -15,6 +18,8 @@ public interface ArtistaService {
 	
 	public List<Artista> listaArtistasCompleta();
 	
+	public Page<Artista> listaArtistasCompleta(Pageable pageable);
+	
 	public List<Artista> buscarUltimosSeis();
 	
 	public List<Artista> buscarPorGenero(Genero genero);
@@ -22,5 +27,7 @@ public interface ArtistaService {
 	public List<Artista> buscarArtistasDelMismoGenero(Integer id, String genero);
 	
 	public List<Artista> buscarPorNombreEmpiezaCon(String nombre);
+	
+	public Page<Artista> buscarPorNombreEmpiezaCon(Pageable pageable, String nombre);
 	
 }

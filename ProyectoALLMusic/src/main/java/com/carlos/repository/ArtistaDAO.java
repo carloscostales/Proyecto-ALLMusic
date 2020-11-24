@@ -2,6 +2,8 @@ package com.carlos.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +28,8 @@ public interface ArtistaDAO extends JpaRepository<Artista, Integer> {
 	
 	// Busca artistas que empiezen por el string dado.
 	List<Artista> findByNombreStartsWith(String nombre);
+	
+	// Busca artistas que empiezen por el string dado. Hecho para paginar la búsqueda
+	Page<Artista> findByNombreStartsWith(Pageable pageable, String nombre);
 	
 }

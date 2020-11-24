@@ -39,7 +39,6 @@ import com.carlos.service.ArtistaService;
 import com.carlos.service.CancionService;
 import com.carlos.service.ComparatorFecha;
 import com.carlos.service.GeneroService;
-import com.carlos.service.PaginacionArtistaAPI;
 
 @Controller
 public class ArtistaController {
@@ -56,9 +55,7 @@ public class ArtistaController {
 	@Autowired
 	private CancionService cancionService;
 	
-	@Autowired
-	private PaginacionArtistaAPI paginacionArtistaAPI;
-
+	
 	@GetMapping("/artistas")
 	private ModelAndView rutaArtistas(@RequestParam Map<String, Object> params, Authentication auth) {
 
@@ -66,17 +63,15 @@ public class ArtistaController {
 		mav.setViewName("artistas/artistas");
 		mav.addObject("artista", new Artista());
 
-		List<Artista> listaArtistas = artistaService.listaArtistasCompleta();
-		mav.addObject("artistas", listaArtistas);
 
 		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
 
 		// Pagina que vamos a buscar y cuantos registros cargamos por página.
-		PageRequest pageRequest = PageRequest.of(page, 10);
+		PageRequest pageRequest = PageRequest.of(page, 18);
 
 		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
-		Page<Artista> pageArtista = paginacionArtistaAPI.getAll(pageRequest);
+		Page<Artista> pageArtista = artistaService.listaArtistasCompleta(pageRequest);
 
 		// Total de páginas.
 		int totalPage = pageArtista.getTotalPages();
@@ -104,23 +99,22 @@ public class ArtistaController {
 
 	}
 	
-	@GetMapping("/artista/buscar")
+	@GetMapping("/artistas/buscar")
 	private ModelAndView buscarPorArtista(@RequestParam Map<String, Object> params, @RequestParam String nombre, @ModelAttribute("busqueda") Artista busqueda, Authentication auth) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("artistas/busquedaArtistas");
 		mav.addObject("busqueda", busqueda);
 		
-		mav.addObject("artistas", artistaService.buscarPorNombreEmpiezaCon(nombre));
 
 		// Obtenemos el parametro que tiene la página.Si es diferente de null entonces hace lo siguiente.
 		int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
 
 		// Pagina que vamos a buscar y cuantos registros cargamos por página.
-		PageRequest pageRequest = PageRequest.of(page, 10);
+		PageRequest pageRequest = PageRequest.of(page, 12);
 
 		// Realizamos la consulta con los parametros de la pagina y el tamaño de ella.
-		Page<Artista> pageArtista = paginacionArtistaAPI.getAll(pageRequest);
+		Page<Artista> pageArtista = artistaService.buscarPorNombreEmpiezaCon(pageRequest, nombre);
 
 		// Total de páginas.
 		int totalPage = pageArtista.getTotalPages();
