@@ -22,13 +22,12 @@
 		<script type="text/javascript">
 		
 			$(function() {
-				$('#submit_button').attr('disabled', true);
 				$('#errorBio').hide();
 				$('#errorNombre').hide();
 				$('#errorOrigen').hide();
 				$('#errorFoto').hide();
 	    		
-	    		$("input, textarea").keyup(function(){
+	    		$("input, textarea").blur(function(){
 	    			if ( !$("#nombre").val() || $("#origen").val().length<2 || $("#bio").val().length<20 || !$("#foto").val() ) {
 	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
@@ -38,7 +37,7 @@
 	    			
 	    		
 	    		// Validaciones para los campos del formulario desde la vista.
-	    		$("#nombre").keyup(function(){	
+	    		$("#nombre").blur(function(){	
 	    			if ( !$("#nombre").val().length ) {
 	    				error="El nombre no puede estar vacio.";
 	    				$("#errorNombre").show();
@@ -49,7 +48,7 @@
 	    				$("#errorNombre").hide();
 	    			}
 	    		});
-	    		$("#origen").keyup(function(){	
+	    		$("#origen").blur(function(){	
 	    			if ( $("#origen").val().length<2 ) {
 	    				error="El origen no puede ser menor que 2 caracteres.";
 	    				$("#errorOrigen").show();
@@ -59,7 +58,7 @@
 	    				$("#errorOrigen").hide();
 	    			}
 	    		});
-	    		$("#bio").keyup(function(){
+	    		$("#bio").blur(function(){
 					$("#errorBio").text("Minimo 20 caracteres: " + (20 - $(this).val().length) + "/20");
 	    			if ( $("#bio").val().length<20 ) {
 	    				$("#errorBio").show();

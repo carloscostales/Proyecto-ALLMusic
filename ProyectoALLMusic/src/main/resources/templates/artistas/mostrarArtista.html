@@ -234,7 +234,7 @@
 						</div>
 					</div>
 					<div th:case="true">
-						<h5>No hay artistas creados relacionados con <span th:text="${artista.nombre}"></span>.</h5>
+						<h5>No hay artistas relacionados con <span th:text="${artista.nombre}" th:remove="tag"></span>.</h5>
 					</div>
 				</div>
 						
