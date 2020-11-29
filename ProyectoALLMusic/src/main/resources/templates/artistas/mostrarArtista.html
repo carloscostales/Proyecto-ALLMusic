@@ -332,6 +332,10 @@
 								    <label for="bio" class="font-weight-bold">Biografía</label>
 								    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
 							    </div>
+							    <div class="form-group d-none">
+									<label for="foto_fondo">Foto</label>
+									<input type="text" th:field="*{foto_fondo}" class="form-control-file" id="foto_fondo" accept="image/png, image/jpeg">
+								</div>
 								<div class="form-group d-none">
 									<label for="genero">Género</label>
 									<input type="text" th:field="*{genero}" class="form-control" id="genero">

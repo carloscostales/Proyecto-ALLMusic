@@ -214,7 +214,7 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -281,7 +281,7 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -317,7 +317,7 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		

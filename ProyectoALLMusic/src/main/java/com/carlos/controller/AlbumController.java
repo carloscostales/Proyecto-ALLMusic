@@ -120,7 +120,7 @@ public class AlbumController {
 		
 		Album savedAlbum = album; 
 		
-		String uploadDir = "./artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -160,7 +160,7 @@ public class AlbumController {
 		
 		Album savedAlbum = album;
 		
-		String uploadDir = "./artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
 		Path uploadPath = Paths.get(uploadDir);
 		

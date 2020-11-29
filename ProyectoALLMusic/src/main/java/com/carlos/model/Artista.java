@@ -119,14 +119,14 @@ public class Artista {
 	public String getFotoPath() {
 		if (foto == null || id == null) return null;
 			
-		return "/artista-fotos/" + id + "/" + foto;
+		return "/img/artista-fotos/" + id + "/" + foto;
 	}
 	
 	@Transient
 	public String getFotoFondoPath() {
 		if (foto_fondo == null || id == null) return null;
 			
-		return "/artista-fotos/" + id + "/" + foto_fondo;
+		return "/img/artista-fotos/" + id + "/" + foto_fondo;
 	}
 	
 

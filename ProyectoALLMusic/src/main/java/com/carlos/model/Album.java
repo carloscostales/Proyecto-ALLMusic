@@ -113,7 +113,7 @@ public class Album {
 	public String getPortadaPath() {
 		if (portada == null || this.id == null) return null;
 			
-		return "/artista-fotos/" + artista.getId() + "/album-portadas/" + portada;
+		return "/img/artista-fotos/" + artista.getId() + "/album-portadas/" + portada;
 	}
 
 	
