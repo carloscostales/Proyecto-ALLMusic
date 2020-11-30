@@ -90,7 +90,6 @@ public class AlbumController {
 		
 		mav.addObject("listaAlbumes", listaAlbumesCorta);
 		
-		
 		mav.addObject("cancion", new Cancion());
 		
 		if(auth != null) {
@@ -120,8 +119,10 @@ public class AlbumController {
 		
 		Album savedAlbum = album; 
 		
-		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
-		
+		// Uno para el despliegue(1), otro para localhost(2).
+		// String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+
 		Path uploadPath = Paths.get(uploadDir);
 		
 		if (!Files.exists(uploadPath)) {
@@ -160,7 +161,9 @@ public class AlbumController {
 		
 		Album savedAlbum = album;
 		
-		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		// Uno para el despliegue(1), otro para localhost(2).
+		// String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
 		Path uploadPath = Paths.get(uploadDir);
 		

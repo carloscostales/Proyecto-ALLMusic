@@ -214,7 +214,9 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		// Uno para el despliegue(1), otro para localhost(2).
+		// String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -281,7 +283,9 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		// Uno para el despliegue(1), otro para localhost(2).
+		// String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -317,7 +321,9 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		// Uno para el despliegue(1), otro para localhost(2).
+		// String uploadDir = "./webapps/ROOT/WEB-INF/classes/public/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
