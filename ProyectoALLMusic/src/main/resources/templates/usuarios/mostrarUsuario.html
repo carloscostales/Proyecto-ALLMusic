@@ -35,11 +35,12 @@
 		
 		<!-- SECTION -->
 		<section class="container my-5">
-			<h1>Usuario <span th:text="${usuario.nombreUsuario}"></h1>
+			<h1>Usuario <span th:text="${usuario.nombreUsuario}"></span></h1>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
 				<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 				<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
+				<li class="list-group-item"><b>Género preferido: </b><span th:text="${genero_preferido}"></span></li>
 			</ul>
 			
 			<br><br>

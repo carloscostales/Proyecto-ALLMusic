@@ -37,4 +37,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return (List<Usuario>) usuarioDAO.findAll();
 	}
 
+	@Override
+	public String generoPreferidoUsuario(String usuario) {
+		
+		return usuarioDAO.mostAddedGenreUser(usuario);
+	}
+
 }

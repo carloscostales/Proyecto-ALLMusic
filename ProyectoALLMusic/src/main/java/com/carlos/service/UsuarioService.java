@@ -14,4 +14,6 @@ public interface UsuarioService {
 	
 	public List<Usuario> listaUsuarios();
 	
+	public String generoPreferidoUsuario(String usuario);
+	
 }

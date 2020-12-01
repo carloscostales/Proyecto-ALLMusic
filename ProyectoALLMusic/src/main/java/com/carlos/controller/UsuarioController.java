@@ -100,6 +100,8 @@ public class UsuarioController {
 		List<Playlist> listaPlaylists = (List<Playlist>)playlistService.buscarPorUsuario(usuario);
 		mav.addObject("listaPlaylists", listaPlaylists);
 		
+		mav.addObject("genero_preferido", usuarioService.generoPreferidoUsuario(usuario.getNombreUsuario()));
+		
 		return mav;
 		
 	}
