@@ -1,6 +1,7 @@
 package com.carlos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,8 @@ public interface ArtistaService {
 	public List<Artista> listaArtistasCompleta();
 	
 	public Page<Artista> listaArtistasCompleta(Pageable pageable);
+	
+	public Optional<Artista> buscarPorId(Integer id);
 	
 	public List<Artista> buscarUltimosSeis();
 	

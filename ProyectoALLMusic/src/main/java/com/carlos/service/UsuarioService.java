@@ -16,4 +16,6 @@ public interface UsuarioService {
 	
 	public String generoPreferidoUsuario(String usuario);
 	
+	public Integer artistaPreferidoUsuario(String usuario);
+	
 }

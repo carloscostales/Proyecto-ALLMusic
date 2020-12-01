@@ -43,4 +43,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioDAO.mostAddedGenreUser(usuario);
 	}
 
+	@Override
+	public Integer artistaPreferidoUsuario(String usuario) {
+		
+		return usuarioDAO.mostAddedArtistUser(usuario);
+	}
+
 }

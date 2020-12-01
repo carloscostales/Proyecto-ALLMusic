@@ -1,6 +1,7 @@
 package com.carlos.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.model.Artista;
 import com.carlos.model.Playlist;
 import com.carlos.model.Rol;
 import com.carlos.model.Usuario;
+import com.carlos.service.ArtistaService;
 import com.carlos.service.PlaylistService;
 import com.carlos.service.RolService;
 import com.carlos.service.UsuarioService;
@@ -34,6 +37,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private PlaylistService playlistService;
+	
+	@Autowired
+	private ArtistaService artistaService;
 	
 	
 	@GetMapping("/usuarios")
@@ -102,6 +108,14 @@ public class UsuarioController {
 		
 		mav.addObject("genero_preferido", usuarioService.generoPreferidoUsuario(usuario.getNombreUsuario()));
 		
+		Artista artista = null;
+		if(usuarioService.artistaPreferidoUsuario(usuario.getNombreUsuario()) != null) {
+			int artista_id_preferido = usuarioService.artistaPreferidoUsuario(usuario.getNombreUsuario());
+			Optional<Artista> artista_optional = artistaService.buscarPorId(artista_id_preferido);
+			artista = artista_optional.get();
+		}
+		
+		mav.addObject("artista_preferido", artista);
 		return mav;
 		
 	}

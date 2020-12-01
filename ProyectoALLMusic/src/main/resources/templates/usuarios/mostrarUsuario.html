@@ -40,7 +40,8 @@
 				<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
 				<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 				<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
-				<li class="list-group-item"><b>Género preferido: </b><span th:text="${genero_preferido}"></span></li>
+				<li class="list-group-item" th:if="${genero_preferido != null}"><b>Género preferido: </b><span th:text="${genero_preferido}"></span></li>
+				<li class="list-group-item" th:if="${artista_preferido != null}"><b>Artista preferido: </b><span th:text="${artista_preferido.nombre}"></span></li>
 			</ul>
 			
 			<br><br>

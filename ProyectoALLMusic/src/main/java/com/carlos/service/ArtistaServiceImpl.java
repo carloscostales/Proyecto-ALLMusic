@@ -1,6 +1,7 @@
 package com.carlos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,12 @@ public class ArtistaServiceImpl implements ArtistaService {
 	public Page<Artista> listaArtistasCompleta(Pageable pageable) {
 		
 		return artistaDAO.findAll(pageable);
+	}
+	
+	@Override
+	public Optional<Artista> buscarPorId(Integer id) {
+		
+		return artistaDAO.findById(id);
 	}
 	
 	@Override
