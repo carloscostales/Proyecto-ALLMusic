@@ -22,10 +22,6 @@ a:hover {
 	text-decoration: initial;
 }
 
-td, th {
-	color: white !important;
-}
-
 .list-group-item {
 	background-color: transparent !important;
 }

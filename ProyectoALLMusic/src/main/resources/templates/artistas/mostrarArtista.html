@@ -17,6 +17,11 @@
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	    
+	    <!-- Bootstrap Datepicker -->
+		<link th:href="@{/lib/bootstrap-datepicker.css}" rel="stylesheet" type="text/css" />
+		<script th:src="@{/lib/bootstrap-datepicker.js}"></script>
+		<script th:src="@{/lib/bootstrap-datepicker.es.js}"></script>
+		
 	    <!-- ICONOS FONT AWESOME -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
 	    
@@ -281,7 +286,12 @@
 								
 								<div class="form-group">
 									<label for="fecha">Fecha salida</label>
-									<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida">
+									<div class="input-group date" id="datepicker">
+										<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off">
+									    <div class="input-group-addon">
+									    	<span class="glyphicon glyphicon-th"></span>
+									    </div>
+									</div>
 								</div>
 								
 								<div class="form-group">
@@ -300,7 +310,7 @@
 									<label for="portada">Portada</label>
 									<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
 									<br>
-									<img id="thumbnail" alt="Logo preview"/>
+									<img id="portadaThumbnail" alt="Logo preview"/>
 								</div>
 	
 								<div class="form-group" hidden>
@@ -351,8 +361,8 @@
 								    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
 							    </div>
 							    <div class="form-group d-none">
-									<label for="foto_fondo">Foto</label>
-									<input type="text" th:field="*{foto_fondo}" class="form-control-file" id="foto_fondo" accept="image/png, image/jpeg">
+									<label for="foto_fondo2">Foto</label>
+									<input type="text" th:field="*{foto_fondo}" class="form-control-file" id="foto_fondo2" accept="image/png, image/jpeg">
 								</div>
 								<div class="form-group d-none">
 									<label for="genero">Género</label>
@@ -404,8 +414,8 @@
 								    <textarea class="form-control" rows="6" id="bio" th:field="*{bio}"></textarea>
 							    </div>
 								<div class="form-group d-none">
-									<label for="foto">Foto</label>
-									<input type="text" th:field="*{foto}" class="form-control-file" id="foto" accept="image/png, image/jpeg">
+									<label for="foto2">Foto</label>
+									<input type="text" th:field="*{foto}" class="form-control-file" id="foto2" accept="image/png, image/jpeg">
 								</div>
 								<div class="form-group d-none">
 									<label for="genero">Género</label>
@@ -447,7 +457,7 @@
 		
 		<script>
 			$(document).ready(function(){
-				$('#thumbnail').hide();
+				$('#portadaThumbnail').hide();
 				// Muestra vista previa de foto en el formulario
 				$('#portada').change(function() {
 					showImageThumbnail(this);
@@ -467,20 +477,22 @@
 				
 			})
 			
+			// Muestra foto de la portada
 			function showImageThumbnail(fileInput) {
 				file = fileInput.files[0];
 				reader = new FileReader();
 				
 				reader.onload = function(e) {
 					
-					$('#thumbnail').show()
-					$('#thumbnail').attr('src', e.target.result);
-					$('#thumbnail').attr('width', 200);
+					$('#portadaThumbnail').show()
+					$('#portadaThumbnail').attr('src', e.target.result);
+					$('#portadaThumbnail').attr('width', 200);
 				};
 				
 				reader.readAsDataURL(file);
 			};
 			
+			// Muestra la foto del artista
 			function showImageThumbnail2(fileInput) {
 				file = fileInput.files[0];
 				reader = new FileReader();
@@ -493,6 +505,7 @@
 				reader.readAsDataURL(file);
 			};
 			
+			// Muestra la foto del artista
 			function showImageThumbnail3(fileInput) {
 				file = fileInput.files[0];
 				reader = new FileReader();
@@ -505,14 +518,14 @@
 				reader.readAsDataURL(file);
 			};
 			
-			// Funcion que desactiva el boton hasta que los inputs esten rellenos
+			// Función que desactiva el botón hasta que los inputs estén rellenos
 	    	$(function() {
 	    		
 	    		$('#submit_button').attr('disabled', true);
 	    		
 	    		$("input").blur(function(){
-	    			if( !$('#titulo').val() || !$('#fecha').val() || !$('#portada').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
+	    			if( !$('#titulo').val() || !$('#fecha').val() || !$('#portada').val() ) {
+	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
@@ -521,8 +534,17 @@
 			
 	    	$("#portada").blur(function(){	
     			if ( !$("#portada").val() ) 
-    				$('#thumbnail').hide();
+    				$('#portadaThumbnail').hide();
     		});
+	    	
+	    	// Inicialización de Datepicker de bootstrap
+	    	$(function () {
+	             $('#datepicker').datepicker({
+	            	    format: "yyyy-mm-dd",
+	            	    language: "es",
+	            	    todayHighlight: true,
+	            	});
+	         });
 		</script>
 	</body>
 </html>

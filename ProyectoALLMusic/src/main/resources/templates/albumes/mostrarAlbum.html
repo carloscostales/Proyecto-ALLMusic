@@ -17,6 +17,10 @@
 	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		
+		<!-- Bootstrap Datepicker -->
+		<link th:href="@{/lib/bootstrap-datepicker.css}" rel="stylesheet" type="text/css" />
+		<script th:src="@{/lib/bootstrap-datepicker.js}"></script>
+				
 		<!-- ICONOS FONT AWESOME -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.css" integrity="sha512-f73UKwzP1Oia45eqHpHwzJtFLpvULbhVpEJfaWczo/ZCV5NWSnK4vLDnjTaMps28ocZ05RbI83k2RlQH92zy7A==" crossorigin="anonymous" />
 	    
@@ -55,6 +59,9 @@
  				opacity: 1;
  				left:50%;
 			}
+			#canciones td, #canciones th {
+				color:white;
+			}
 		</style>
 		<script>
 			$(function() {
@@ -62,24 +69,24 @@
 				$('#submit_button').attr('disabled', true);
 	    		
 	    		$("#numero").blur(function(){
-	    		    if( !$(this).val() || !$('#titulo').val() || !$('#duracion').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
+	    		    if( !$(this).val() || !$('#titulo').val() || !$('#duracion').val() ) {
+	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
 	    		
 	    		$("#titulo").blur(function(){
-	    		    if( !$(this).val() || !$('#numero').val() || !$('#duracion').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
+	    		    if( !$(this).val() || !$('#numero').val() || !$('#duracion').val() ) {
+	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
 	    		});
 	    		
 	    		$("#duracion").blur(function(){
-	    		    if( !$(this).val() || !$('#numero').val() || !$('#titulo').val() ) {					//if it is blank. 
-	    		    	$('#submit_button').attr('disabled', true);							// boton submit disabled
+	    		    if( !$(this).val() || !$('#numero').val() || !$('#titulo').val() ) {
+	    		    	$('#submit_button').attr('disabled', true);
 	    		    } else {
 	    		    	$('#submit_button').attr('disabled', false);
 	    		    }
@@ -150,7 +157,7 @@
 				
 				<!--  CANCIONES  -->
 				<div class="mb-5">
-					<table class="table table-hover">
+					<table id="canciones" class="table table-hover">
 						<thead>
 							<tr>
 								<th style="width: 5%">No.º</th>
@@ -250,9 +257,14 @@
 									<input type="text" th:field="*{titulo}" class="form-control" id="titulo">
 								</div>
 								<div class="form-group">
-								    <label for="fecha_salida" class="font-weight-bold">Fecha salida</label>
-									<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha_salida">
-							    </div>
+									<label for="fecha">Fecha salida</label>
+									<div class="input-group date" id="datepicker">
+										<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off">
+									    <div class="input-group-addon">
+									    	<span class="glyphicon glyphicon-th"></span>
+									    </div>
+									</div>
+								</div>
 							    <div class="form-group d-none">
 									<label for="id">Id</label>
 									<input type="text" th:field="*{id}" class="form-control" id="id">
@@ -361,6 +373,17 @@
 				
 				reader.readAsDataURL(file);
 			};
+			
+			
+	    	// Inicialización de Datepicker de bootstrap
+	    	$(function () {
+	             $('#datepicker').datepicker({
+	            	    format: "yyyy-mm-dd",
+	            	    language: "es",
+	            	    orientation: "top left",
+	            	    todayHighlight: true,
+	            	});
+	         });
 		</script>
 	</body>
 </html>

@@ -39,7 +39,7 @@ import com.carlos.model.Usuario;
 import com.carlos.service.AlbumService;
 import com.carlos.service.ArtistaService;
 import com.carlos.service.CancionService;
-import com.carlos.service.ComparatorFecha;
+import com.carlos.service.ComparatorFechaPersonalizada;
 import com.carlos.service.GeneroService;
 
 @Controller
@@ -149,21 +149,22 @@ public class ArtistaController {
 		mav.addObject("album", new Album());
 		
 		List<Album> listaAlbumes = (List<Album>)albumService.buscarAlbumesDeArtista(artista);
-		listaAlbumes.sort(new ComparatorFecha());
+		
 		
 		if(!listaAlbumes.isEmpty()) {
 			// Ultimo lanzamiento del artista
 			Album ultimo = listaAlbumes.get(0);
 			mav.addObject("ultimoLanzamiento", ultimo);
 			
-			// Albumes por tipo. Ordenacion por fecha
+			// Albumes por tipo. Ordenación por fecha
 			List<Album> listaTipoAlbum = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.ALBUM.toString());
-			listaTipoAlbum.sort(new ComparatorFecha());
 			listaTipoAlbum = albumService.cambiarFecha(listaTipoAlbum);
+			listaTipoAlbum.sort(new ComparatorFechaPersonalizada());
 			mav.addObject("listaTipoAlbum", listaTipoAlbum);
+			
 			List<Album> listaTipoSingle = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.SINGLE.toString());
-			listaTipoSingle.sort(new ComparatorFecha());
 			listaTipoSingle = albumService.cambiarFecha(listaTipoSingle);
+			listaTipoSingle.sort(new ComparatorFechaPersonalizada());
 			mav.addObject("listaTipoSingle", listaTipoSingle);
 		}
 		

@@ -15,7 +15,7 @@ import com.carlos.model.Usuario;
 import com.carlos.repository.AlbumDAO;
 import com.carlos.repository.ArtistaDAO;
 import com.carlos.repository.PlaylistDAO;
-import com.carlos.service.ComparatorFecha;
+import com.carlos.service.ComparatorFechaISO;
 
 @Controller
 public class RutasGenericas {
@@ -47,7 +47,7 @@ public class RutasGenericas {
 			numero = 6;
 		}
 		
-		albumes.sort(new ComparatorFecha());
+		albumes.sort(new ComparatorFechaISO());
 		List<Album> ultimosAlbumes = albumes.subList(0, numero);
 		
 		mav.addObject("ultimosAlbumes", ultimosAlbumes);
