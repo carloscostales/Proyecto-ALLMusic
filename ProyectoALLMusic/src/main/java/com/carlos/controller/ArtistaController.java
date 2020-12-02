@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +141,7 @@ public class ArtistaController {
 	}
 	
 	@GetMapping("/artistas/{artista}")
-	private ModelAndView rutaArtista(@PathVariable Artista artista, Authentication auth) {
+	private ModelAndView rutaArtista(@PathVariable Artista artista, Authentication auth) throws ParseException {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("artistas/mostrarArtista");
 		mav.addObject("artista", artista);
@@ -149,7 +150,6 @@ public class ArtistaController {
 		
 		List<Album> listaAlbumes = (List<Album>)albumService.buscarAlbumesDeArtista(artista);
 		listaAlbumes.sort(new ComparatorFecha());
-		mav.addObject("listaAlbumes", listaAlbumes);
 		
 		if(!listaAlbumes.isEmpty()) {
 			// Ultimo lanzamiento del artista
@@ -159,9 +159,11 @@ public class ArtistaController {
 			// Albumes por tipo. Ordenacion por fecha
 			List<Album> listaTipoAlbum = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.ALBUM.toString());
 			listaTipoAlbum.sort(new ComparatorFecha());
+			listaTipoAlbum = albumService.cambiarFecha(listaTipoAlbum);
 			mav.addObject("listaTipoAlbum", listaTipoAlbum);
 			List<Album> listaTipoSingle = albumService.buscarPorTipoAlbum(artista.getId(), TipoAlbumModel.SINGLE.toString());
 			listaTipoSingle.sort(new ComparatorFecha());
+			listaTipoSingle = albumService.cambiarFecha(listaTipoSingle);
 			mav.addObject("listaTipoSingle", listaTipoSingle);
 		}
 		

@@ -1,5 +1,6 @@
 package com.carlos.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.carlos.model.Album;
@@ -26,5 +27,7 @@ public interface AlbumService {
 	public void borrarAlbumesDeArtista(Integer id);
 	
 	public void borrarAlbum(Integer id);
+	
+	public List<Album> cambiarFecha(List<Album> lista_albumes) throws ParseException;
 	
 }

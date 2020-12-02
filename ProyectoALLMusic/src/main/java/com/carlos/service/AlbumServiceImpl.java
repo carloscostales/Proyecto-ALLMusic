@@ -1,5 +1,8 @@
 package com.carlos.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +81,30 @@ public class AlbumServiceImpl implements AlbumService {
 		if (albumDAO.existsById(id))
 			albumDAO.borrarAlbum(id);
 	}
+
+	@Override
+    public List<Album> cambiarFecha(List<Album> lista_albumes) {
+		final String OLD_FORMAT = "yyyy-MM-dd";
+		final String NEW_FORMAT = "dd-MM-yyyy";
+	
+		for (Album album : lista_albumes) {
+			String fecha_antigua = album.getFecha_salida();
+			SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+			Date d;
+			try {
+				d = sdf.parse(fecha_antigua);
+				sdf.applyPattern(NEW_FORMAT);
+				String newDateString = sdf.format(d);
+				album.setFecha_salida(newDateString);
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return lista_albumes;
+		
+    }
 	
 }
