@@ -7,20 +7,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.carlos.enums.RutaArchivos;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 Path fotoUploadDir = Paths.get("./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos");
-//		Path fotoUploadDir = Paths.get("./src/main/resources/static/img/artista-fotos");
+		 Path fotoUploadDir = Paths.get("." + RutaArchivos.LOCALHOST.toString());
 
 		String fotoUploadPath = fotoUploadDir.toFile().getAbsolutePath();
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 registry.addResourceHandler("/webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/**").addResourceLocations("file:/" + fotoUploadPath + "/");
-//		registry.addResourceHandler("/src/main/resources/static/img/artista-fotos/**").addResourceLocations("file:/" + fotoUploadPath + "/");
+		 registry.addResourceHandler(RutaArchivos.LOCALHOST.toString() + "**").addResourceLocations("file:/" + fotoUploadPath + "/");
 	}
+	
 }

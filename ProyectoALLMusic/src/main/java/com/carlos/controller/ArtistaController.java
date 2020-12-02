@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.enums.RutaArchivos;
 import com.carlos.enums.TipoAlbumModel;
 import com.carlos.model.Album;
 import com.carlos.model.Artista;
@@ -214,9 +215,7 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 String uploadDir = "./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/" + savedArtista.getId();
-//		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "." + RutaArchivos.LOCALHOST.toString() + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -276,16 +275,14 @@ public class ArtistaController {
 		ModelAndView mav = new ModelAndView();
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
+		
 		artista.setFoto(fileName);
 		
 		artistaService.add(artista);
 		
 		Artista savedArtista = artista;
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 String uploadDir = "./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/" + savedArtista.getId();
-//		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "." + RutaArchivos.LOCALHOST.toString() + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
@@ -321,9 +318,7 @@ public class ArtistaController {
 		
 		Artista savedArtista = artista;
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 String uploadDir = "./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/" + savedArtista.getId();
-//		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedArtista.getId();
+		String uploadDir = "." + RutaArchivos.LOCALHOST.toString() + savedArtista.getId();
 		
 		Path uploadPath = Paths.get(uploadDir);
 		

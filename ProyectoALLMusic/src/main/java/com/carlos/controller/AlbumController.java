@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.carlos.enums.RutaArchivos;
 import com.carlos.model.Album;
 import com.carlos.model.Cancion;
 import com.carlos.model.Usuario;
@@ -112,17 +113,15 @@ public class AlbumController {
 		String referer = request.getHeader("Referer");
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
+		
 		album.setPortada(fileName);
 		
 		albumService.add(album);
 		
 		Album savedAlbum = album; 
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 String uploadDir = "./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
-//		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
-
+		String uploadDir = "." + RutaArchivos.LOCALHOST.toString() + savedAlbum.getArtista().getId() + "/album-portadas/";
+		
 		Path uploadPath = Paths.get(uploadDir);
 		
 		if (!Files.exists(uploadPath)) {
@@ -154,16 +153,14 @@ public class AlbumController {
 	private String rutaActualizarPortadaAlbum(@ModelAttribute Album album, BindingResult bindingResult, @RequestParam("portada")  MultipartFile multipartFile) throws IOException {
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
+		
 		album.setPortada(fileName);
 		
 		albumService.add(album);
 		
 		Album savedAlbum = album;
 		
-		// Uno para el despliegue(1), otro para localhost(2).
-		 String uploadDir = "./webapps/ROOT/WEB-INF/classes/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
-//		String uploadDir = "./src/main/resources/static/img/artista-fotos/" + savedAlbum.getArtista().getId() + "/album-portadas/";
+		String uploadDir = "." + RutaArchivos.LOCALHOST.toString() + savedAlbum.getArtista().getId() + "/album-portadas/";
 		
 		Path uploadPath = Paths.get(uploadDir);
 		
