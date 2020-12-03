@@ -39,6 +39,7 @@ import com.carlos.model.Usuario;
 import com.carlos.service.AlbumService;
 import com.carlos.service.ArtistaService;
 import com.carlos.service.CancionService;
+import com.carlos.service.ComparatorFechaISO;
 import com.carlos.service.ComparatorFechaPersonalizada;
 import com.carlos.service.GeneroService;
 
@@ -153,6 +154,7 @@ public class ArtistaController {
 		
 		if(!listaAlbumes.isEmpty()) {
 			// Ultimo lanzamiento del artista
+			listaAlbumes.sort(new ComparatorFechaISO());
 			Album ultimo = listaAlbumes.get(0);
 			mav.addObject("ultimoLanzamiento", ultimo);
 			

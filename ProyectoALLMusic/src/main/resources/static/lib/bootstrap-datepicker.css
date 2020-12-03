@@ -7,6 +7,10 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  */
+ 
+ /*algunas variables cambiadas por carlos*/
+ 
+ 
 .datepicker {
   padding: 4px;
   -webkit-border-radius: 4px;
@@ -114,7 +118,7 @@
 }
 .datepicker table tr td.day:hover,
 .datepicker table tr td.day.focused {
-  background: #eeeeee;
+  background: #202020;
   cursor: pointer;
 }
 .datepicker table tr td.old,
@@ -359,7 +363,7 @@
   border-radius: 4px;
 }
 .datepicker table tr td span:hover {
-  background: #eeeeee;
+  background: #202020;	/*carlos*/
 }
 .datepicker table tr td span.disabled,
 .datepicker table tr td span.disabled:hover {
@@ -431,7 +435,7 @@
 }
 .datepicker thead tr:first-child th:hover,
 .datepicker tfoot tr th:hover {
-  background: #eeeeee;
+  background: #202020;	/*carlos*/
 }
 .datepicker .cw {
   font-size: 10px;
@@ -487,7 +491,7 @@
   display: none;
   min-width: 160px;
   list-style: none;
-  background-color: #ffffff;
+  background-color: #282828;   /*carlos*/
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 5px;
@@ -501,7 +505,7 @@
   background-clip: padding-box;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
-  color: #333333;
+  color: #ffffff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 20px;

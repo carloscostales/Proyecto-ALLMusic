@@ -26,11 +26,18 @@ a:hover {
 	background-color: transparent !important;
 }
 
+/* CARD */
 .card{
 	width: 18rem !important; 
 	background-color: #282828 !important;
 }
 
+.card-footer {
+	background-color: transparent;	
+}
+/* CARD */
+
+/* PAGINACION */
 .page-item.active .page-link {
 	color: white !important;
 	background-color: #007BFF	 !important;
@@ -49,10 +56,7 @@ a:hover {
 	background-color: #007BFF !important;
 	border-color: #282828 !important;
 }
-
-.card-footer {
-	background-color: transparent;	
-}
+/* PAGINACION */
 
 input[type='text'], input[type='number'], input[type='password'], textarea, select {
 	background-color: transparent !important;
@@ -74,4 +78,9 @@ option{
 
 .red-icon:hover {
 	color: #a71d2a;
+}
+
+#boton-calendario {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }

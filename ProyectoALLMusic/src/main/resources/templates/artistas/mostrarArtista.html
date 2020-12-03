@@ -242,8 +242,8 @@
 				<div id="informacion">
 					<p><strong>Nombre: </strong><span th:text="${artista.nombre}"></span></p>
 					<p><strong>Origen: </strong><span th:text="${artista.origen}"></span></p>
-					<p><strong>Género: : </strong><span th:text="${artista.genero.nombre}"></span></p>
-					<p id="descripcion" class="text-justify"><strong>Descripción: : </strong><span th:text="${artista.bio}"></span></p>
+					<p><strong>Género: </strong><span th:text="${artista.genero.nombre}"></span></p>
+					<p id="descripcion" class="text-justify"><strong>Descripción: </strong><span th:text="${artista.bio}"></span></p>
 				</div>
 				
 				<!-- ARTISTAS RELACIONADOS -->
@@ -284,28 +284,30 @@
 									<input type="text" th:field="*{titulo}" class="form-control" id="titulo" placeholder="Título">
 								</div>
 								
-								<div class="form-group">
-									<label for="fecha">Fecha salida</label>
-									<div class="input-group date" id="datepicker">
-										<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off">
-									    <div class="input-group-addon">
-									    	<span class="glyphicon glyphicon-th"></span>
-									    </div>
+								<div class="row">
+									<div class="form-group col-6">
+										<label for="fecha">Fecha salida</label>
+										<div class="input-group date" id="datepicker">
+											<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off">
+										    <div class="input-group-addon">
+												<button id="boton-calendario" class="btn btn-primary" type="button"><i class="fas fa-calendar-alt"></i></button>
+										    	<span class="glyphicon glyphicon-th"></span>
+										    </div>
+										</div>
+									</div>
+									
+									<div class="form-group col-6">
+										<label>Tipo de álbum</label>
+										<div class="form-check">
+								            <div th:each="enum : ${T(com.carlos.enums.TipoAlbumModel).values()}">
+								                <div>
+								                    <input type="radio" th:field="*{tipo_album}" th:value="${enum}" class="form-check-input">
+								                    <label th:for="${enum}" class="form-check-label" th:text="${enum}"></label>
+								                </div>
+								            </div>
+										</div>
 									</div>
 								</div>
-								
-								<div class="form-group">
-									<label>Tipo de album</label>
-									<div class="form-check">
-							            <div th:each="enum : ${T(com.carlos.enums.TipoAlbumModel).values()}">
-							                <div>
-							                    <input type="radio" th:field="*{tipo_album}" th:value="${enum}" class="form-check-input">
-							                    <label th:for="${enum}" class="form-check-label" th:text="${enum}"></label>
-							                </div>
-							            </div>
-									</div>
-								</div>
-								
 								<div class="form-group">
 									<label for="portada">Portada</label>
 									<input type="file" th:field="*{portada}" class="form-control-file" id="portada" accept="image/png, image/jpeg">
@@ -341,7 +343,7 @@
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="foto">Foto</label>
-									<input type="file" th:field="*{foto}" class="form-control-file" id="foto" accept="image/png, image/jpeg">
+									<input type="file" th:field="*{foto}" class="form-control-file" id="foto" accept="image/png, image/jpeg, image/svg+xml">
 									<small>Foto actual:</small>
 								</div>
 								<div class="form-group d-none">
@@ -543,6 +545,9 @@
 	            	    format: "yyyy-mm-dd",
 	            	    language: "es",
 	            	    todayHighlight: true,
+	            	    showOn: "both",
+	            		buttonImage: "../../static/img/icon.png",
+	            		buttonImageOnly: true
 	            	});
 	         });
 		</script>

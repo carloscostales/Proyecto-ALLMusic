@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class Artista {
 
@@ -33,7 +35,8 @@ public class Artista {
 	@Column
 	private String foto_fondo;
 
-	@Column(length=4000)
+	@Column
+	@Length(max=10000)
 	private String bio;
 
 	@ManyToOne
