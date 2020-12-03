@@ -18,12 +18,12 @@
         </ul>
        
         <div class="text-white" sec:authorize="isAnonymous()">
-		    <a type="button" class="btn btn-light" th:href="@{/login}">Login</a>
+		    <a type="button" class="btn btn-primary" th:href="@{/login}">Login</a>
 		    <a type="button" class="btn btn-light" th:href="@{/registrarse}">Registrarse</a>
 		</div>
     	
     	<div class="text-white" sec:authorize="isAuthenticated()">
-    		<a type="button" class="btn btn-info" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
+    		<a type="button" class="btn btn-primary" th:href="@{/usuarios/{usuario}(usuario=${usuario.nombreUsuario})}"><span sec:authentication="name">USUARIO</span></a>
 		    <!--  User: <span sec:authentication="name">miquel</span> -->
 		    <a type="button" class="btn btn-danger" th:href="@{/logout}">Logout</a>
 		</div>

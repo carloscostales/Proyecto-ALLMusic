@@ -512,5 +512,5 @@
 }
 .datepicker.dropdown-menu th,
 .datepicker.dropdown-menu td {
-  padding: 4px 5px;
+  padding: 10px 10px;	/*carlos*/
 }
