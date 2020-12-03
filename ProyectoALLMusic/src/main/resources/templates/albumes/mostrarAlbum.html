@@ -26,6 +26,7 @@
 	    
 		<!-- CSS y JS -->
 		<link rel="stylesheet" th:href="@{/css/estilo.css}" type="text/css"/>
+		<script th:src="@{/js/script.js}"></script>
 		<style>
 			#cambiarFoto {
 				position:absolute;
@@ -136,14 +137,14 @@
 	
 									<h1 class="col-lg-12 col-md-12 col-12 mt-lg-0 mt-sm-0 mt-4"><span th:text="${album.titulo}"></span></h1>
 									<p class="col-lg-12 col-md-12 col-12">De <a th:href="@{/artistas/{id}(id=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
-									<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.fecha_salida}">fecha</span></p>
+									<p class="col-lg-12 col-md-12 col-12"><span th:text="${album.FechaSalidaString}">fecha</span></p>
 									<p class="col-lg-9 col-md-6 col-6"><span th:text="${numero_canciones}"></span> canciones</p>
 									
 									<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editarAlbum"><i class="far fa-edit"></i></button>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarAlbum"><i class="far fa-edit"></i></button>
 									</div>
 									<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
-										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearCancion"><i class="fas fa-plus"></i></button>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearCancion"><i class="fas fa-plus"></i></button>
 									</div>
 									<div class="col-lg-1 col-md-2 col-2" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#borrarAlbum"><i class="far fa-trash-alt"></i></button>
@@ -260,7 +261,7 @@
 									<div class="form-group col-6">
 										<label for="fecha">Fecha salida</label>
 										<div class="input-group date" id="datepicker">
-											<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off">
+											<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off" onkeypress="validate(event)" tabindex="">
 										    <div class="input-group-addon">
 										    	<button id="boton-calendario" class="btn btn-primary" type="button"><i class="fas fa-calendar-alt"></i></button>
 										    	<span class="glyphicon glyphicon-th"></span>

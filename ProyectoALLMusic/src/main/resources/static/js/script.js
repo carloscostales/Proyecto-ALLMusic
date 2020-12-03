@@ -1,8 +1,14 @@
 $(document).ready(function() {
-
-	$(".nav .nav-link").on("click", function(){
-   		$(".nav").find(".active").removeClass("active");
-   		$(this).addClass("active");
-
-    });
+    
 });
+
+function validate(evt) {
+   	var theEvent = evt || window.event;
+   	var key = theEvent.keyCode || theEvent.which;
+   	key = String.fromCharCode(key);
+  	var regex = /[]|\./;
+   	if(!regex.test(key)) {
+    	theEvent.returnValue = false;
+    	if(theEvent.preventDefault) theEvent.preventDefault();
+	}
+}

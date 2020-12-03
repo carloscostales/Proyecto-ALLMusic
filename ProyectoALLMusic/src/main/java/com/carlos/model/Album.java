@@ -1,6 +1,7 @@
 package com.carlos.model;
 
 import java.beans.Transient;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +115,22 @@ public class Album {
 		if (portada == null || this.id == null) return null;
 			
 		return "/img/artista-fotos/" + artista.getId() + "/album-portadas/" + portada;
+	}
+	
+	@Transient
+	public String getFechaSalidaString() {
+		DateFormatSymbols d = new DateFormatSymbols();
+		
+		String date = this.getFecha_salida();
+		String[] parts = date.split("-");
+		String year = parts[0];
+		String month = parts[1];
+		int month_number = Integer.parseInt(month);
+		String month_string = d.getMonths()[month_number - 1];
+		month_string = month_string.substring(0, 1).toUpperCase() + month_string.substring(1);
+		String day = parts[2];
+		
+		return day + " de " + month_string + " de " + year;
 	}
 
 	
