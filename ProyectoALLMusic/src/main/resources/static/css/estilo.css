@@ -84,3 +84,6 @@ option{
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
+.modal.fade{opacity:1}
+.modal.fade .modal-dialog{-webkit-transform:translate(0);-moz-transform:translate(0);transform:translate(0)}

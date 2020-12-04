@@ -2,13 +2,12 @@ $(document).ready(function() {
     
 });
 
-function validate(evt) {
-   	var theEvent = evt || window.event;
-   	var key = theEvent.keyCode || theEvent.which;
-   	key = String.fromCharCode(key);
-  	var regex = /[]|\./;
-   	if(!regex.test(key)) {
-    	theEvent.returnValue = false;
-    	if(theEvent.preventDefault) theEvent.preventDefault();
-	}
-}
+function validateNumberAndDash(event) {
+    var key = window.event ? event.keyCode : event.which;
+
+  if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 189) {
+    return true;
+  } else {
+    return false;
+  }
+};
