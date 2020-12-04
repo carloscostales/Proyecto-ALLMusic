@@ -9,6 +9,11 @@
 	    <div th:replace="../fragments/head.html :: head" th:remove="tag"/>
 	    
 	    <style>
+	    	table {
+				table-layout: fixed;
+				width: 100%;
+			}
+			
 	    	thead, td, tfoot {
 				color: white;
 			}
@@ -28,20 +33,20 @@
 			<table class="table table-hover ">
 				<thead>
 					<tr>
-						<th style="width: 25%">No.º</th>
+						<th style="width: 44%">Título</th>
 						<th style="width: 20%">Artista</th>
 						<th style="width: 20%" class="d-lg-table-cell d-md-table-cell d-none">Álbum</th>
-						<th style="width: 5%" class="d-lg-table-cell d-md-table-cell d-none">Duración</th>
-						<th style="width: 5%" th:if="${owner} == ${usuario.nombreUsuario}">X</th>
+						<th style="width: 8%" class="d-lg-table-cell d-md-table-cell d-none">Duración</th>
+						<th style="width: 8%" th:if="${owner} == ${usuario.nombreUsuario}" class="text-danger text-right">X</th>
 					</tr>
 				<thead>
 				<tbody>
 					<tr th:each="lista : ${lista}">
-						<td th:text="${lista.cancion.titulo}">titulo</td>
-						<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}" th:text="${lista.cancion.album.artista.nombre}" class="text-truncate"></a></td>
-						<td class="d-lg-table-cell d-md-table-cell d-none"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}" th:text="${lista.cancion.album.titulo}" class="text-truncate"></a></td>
+						<td th:text="${lista.cancion.titulo}" class="text-truncate text-white">titulo</td>
+						<td class="text-truncate"><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}" th:text="${lista.cancion.album.artista.nombre}" ></a></td>
+						<td class="d-lg-table-cell d-md-table-cell d-none text-truncate"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}" th:text="${lista.cancion.album.titulo}"></a></td>
 						<td th:text="${lista.cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
-						<td th:if="${owner} == ${usuario.nombreUsuario}"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
+						<td th:if="${owner} == ${usuario.nombreUsuario}" class="text-right"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
 					</tr>
 				</tbody>
 			</table>

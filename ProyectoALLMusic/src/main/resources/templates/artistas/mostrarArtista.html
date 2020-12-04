@@ -121,7 +121,7 @@
 					
 					<div class="col-lg-9 col-md-7 col-7 mb-5">
 						<div class="row">
-							<h1 id="nombre" class="mb-5 col-lg-9 col-md-12 col-12"><span th:text="${artista.nombre}"></span></h1>
+							<h1 id="nombre" class="mb-5 col-lg-9 col-md-12 col-12" th:text="${artista.nombre}"></h1>
 						
 							<div class="col-lg-1 col-md-2 col-3" th:if="(${#authorization.expression('hasAuthority(''ADMIN'')')})">
 								<a role="button" class="btn btn-primary" th:href="@{/artista/editar/{artista}(artista=${artista.id})}"><i class="far fa-edit"></i></a>
@@ -233,7 +233,7 @@
 						<div class="card col-lg-2 col-md-3 col-4 border-0" th:each="artista : ${listaRelacionados}">
 							<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="${artista.fotoPath}" th:alt="${artista.nombre}"></a>
 						  	<div class="card-body">
-						    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+						    	<h5 class="card-title text-truncate"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"th:text="${artista.nombre}"></a></h5>
 						 	</div>
 						</div>
 					</div>
