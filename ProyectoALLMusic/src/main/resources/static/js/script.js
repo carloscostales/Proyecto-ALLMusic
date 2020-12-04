@@ -2,12 +2,11 @@ $(document).ready(function() {
     
 });
 
-function validateNumberAndDash(event) {
-    var key = window.event ? event.keyCode : event.which;
+function validateDate(evt){
+	var charCode = (evt.which) ? evt.which : event.keyCode
+	
+	if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
+		return false;
 
-  if (event.keyCode >= 48 && event.keyCode <= 57 || event.keyCode >= 189) {
-    return true;
-  } else {
-    return false;
-  }
-};
+	return true;
+}

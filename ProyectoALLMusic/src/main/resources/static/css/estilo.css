@@ -59,7 +59,7 @@ a:hover {
 /* PAGINACION */
 
 input[type='text'], input[type='number'], input[type='password'], textarea, select {
-	background-color: transparent !important;
+	background-color: #242424 !important;
   	color: white !important;
   	border: none !important;
   	border-bottom: 1px solid white !important;

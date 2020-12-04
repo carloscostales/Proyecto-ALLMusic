@@ -242,7 +242,7 @@
 									<div class="form-group col-6">
 										<label for="fecha">Fecha salida</label>
 										<div class="input-group date" id="datepicker">
-											<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off" onkeypress="validate(event)" tabindex="">
+											<input type="text" th:field="*{fecha_salida}" class="form-control" id="fecha" placeholder="Fecha de salida" autocomplete="off" onkeypress="return validateDate(event);">
 										    <div class="input-group-addon">
 										    	<button id="boton-calendario" class="btn btn-primary" type="button"><i class="fas fa-calendar-alt"></i></button>
 										    	<span class="glyphicon glyphicon-th"></span>
