@@ -18,22 +18,24 @@
 			
 			<h1>¡Bienvenido a ALLMusic!</h1>
 			<br><br>
+			
+			<!-- ARTISTAS RECIENTES -->
 			<div class="row">
 				<h2 class="col-lg-11 col-md-10 col-9">Últimos artistas</h2>
 				<a class="col-lg-1 col-md-2 col-3 float-right" th:href="@{/artistas}">Ver más</a>
 			</div>
-			
 			<br>
 			<div class="row">
 				<div class="card col-lg-2 col-md-4 col-6 border-0" th:each="artista : ${ultimosArtistas}">
 					<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 				  	<div class="card-body">
-				    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+				    	<h5 class="card-title text-truncate"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}" th:remove="tag"></span></a></h5>
 				 	</div>
 				</div>
 			</div>
 			<br>
 			
+			<!-- ÁLBUMES RECIENTES -->
 			<div class="row">
 				<h2 class="col-lg-11 col-md-10 col-9">Álbumes recientes</h2>
 				<a class="col-lg-1 col-md-2 col-3 float-right" th:href="@{/albumes}">Ver más</a>
@@ -43,8 +45,8 @@
 				<div class="card col-lg-2 col-md-4 col-6 border-0" th:each="album : ${ultimosAlbumes}">
 					<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 				  	<div class="card-body">
-				    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
-				    	<p class="card-text"><a th:href="@{/artistas/{artista}(artista=${album.artista.id})}"><span th:text="${album.artista.nombre}"></span></a></p>
+				    	<h5 class="card-title text-truncate"><a th:href="@{/albumes/{album}(album=${album.id})}" th:text="${album.titulo}"></a></h5>
+				    	<p class="card-text"><a th:href="@{/artistas/{artista}(artista=${album.artista.id})}" th:text="${album.artista.nombre}"></a></p>
 				 	</div>
 				 	<div class="card-footer">
 				 		<small th:text="${album.fecha_salida}"></small>
@@ -52,7 +54,8 @@
 				</div>
 			</div>
 			<br>
-
+			
+			<!-- PLAYLISTS RECIENTES DEL USUARIO -->
 			<div sec:authorize="isAuthenticated()">			
 				<h2 >Últimas playlists</h2>
 				 <ul class="list-group list-group-flush">

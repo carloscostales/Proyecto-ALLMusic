@@ -53,7 +53,7 @@
 					<div class="card col-lg-2 col-4 border-0" th:each="artista : ${listaArtistas}">
 						<a th:href="@{/artistas/{artista}(artista=${artista.id})}"><img class="card-img-top rounded-circle" th:src="@{${artista.fotoPath}}" th:alt="${artista.nombre}"></a>
 					  	<div class="card-body">
-					    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista.id})}"><span th:text="${artista.nombre}"></span></a></h5>
+					    	<h5 class="card-title text-truncate"><a th:href="@{/artistas/{artista}(artista=${artista.id})}" th:text="${artista.nombre}"></a></h5>
 					 	</div>
 					</div>
 				</div>

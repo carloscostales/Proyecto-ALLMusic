@@ -22,18 +22,46 @@ a:hover {
 	text-decoration: initial;
 }
 
+.text-truncate-2 {
+	-webkit-line-clamp: 2;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+
+.text-truncate:hover{
+	color: grey;
+}
+
+.text-truncate-2:hover {
+	color:grey;
+}
+
 .list-group-item {
 	background-color: transparent !important;
 }
 
 /* CARD */
 .card{
-	width: 18rem !important; 
-	background-color: #282828 !important;
+	background-color: transparent !important;
 }
 
 .card-footer {
-	background-color: transparent;	
+	background-color: transparent;
+}
+
+.card { 
+	transition: all .1s ease-in;
+}
+
+.card:hover { 
+	transform: scale(1.03);
+}
+
+.card:active {
+	opacity:0.7;
+	transform: scale(1)
 }
 /* CARD */
 

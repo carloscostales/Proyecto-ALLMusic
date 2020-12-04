@@ -7,6 +7,12 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    
 	    <div th:replace="../fragments/head.html :: head" th:remove="tag"/>
+	    
+	    <style>
+	    	thead, td, tfoot {
+				color: white;
+			}
+	    </style>
 	</head>
 
 	<body>
@@ -32,8 +38,8 @@
 				<tbody>
 					<tr th:each="lista : ${lista}">
 						<td th:text="${lista.cancion.titulo}">titulo</td>
-						<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}"><span th:text="${#strings.abbreviate(lista.cancion.album.artista.nombre,16)}">artista></span></a></td>
-						<td class="d-lg-table-cell d-md-table-cell d-none"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}"><span th:text="${#strings.abbreviate(lista.cancion.album.titulo,20)}">album></span></a></td>
+						<td><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}" th:text="${lista.cancion.album.artista.nombre}" class="text-truncate"></a></td>
+						<td class="d-lg-table-cell d-md-table-cell d-none"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}" th:text="${lista.cancion.album.titulo}" class="text-truncate"></a></td>
 						<td th:text="${lista.cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
 						<td th:if="${owner} == ${usuario.nombreUsuario}"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
 					</tr>

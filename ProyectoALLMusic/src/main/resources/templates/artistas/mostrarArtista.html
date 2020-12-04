@@ -195,7 +195,7 @@
 							<div>
 								<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 							  	<div class="card-body">
-							    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+							    	<h5 class="card-title text-truncate-2"><a th:href="@{/albumes/{album}(album=${album.id})}" th:text="${album.titulo}"></a></h5>
 							    	<p th:text="${album.fecha_salida}" class="card-text"></p>
 							 	</div>
 							</div>
@@ -211,7 +211,7 @@
 							<div>
 								<a th:href="@{/albumes/{album}(album=${album.id})}"><img class="card-img-top" th:src="@{${album.portadaPath}}" th:alt="${album.titulo}"></a>
 							  	<div class="card-body">
-							    	<h5 class="card-title"><a th:href="@{/albumes/{album}(album=${album.id})}"><span th:text="${album.titulo}"></span></a></h5>
+							    	<h5 class="card-title text-truncate-2"><a th:href="@{/albumes/{album}(album=${album.id})}" th:text="${album.titulo}"></a></h5>
 							    	<p th:text="${album.fecha_salida}" class="card-text"></p>
 							 	</div>
 						 	</div>
