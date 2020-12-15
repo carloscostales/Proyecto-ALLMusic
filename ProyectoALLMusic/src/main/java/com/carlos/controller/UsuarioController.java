@@ -137,25 +137,13 @@ public class UsuarioController {
 	@PostMapping("/updateUsuario")
 	public ModelAndView updateUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult bindingResult) {
 		
-		System.out.println("bindingResult.hasErrors()" + bindingResult.hasErrors());
-		
 		ModelAndView mav = new ModelAndView();
-
-		if(bindingResult.hasErrors()) {
-			mav.setViewName("usuarios/editarUsuario");
-
-			List<Rol> listaRoles = (List<Rol>)rolService.listaRoles();
-			mav.addObject("roles",listaRoles);
-			
-			return mav;
-		}
+		mav.setViewName("redirect:/usuarios/" + usuario.getNombreUsuario());
 		
 		usuarioService.add(usuario);
-
-		mav.setViewName("redirect:/usuarios/" + usuario.getNombreUsuario());
-
+		
 		return mav;
-
+		
 	}
 	
 	@GetMapping("/borrarUsuario/{usuario}")

@@ -46,24 +46,9 @@
 					<input type="text" class="form-control" id="email" th:field="*{email}">
 					<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 			    </div>
-			    
-			    <div class="form-group">
-					<label for="permiso">Permisos</label>
-					<ul class="list-group">
-						<li th:each="permiso: ${roles}" class="list-group-item">
-							<input 
-								type="radio"
-								name="permisos"
-								th:text="${permiso.nombre}"
-								th:field="*{rol.nombre}"
-								th:value="${permiso.nombre}"
-							/>
-						</li>
-					</ul>					      
-				</div>
-			    
+
 			    <input class="btn btn-success" type="submit" value="Enviar" />
-			    <a class="btn btn-primary" th:href="@{/usuarios}" role="button">Volver</a>
+			    <a class="btn btn-danger" th:href="@{/usuarios}" role="button">Volver</a>
 			</form>
 			
 		</section>

@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	        	.antMatchers("/nuevoArtista").hasAuthority("ADMIN")
 	        	.antMatchers("/nuevaPlaylist").hasAnyAuthority("ADMIN", "USER")
 	        	.antMatchers("/playlists/nuevaCancionPlaylist/**").hasAuthority("ADMIN")
+	        	.antMatchers("/usuarios/editar/**").hasAuthority("ADMIN")
 	        	.antMatchers("/borrarArtista/**").hasAuthority("ADMIN")
 	        	.antMatchers("/borrarAlbum/**").hasAuthority("ADMIN")
 	        	.antMatchers("/borrarCancion/**").hasAuthority("ADMIN")
