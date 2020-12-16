@@ -13,4 +13,6 @@ public interface PlaylistCancionService {
 	
 	public List<PlaylistCancion> buscarCancionesDePlaylist(Playlist playlist);
 	
+	public void borrarCancionPlaylist(Integer id);
+	
 }

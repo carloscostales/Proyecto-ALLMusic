@@ -41,12 +41,12 @@
 					</tr>
 				<thead>
 				<tbody>
-					<tr th:each="lista : ${lista}">
-						<td th:text="${lista.cancion.titulo}" class="text-truncate text-white">titulo</td>
-						<td class="text-truncate"><a th:href="@{/artistas/{artista}(artista=${lista.cancion.album.artista.id})}" th:text="${lista.cancion.album.artista.nombre}" ></a></td>
-						<td class="d-lg-table-cell d-md-table-cell d-none text-truncate"><a th:href="@{/albumes/{album}(album=${lista.cancion.album.id})}" th:text="${lista.cancion.album.titulo}"></a></td>
-						<td th:text="${lista.cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
-						<td th:if="${owner} == ${usuario.nombreUsuario}" class="text-right"><a th:href="@{/quitarCancionPlaylist/{pc}(pc=${lista.id})}" class="text-danger">X</a></td>
+					<tr th:each="pc : ${lista}">
+						<td th:text="${pc.cancion.titulo}" class="text-truncate text-white">titulo</td>
+						<td class="text-truncate"><a th:href="@{/artistas/{artista}(artista=${pc.cancion.album.artista.id})}" th:text="${pc.cancion.album.artista.nombre}" ></a></td>
+						<td class="d-lg-table-cell d-md-table-cell d-none text-truncate"><a th:href="@{/albumes/{album}(album=${pc.cancion.album.id})}" th:text="${pc.cancion.album.titulo}"></a></td>
+						<td th:text="${pc.cancion.duracion}" class="d-lg-table-cell d-md-table-cell d-none">duracion</td>
+						<td th:if="${owner} == ${usuario.nombreUsuario}" class="text-right"><a th:href="@{/playlists/borrar/cancion/{pc}(pc=${pc.id})}" class="text-danger">X</a></td>
 					</tr>
 				</tbody>
 			</table>

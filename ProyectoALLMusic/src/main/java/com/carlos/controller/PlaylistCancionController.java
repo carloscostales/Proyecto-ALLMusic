@@ -83,7 +83,7 @@ public class PlaylistCancionController {
 		return mav;
 	}
 	
-	@GetMapping("/quitarCancionPlaylist/{pc}")
+	@GetMapping("/playlists/borrar/cancion/{pc}")
 	private ModelAndView quitarCancionPlaylist(@PathVariable PlaylistCancion pc, Authentication auth) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/playlists/" + pc.getPlaylist().getId());
@@ -93,10 +93,10 @@ public class PlaylistCancionController {
 			mav.addObject("usuario", usuario);
 			
 			if(pc.getPlaylist().getUsuario().getNombreUsuario().equals(usuario.getNombreUsuario())) {
-				pcService.delete(pc);
+				pcService.borrarCancionPlaylist(pc.getId());
 			}
 		}
-
+		
 		return mav;
 	}
 	

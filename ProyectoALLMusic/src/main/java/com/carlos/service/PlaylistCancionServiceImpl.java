@@ -33,4 +33,12 @@ public class PlaylistCancionServiceImpl implements PlaylistCancionService {
 		return playlistCancionDAO.findByPlaylist(playlist);
 	}
 
+	@Override
+	public void borrarCancionPlaylist(Integer id) {
+		System.out.println("borrado");
+		if (playlistCancionDAO.existsById(id))
+			
+			playlistCancionDAO.borrarCancionPlaylist(id);
+	}
+
 }
