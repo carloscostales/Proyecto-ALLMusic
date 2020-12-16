@@ -39,7 +39,7 @@
 				</ul>
 				
 				<!-- SI ARTISTA_PREFERIDO NO ES NULL -->
-				<ul class="list-group list-group-flush col-lg-9 col-12" th:if="${artista_preferido != null}">
+				<ul class="list-group list-group-flush col-lg-10 col-12" th:if="${artista_preferido != null}">
 					<li class="list-group-item"><b>Nombre: </b><span th:text="${usuario.nombre}"></span></li>
 					<li class="list-group-item"><b>Apellidos: </b><span th:text="${usuario.apellidos}"></span></li>
 					<li class="list-group-item"><b>Rol: </b><span th:text="${usuario.rol.nombre}"></span></li>
@@ -47,11 +47,10 @@
 				</ul>
 
 				<!-- ARTISTA PREFERIDO -->
-				<div class="col-lg-3 col-5">
+				<div class="col-lg-2 col-5"  th:if="${artista_preferido != null}">
 					<p class="mt-3">ARTISTA PREFERIDO</p>
-					<div class="card border-0 img-wrap" th:if="${artista_preferido != null}">
-						
-						<a th:href="@{/artistas/{artista}(artista=${artista_preferido.id})}" class=" "><img class="card-img-top w-lg-25 w-100" th:src="@{${artista_preferido.fotoPath}}" th:alt="${artista_preferido.nombre}"></a>
+					<div class="card border-0 img-wrap">
+						<a th:href="@{/artistas/{artista}(artista=${artista_preferido.id})}"><img class="card-img-top w-lg-25 w-100" th:src="@{${artista_preferido.fotoPath}}" th:alt="${artista_preferido.nombre}"></a>
 					  	<div class="card-body">
 					    	<h5 class="card-title"><a th:href="@{/artistas/{artista}(artista=${artista_preferido.id})}"><span th:text="${artista_preferido.nombre}"></span></a></h5>
 					 	</div>
