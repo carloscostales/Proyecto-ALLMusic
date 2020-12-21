@@ -31,6 +31,24 @@ public interface CancionDAO extends CrudRepository<Cancion, Integer> {
 	@Modifying
     void borrarCancionesDeAlbum(@Param("id") Integer id);
 	
+	// Borra las canciones del artista que esten en alguna playlist
+	@Query(value="DELETE pc FROM playlist_cancion pc INNER JOIN cancion c ON pc.cancion_id = c.id INNER JOIN album a ON c.album_id = a.id INNER JOIN artista art ON a.artista_id = art.id WHERE art.id = :id", nativeQuery=true)
+	@Transactional
+	@Modifying
+    void borrarCancionesDeArtistaEnPlaylist(@Param("id") Integer id);
+	
+	// Borra las canciones del album que esten en alguna playlist
+	@Query(value="DELETE pc FROM playlist_cancion pc INNER JOIN cancion c ON pc.cancion_id = c.id INNER JOIN album a ON c.album_id = a.id WHERE a.id = :id", nativeQuery=true)
+	@Transactional
+	@Modifying
+    void borrarCancionesDeAlbumEnPlaylist(@Param("id") Integer id);
+    
+	// Borra una canción
+	@Query(value="DELETE FROM playlist_cancion WHERE playlist_id = :id", nativeQuery=true)
+	@Transactional
+	@Modifying
+    void borrarCancionesDePlaylist(@Param("id") Integer id);
+	
 	// Borra una canción
 	@Query(value="DELETE FROM cancion WHERE id = :id", nativeQuery=true)
 	@Transactional

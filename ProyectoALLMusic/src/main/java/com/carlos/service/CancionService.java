@@ -19,6 +19,12 @@ public interface CancionService {
 	
 	public void borrarCancionesDeAlbum(Integer id);
 	
+	public void borrarCancionesDeArtistaEnPlaylist(Integer id);
+	
+	public void borrarCancionesDeAlbumEnPlaylist(Integer id);
+	
+	public void borrarCancionesDePlaylist(Integer id);
+	
 	public void borrarCancion(Integer id);
 	
 }

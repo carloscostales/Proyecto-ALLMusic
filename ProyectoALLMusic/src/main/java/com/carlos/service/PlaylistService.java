@@ -13,4 +13,6 @@ public interface PlaylistService {
 	
 	public List<Playlist> buscarUltimasSeis(String usuario);
 	
+	public void borrarPlaylist(Integer id);
+	
 }

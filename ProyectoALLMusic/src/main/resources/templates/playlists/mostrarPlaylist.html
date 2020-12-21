@@ -26,8 +26,12 @@
 		
 		<!-- SECTION -->
 		<section class="container my-5">
-			
-			<h1 th:text="${playlist.nombre}"> </h1>
+			<div class="row">
+				<h1 th:text="${playlist.nombre}" class="col-10"></h1>
+				<div class="col-2">
+					<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#borrarPlaylist"><i class="far fa-trash-alt"></i></button>
+				</div>
+			</div>
 			<small><span th:text="${numero_canciones}"></span> cancion/es</small>
 				
 			<table class="table table-hover ">
@@ -54,6 +58,27 @@
 		
 		<!-- FOOTER -->
 		<footer th:replace="../fragments/footer.html :: footer"></footer>
+		
+		<!-- Modal - BORRAR ARTISTA -->
+		<div class="modal fade" id="borrarPlaylist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="background-color: #282828;">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres borrar la playlist '<span th:text="${playlist.nombre}" th:remove="tag"></span>'?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+							<span aria-hidden="true">x</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Si borras el artista, también se borrarán sus respectivos álbumes y canciones. ¡No hay vuelta atras!</p>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-danger" th:href="@{/playlists/borrar/{playlist}(playlist=${playlist.id})}">BORRAR</a>
+					  	<button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 	</body>
 </html>

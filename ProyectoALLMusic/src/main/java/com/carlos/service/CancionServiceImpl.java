@@ -41,20 +41,42 @@ public class CancionServiceImpl implements CancionService {
 		
 		return cancionDAO.findByAlbum(album);
 	}
-
+	
 	@Override
 	public void borrarCancionesDeArtista(Integer id) {
 		
-		cancionDAO.borrarCancionesDeArtista(id);
+		if (cancionDAO.existsById(id))
+			cancionDAO.borrarCancionesDeArtista(id);
 	}
-
+	
 	@Override
 	public void borrarCancionesDeAlbum(Integer id) {
 		
 		if (cancionDAO.existsById(id))
 			cancionDAO.borrarCancionesDeAlbum(id);
 	}
+	
+	@Override
+	public void borrarCancionesDeArtistaEnPlaylist(Integer id) {
+		
+		if (cancionDAO.existsById(id))
+			cancionDAO.borrarCancionesDeArtistaEnPlaylist(id);
+	}
+	
+	@Override
+	public void borrarCancionesDeAlbumEnPlaylist(Integer id) {
+		
+		if (cancionDAO.existsById(id))
+			cancionDAO.borrarCancionesDeAlbumEnPlaylist(id);
+	}
 
+	@Override
+	public void borrarCancionesDePlaylist(Integer id) {
+		
+		if (cancionDAO.existsById(id))
+			cancionDAO.borrarCancionesDePlaylist(id);
+	}
+	
 	@Override
 	public void borrarCancion(Integer id) {
 		

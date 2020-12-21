@@ -348,6 +348,7 @@ public class ArtistaController {
 	@GetMapping("/artista/borrar/{artista}")
 	private String rutaBorrarAlbum(@PathVariable Artista artista)  {
 		
+		cancionService.borrarCancionesDeArtistaEnPlaylist(artista.getId());
 		cancionService.borrarCancionesDeArtista(artista.getId());
 		albumService.borrarAlbumesDeArtista(artista.getId());
 		artistaService.delete(artista);

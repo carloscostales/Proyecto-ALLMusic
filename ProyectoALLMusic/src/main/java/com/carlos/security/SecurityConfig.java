@@ -29,37 +29,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    	auth.authenticationProvider(provider);
 	    }
 
-	    @Override
-	    protected void configure(HttpSecurity http) throws Exception {
-	    	http
-	        .authorizeRequests()
-	        	.antMatchers("/usuarios").hasAuthority("ADMIN")
-	        	.antMatchers("/artista/editar/**").hasAuthority("ADMIN")
-	        	.antMatchers("/cancion/editar/**").hasAuthority("ADMIN")
-	        	.antMatchers("/playlists/**").hasAnyAuthority("ADMIN", "USER")
-	        	.antMatchers("/nuevoArtista").hasAuthority("ADMIN")
-	        	.antMatchers("/nuevaPlaylist").hasAnyAuthority("ADMIN", "USER")
-	        	.antMatchers("/playlists/nuevaCancionPlaylist/**").hasAuthority("ADMIN")
-	        	.antMatchers("/usuarios/editar/**").hasAuthority("ADMIN")
-	        	.antMatchers("/borrarArtista/**").hasAuthority("ADMIN")
-	        	.antMatchers("/borrarAlbum/**").hasAuthority("ADMIN")
-	        	.antMatchers("/borrarCancion/**").hasAuthority("ADMIN")
-	        	.antMatchers("/borrarGenero/**").hasAuthority("ADMIN")
-		        .and()    	
+	 @Override
+	 protected void configure(HttpSecurity http) throws Exception {
+	   	http
+	   		.authorizeRequests()
+		        .antMatchers("/usuarios").hasAuthority("ADMIN")
+		        .antMatchers("/artista/editar/**").hasAuthority("ADMIN")
+		        .antMatchers("/cancion/editar/**").hasAuthority("ADMIN")
+		        .antMatchers("/playlists/**").hasAnyAuthority("ADMIN", "USER")
+		        .antMatchers("/nuevoArtista").hasAuthority("ADMIN")
+		        .antMatchers("/nuevaPlaylist").hasAnyAuthority("ADMIN", "USER")
+		        .antMatchers("/playlists/nuevaCancionPlaylist/**").hasAuthority("ADMIN")
+		        .antMatchers("/usuarios/editar/**").hasAuthority("ADMIN")
+		        .antMatchers("/artista/borrar/**").hasAuthority("ADMIN")
+		        .antMatchers("/album/borrar/**").hasAuthority("ADMIN")
+		        .antMatchers("/cancion/borrar/**").hasAuthority("ADMIN")
+		        .antMatchers("/borrarGenero/**").hasAuthority("ADMIN")
+		        .antMatchers("/playlists/borrar/**").hasAuthority("ADMIN")
+		    .and()
 	        .formLogin()
 	        	.loginPage("/login")
 	            .defaultSuccessUrl("/")
 	            .failureUrl("/login-error")
 	            .usernameParameter("username")
 	            .passwordParameter("password")
-	            .and()
+	        .and()
 	        .logout()
 	        	.permitAll()
 	            .logoutUrl("/logout")
 	            .logoutSuccessUrl("/login")
-	            .and()
-	        .csrf().disable();   
-
-	    }
-	
+	        .and()
+	    .csrf().disable();
+	 }
 }

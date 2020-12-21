@@ -183,6 +183,7 @@ public class AlbumController {
 	@GetMapping("/album/borrar/{album}")
 	private String rutaBorrarAlbum(@PathVariable Album album)  {
 		
+		cancionService.borrarCancionesDeAlbumEnPlaylist(album.getId());
 		cancionService.borrarCancionesDeAlbum(album.getId());
 		albumService.borrarAlbum(album.getId());
 		

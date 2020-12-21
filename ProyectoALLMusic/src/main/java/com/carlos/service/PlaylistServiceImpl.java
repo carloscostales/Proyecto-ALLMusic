@@ -33,4 +33,11 @@ public class PlaylistServiceImpl implements PlaylistService {
 		return playlistDAO.findLast6(usuario);
 	}
 
+	@Override
+	public void borrarPlaylist(Integer id) {
+		
+		if(playlistDAO.existsById(id))
+			playlistDAO.borrarPlaylist(id);
+	}
+
 }
